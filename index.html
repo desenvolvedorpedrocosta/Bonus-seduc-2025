@@ -1,315 +1,557 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Consulta Bônus BR 2025 — Resolução SEDUC nº 106/2026</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#10233f">
+  <meta name="description" content="Consulta pública dos resultados da Bonificação por Resultados BR 2025 por escola e Unidade Regional de Ensino, conforme a Resolução SEDUC nº 106/2026.">
+  <title>Consulta BR 2025 | Escolas e UREs</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; -webkit-text-size-adjust: 100%; }
-    .badge-diamante { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
-    .badge-ouro { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
-    .badge-parcial { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
-    .badge-zero { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+    :root{
+      --navy:#10233f;--navy2:#183657;--blue:#176b9a;--cyan:#dff4f8;--teal:#0f766e;
+      --ink:#152238;--muted:#64748b;--line:#e2e8f0;--paper:#f4f7fb;--white:#fff;
+      --gold:#a16207;--goldbg:#fff6d9;--green:#13795b;--greenbg:#e2f7ee;
+      --red:#b42318;--redbg:#fff0ee;--shadow:0 14px 38px rgba(15,35,63,.10);
+      --radius:18px;--focus:0 0 0 3px rgba(14,165,233,.22)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45;min-width:320px}
+    button,input,select{font:inherit}
+    button,a,select{touch-action:manipulation}
+    button{cursor:pointer}
+    a{color:inherit}
+    .wrap{width:min(1200px,calc(100% - 36px));margin-inline:auto}
+    .hero{background:radial-gradient(circle at 85% 10%,rgba(22,130,160,.32),transparent 30%),linear-gradient(118deg,#10233f,#163d5b 74%,#11546a);color:#fff;padding:28px 0 32px;position:relative;overflow:hidden}
+    .hero:after{content:"";position:absolute;width:370px;height:370px;border:1px solid rgba(255,255,255,.09);border-radius:50%;right:-150px;bottom:-265px;box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.02)}
+    .hero-inner{position:relative;z-index:1}
+    .topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.01em}
+    .brand-mark{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.14);display:grid;place-items:center;border:1px solid rgba(255,255,255,.19);font-weight:900;font-size:17px}
+    .source-tag{font-size:11px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:#c7f3f4;background:rgba(13,148,136,.18);border:1px solid rgba(153,246,228,.25);padding:7px 11px;border-radius:999px}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:#95dbe5;font-weight:800;margin:0 0 7px}
+    h1{font-size:clamp(27px,4vw,42px);letter-spacing:-.035em;line-height:1.08;margin:0;max-width:790px}
+    .lede{font-size:14px;color:#d5e7f1;max-width:790px;margin:12px 0 0;line-height:1.65}
+    .hero-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}
+    .hero-link{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.23);color:#f2fbff;background:rgba(255,255,255,.08);padding:9px 12px;border-radius:11px;text-decoration:none;font-size:12px;font-weight:700;transition:.18s ease}
+    .hero-link:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+    main{padding:22px 0 48px}
+    .statusline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 13px;font-size:12px;color:var(--muted)}
+    .live-state{display:inline-flex;align-items:center;gap:8px;font-weight:700}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;display:inline-block}
+    .live-dot.ok{background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.12)}
+    .live-dot.warn{background:#d97706;box-shadow:0 0 0 4px rgba(217,119,6,.12)}
+    .kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:17px}
+    .kpi{background:var(--white);border:1px solid var(--line);border-radius:15px;padding:14px 14px 13px;box-shadow:0 3px 12px rgba(15,35,63,.035);min-width:0}
+    .kpi-label{display:block;color:var(--muted);font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;line-height:1.3;min-height:26px}
+    .kpi-value{display:block;font-size:clamp(21px,2.2vw,29px);font-weight:850;letter-spacing:-.04em;margin-top:5px;color:var(--navy);font-variant-numeric:tabular-nums}
+    .kpi-note{display:block;color:#8090a4;font-size:10px;margin-top:3px;line-height:1.35}
+    .kpi.diamond .kpi-value{color:#0876a3}.kpi.partial .kpi-value{color:var(--gold)}.kpi.zero .kpi-value{color:var(--red)}.kpi.saeb .kpi-value{color:var(--teal)}
+    .panel{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 3px 16px rgba(15,35,63,.035)}
+    .search-panel{padding:17px;margin-bottom:16px}
+    .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:13px}
+    .section-head h2{font-size:16px;margin:0;color:var(--navy);letter-spacing:-.02em}
+    .section-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
+    .field-grid{display:grid;grid-template-columns:minmax(220px,2fr) repeat(4,minmax(140px,1fr));gap:10px}
+    .field label{display:block;font-size:11px;font-weight:800;color:#53657c;margin:0 0 6px}
+    .control{width:100%;height:43px;border:1px solid #d6e0ea;border-radius:11px;padding:0 12px;background:#fff;color:var(--ink);font-size:13px;outline:none;transition:border .15s,box-shadow .15s}
+    .control:focus{border-color:#2694be;box-shadow:var(--focus)}
+    .searchwrap{position:relative}
+    .searchwrap input{padding-left:38px}
+    .searchicon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#7d8da2;pointer-events:none}
+    .filter-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #edf1f5;margin-top:13px;padding-top:12px}
+    .chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
+    .chip{border:1px solid #dce5ee;background:#fff;color:#56677d;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:750;min-height:33px;transition:.15s}
+    .chip:hover{border-color:#8fb8cc;color:var(--navy)}
+    .chip.active{background:#eaf6fb;border-color:#9bd0e1;color:#075b7d}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #d6e0ea;border-radius:10px;background:#fff;color:#33465e;padding:9px 12px;min-height:37px;font-size:11px;font-weight:800;transition:.18s ease;text-decoration:none}
+    .btn:hover{border-color:#9ab7c8;background:#f8fcff;transform:translateY(-1px)}
+    .btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}.btn.primary:hover{background:#1b4567}
+    .btn.soft{background:#ecf8fa;color:#126078;border-color:#c6e7ec}
+    .result-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:18px 2px 10px;flex-wrap:wrap}
+    .result-count{font-size:13px;font-weight:850;color:var(--navy)}
+    .result-hint{font-size:11px;color:var(--muted)}
+    .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;margin:0;list-style:none}
+    .school-card{width:100%;height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px 15px;color:inherit;box-shadow:0 2px 10px rgba(15,35,63,.025);transition:border .16s,box-shadow .16s,transform .16s}
+    .school-card:hover{border-color:#b5d8e3;box-shadow:0 9px 22px rgba(15,35,63,.07);transform:translateY(-1px)}
+    .school-main{min-width:0}
+    .school-name{display:block;font-size:13px;font-weight:850;color:#172a43;line-height:1.35;overflow-wrap:anywhere}
+    .school-meta{display:block;margin-top:6px;color:#718198;font-size:10px;line-height:1.55}
+    .school-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+    .tag{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:800;border:1px solid #e1e8ef;color:#526278;background:#f8fafc}
+    .tag.good{background:var(--greenbg);border-color:#c9eddf;color:var(--green)}.tag.bad{background:var(--redbg);border-color:#ffd7d2;color:var(--red)}.tag.partial{background:var(--goldbg);border-color:#f8e5a5;color:var(--gold)}.tag.na{background:#f1f5f9;color:#64748b}
+    .icm-badge{min-width:73px;align-self:start;text-align:center;padding:8px 8px 7px;border-radius:12px;background:#eff6fb;border:1px solid #d5e8f4;color:#12648a}
+    .icm-badge b{display:block;font-size:19px;line-height:1;font-weight:900;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+    .icm-badge small{display:block;font-size:9px;font-weight:850;margin-top:5px;text-transform:uppercase;letter-spacing:.03em}
+    .icm-badge.parc{background:var(--goldbg);border-color:#f4e3af;color:var(--gold)}.icm-badge.zero{background:var(--redbg);border-color:#f8d2cd;color:var(--red)}
+    .empty,.loading,.error{grid-column:1/-1;padding:38px 18px;text-align:center;border:1px dashed #cbd7e3;border-radius:15px;background:#fff;color:#66778c;font-size:13px}
+    .loading strong,.error strong{display:block;font-size:15px;color:var(--navy);margin-bottom:5px}
+    .spinner{width:23px;height:23px;border:3px solid #dcecf1;border-top-color:#1383a4;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .more-wrap{text-align:center;padding:16px 0 5px}
+    .more{min-width:190px}
+    .lower-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:26px;align-items:start}
+    .info-panel{padding:18px}
+    .info-panel h2{font-size:16px;color:var(--navy);margin:0 0 9px;letter-spacing:-.02em}
+    .info-panel p{font-size:12px;color:#586b82;line-height:1.7;margin:8px 0}
+    .info-panel ul{margin:8px 0 0;padding-left:18px;color:#586b82;font-size:12px;line-height:1.75}
+    .callout{border-left:3px solid #2c9ab5;background:#f1fafc;padding:11px 12px;border-radius:0 10px 10px 0;margin-top:12px;font-size:11px;color:#466174;line-height:1.65}
+    .ure-list{display:grid;gap:7px;margin-top:10px;max-height:470px;overflow:auto;padding-right:3px}
+    .ure-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:10px;width:100%;border:1px solid #e3eaf1;border-radius:11px;padding:10px 11px;text-align:left;background:#fff;transition:.15s}
+    .ure-row:hover{border-color:#b5d8e3;background:#f8fcfd}
+    .ure-name{font-size:11px;font-weight:850;color:#243850}.ure-sub{font-size:9px;color:#8391a3;margin-top:3px}
+    .ure-value{text-align:right;color:#0e6d85;font-size:15px;font-weight:900;font-variant-numeric:tabular-nums}.ure-value small{display:block;font-size:9px;color:#718198;font-weight:750}
+    .footer{padding:20px 0 28px;text-align:center;color:#8895a6;font-size:10px}
+    .footer a{color:#50768a;text-decoration:none}.footer a:hover{text-decoration:underline}
+    dialog{width:min(760px,calc(100% - 22px));max-height:min(88dvh,850px);border:0;border-radius:20px;padding:0;box-shadow:0 28px 90px rgba(6,20,39,.32);color:var(--ink);overflow:hidden}
+    dialog::backdrop{background:rgba(7,19,34,.65);backdrop-filter:blur(3px)}
+    .dialog-scroll{max-height:min(88dvh,850px);overflow:auto}
+    .dlg-top{position:sticky;top:0;z-index:2;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:17px 19px;display:flex;align-items:flex-start;justify-content:space-between;gap:15px}
+    .dlg-top h2{font-size:19px;letter-spacing:-.025em;line-height:1.2;margin:0;color:var(--navy)}
+    .dlg-meta{font-size:10px;color:#718198;line-height:1.6;margin-top:7px}
+    .close{border:1px solid #e1e8ef;background:#fff;border-radius:10px;width:36px;height:36px;font-size:21px;line-height:1;color:#687a90;flex:0 0 auto}
+    .dlg-content{padding:17px 19px 21px}
+    .verdict{padding:12px 13px;border-radius:12px;font-size:12px;font-weight:700;line-height:1.6;margin-bottom:14px;background:#eef8fc;border:1px solid #d5ebf4;color:#23576c}
+    .verdict.parc{background:var(--goldbg);border-color:#f3e2ad;color:#79500b}.verdict.zero{background:var(--redbg);border-color:#f7d5d0;color:#8f231c}
+    .sum-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:7px;align-items:center;margin:13px 0 16px}
+    .sum-cell{background:#f5f8fb;border:1px solid #e4ebf1;border-radius:11px;padding:10px 7px;text-align:center;min-width:0}
+    .sum-cell b{display:block;font-size:20px;font-weight:900;color:var(--navy);font-variant-numeric:tabular-nums}.sum-cell span{display:block;font-size:9px;font-weight:800;color:#667a90;margin-top:3px}.sum-op{color:#95a4b4;font-weight:900}
+    .component{border:1px solid var(--line);border-radius:14px;padding:14px;margin-top:12px}
+    .component-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .component h3{font-size:13px;color:var(--navy);margin:0}.component-score{font-size:12px;font-weight:900;color:#0b7189}
+    .meter{height:7px;background:#edf2f6;border-radius:999px;overflow:hidden;margin:10px 0 12px}.meter i{display:block;height:100%;background:linear-gradient(90deg,#1d8caa,#31b7ad);border-radius:999px}
+    .kv{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px 15px;margin:0;font-size:11px}.kv dt{color:#687b91}.kv dd{margin:0;color:#273d55;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+    .gate-yes{color:var(--green)!important}.gate-no{color:var(--red)!important}
+    .why{font-size:10px;color:#708197;line-height:1.6;margin:10px 0 0}
+    .saeb-note{border:1px solid #d9e4ef;background:#f7fafc;border-radius:12px;padding:12px;font-size:11px;color:#586b82;line-height:1.65;margin:12px 0}
+    .ure-summary{margin-top:15px;border:1px solid #d5e9ed;background:#f3fbfb;border-radius:13px;padding:13px}
+    .ure-summary h3{font-size:12px;margin:0 0 9px;color:#185d69}
+    .ure-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.ure-kpis div{background:#fff;border:1px solid #e0eef0;border-radius:9px;padding:8px;text-align:center}.ure-kpis b{display:block;font-size:16px;color:#145d6a}.ure-kpis span{font-size:9px;color:#718198;font-weight:750}
+    .dlg-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px}
+    .notice{display:none;padding:12px 14px;border-radius:11px;background:#fff8e7;border:1px solid #f1dfaa;color:#79550d;font-size:11px;line-height:1.55;margin-bottom:13px}
+    .notice.show{display:block}
+    .tiny{font-size:10px;color:#8492a4}
+    @media(max-width:1050px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.field-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.field.search-field{grid-column:span 3}}
+    @media(max-width:760px){.wrap{width:min(100% - 24px,650px)}.hero{padding:20px 0 25px}.topline{margin-bottom:16px}.brand{font-size:12px}.brand-mark{width:34px;height:34px}.source-tag{font-size:9px}.lede{font-size:12px}.hero-links{gap:7px}.hero-link{font-size:10px;padding:8px 9px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.kpi-label{font-size:9px;min-height:23px}.kpi-value{font-size:24px}.kpi-note{font-size:9px}.search-panel{padding:13px}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field.search-field{grid-column:span 2}.control{height:46px;font-size:16px}.list{grid-template-columns:1fr;gap:8px}.school-card{padding:13px}.school-name{font-size:12px}.lower-grid{grid-template-columns:1fr;gap:11px;margin-top:20px}.info-panel{padding:15px}.result-head{margin-top:14px}.dlg-top{padding:14px}.dlg-content{padding:14px}.dlg-top h2{font-size:16px}.sum-grid{gap:4px}.sum-cell{padding:9px 4px}.sum-cell b{font-size:17px}.sum-cell span{font-size:8px}.kv{font-size:10px}}
+    @media(max-width:390px){.wrap{width:calc(100% - 18px)}.field-grid{grid-template-columns:1fr}.field.search-field{grid-column:auto}.filter-bottom{align-items:flex-start}.chips{gap:5px}.chip{font-size:10px;padding:6px 9px}.icm-badge{min-width:65px}.icm-badge b{font-size:17px}.hero-link{flex:1}.kv{grid-template-columns:1fr auto;gap:7px}.ure-kpis{grid-template-columns:1fr 1fr}.ure-kpis div:last-child{grid-column:span 2}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+    @media print{body{background:#fff}.hero{background:#fff;color:#111;padding:10px 0}.hero:after,.hero-links,.search-panel,.more-wrap,.footer,.dlg-actions{display:none!important}.lede{color:#333}.panel,.school-card{box-shadow:none}.list{grid-template-columns:1fr 1fr}.school-card{break-inside:avoid}}
   </style>
 </head>
-<body class="min-h-screen flex flex-col">
-
-  <!-- Cabeçalho Institucional -->
-  <header class="bg-slate-900 text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div>
-        <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-sky-400">
-          <span>DOE-SP 12/11/2026</span>
-          <span>•</span>
-          <span>Resolução SEDUC nº 106/2026</span>
-        </div>
-        <h1 class="text-lg sm:text-xl font-extrabold mt-0.5">Bonificação por Resultados (BR 2025)</h1>
+<body>
+  <header class="hero">
+    <div class="wrap hero-inner">
+      <div class="topline">
+        <div class="brand"><span class="brand-mark">BR</span><span>PAINEL DE CONSULTA EDUCACIONAL</span></div>
+        <span class="source-tag">Base documental · BR 2025</span>
       </div>
-      <div class="flex items-center gap-2">
-        <button onclick="abrirModalImportacao()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition shadow cursor-pointer">
-          + Importar Base Real (JSON/CSV)
-        </button>
-        <button onclick="exportarJSON()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg transition cursor-pointer">
-          Exportar
-        </button>
+      <p class="eyebrow">Bonificação por Resultados · exercício 2025</p>
+      <h1>Consulta de resultados por escola e URE</h1>
+      <p class="lede">Consulte os índices oficiais publicados para SARESP / Provão Paulista e SAEB, confira os gatilhos de frequência e participação e entenda a composição do ICM final.</p>
+      <div class="hero-links">
+        <a class="hero-link" href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">↗ Diário Oficial · Resolução 106/2026</a>
+        <a class="hero-link" href="https://drive.google.com/file/d/1NNcRziv5osRaGyPnDXuP5zeIBnBTXApY/view?usp=sharing" target="_blank" rel="noopener">↗ PDF compartilhado no Drive</a>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl w-full mx-auto px-3 sm:px-4 py-5 flex-1 space-y-4 sm:space-y-6">
+  <main class="wrap">
+    <div class="statusline">
+      <span class="live-state"><i class="live-dot" id="stateDot"></i><span id="dataState">Preparando consulta da base documental…</span></span>
+      <span id="sourceState">Fonte de dados: aguardando carregamento</span>
+    </div>
 
-    <!-- KPIs Oficiais SEDUC (Resolução 106/2026) -->
-    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3">
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-[11px] font-semibold text-slate-500 uppercase">IACM SEDUC</span>
-        <div class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0,72 <span class="text-xs font-bold text-emerald-600">(72%)</span></div>
-        <p class="text-[10px] text-slate-500 mt-0.5">Art. 1º Res. 106/2026</p>
+    <section class="kpis" aria-label="Resumo dos resultados">
+      <article class="kpi"><span class="kpi-label">Escolas no Anexo Escola</span><strong class="kpi-value" id="kpiTotal">—</strong><span class="kpi-note">Base integral identificada</span></article>
+      <article class="kpi diamond"><span class="kpi-label">Resultado Diamante</span><strong class="kpi-value" id="kpiDiamond">—</strong><span class="kpi-note">ICM final igual a 1,00</span></article>
+      <article class="kpi partial"><span class="kpi-label">Resultado parcial</span><strong class="kpi-value" id="kpiPartial">—</strong><span class="kpi-note">ICM maior que zero e menor que 1</span></article>
+      <article class="kpi zero"><span class="kpi-label">ICM igual a zero</span><strong class="kpi-value" id="kpiZero">—</strong><span class="kpi-note">Não atingiu índice nesta apuração</span></article>
+      <article class="kpi saeb"><span class="kpi-label">SAEB integral</span><strong class="kpi-value" id="kpiSaebFull">—</strong><span class="kpi-note">ICM-SAEB igual a 0,50</span></article>
+      <article class="kpi"><span class="kpi-label">ICM agregado SEDUC</span><strong class="kpi-value">72%</strong><span class="kpi-note">0,50 SARESP + 0,22 SAEB</span></article>
+    </section>
+
+    <section class="panel search-panel" aria-label="Filtros de consulta">
+      <div class="section-head">
+        <div><h2>Localizar uma escola</h2><p>Pesquise pelo nome, código CIE ou código INEP. Os filtros podem ser combinados.</p></div>
+        <button class="btn" id="clearFilters" type="button">Limpar filtros</button>
       </div>
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-[11px] font-semibold text-slate-500 uppercase">ICM SARESP</span>
-        <div class="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1">0,50 <span class="text-xs font-bold">(50%)</span></div>
-        <p class="text-[10px] text-slate-500 mt-0.5">Nota 4,30 (Meta: 4,10)</p>
+      <div class="field-grid">
+        <div class="field search-field">
+          <label for="q">Nome da escola, CIE ou INEP</label>
+          <div class="searchwrap"><span class="searchicon">⌕</span><input class="control" id="q" type="search" placeholder="Ex.: nome da escola ou 12345" autocomplete="off" enterkeyhint="search"></div>
+        </div>
+        <div class="field"><label for="ureFilter">Unidade Regional de Ensino</label><select class="control" id="ureFilter"><option value="">Todas as UREs</option></select></div>
+        <div class="field"><label for="saebFilter">Componente SAEB</label><select class="control" id="saebFilter"><option value="">Todos</option><option value="int">Integral (0,50)</option><option value="parc">Parcial</option><option value="nao">Não recebe</option><option value="na">Não se aplica</option></select></div>
+        <div class="field"><label for="baseFilter">Base de apuração</label><select class="control" id="baseFilter"><option value="">Todas</option><option value="SARESP/SAEB">SARESP + SAEB</option><option value="SARESP">Somente SARESP</option></select></div>
+        <div class="field"><label for="sortFilter">Ordenar por</label><select class="control" id="sortFilter"><option value="nome">Nome (A–Z)</option><option value="icm-desc">Maior ICM primeiro</option><option value="icm-asc">Menor ICM primeiro</option></select></div>
       </div>
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-[11px] font-semibold text-slate-500 uppercase">ICM SAEB</span>
-        <div class="text-xl sm:text-2xl font-extrabold text-sky-700 mt-1">0,22 <span class="text-xs font-bold">(22%)</span></div>
-        <p class="text-[10px] text-slate-500 mt-0.5">Nota 5,33 (Base: 5,05)</p>
-      </div>
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-[11px] font-semibold text-slate-500 uppercase">Escolas Diamante</span>
-        <div class="text-xl sm:text-2xl font-extrabold text-sky-600 mt-1">1.320</div>
-        <p class="text-[10px] text-slate-500 mt-0.5">26,55% da rede</p>
-      </div>
-      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm col-span-2 lg:col-span-1">
-        <span class="text-[11px] font-semibold text-slate-500 uppercase">Gatilhos (IFA / TPSS)</span>
-        <div class="text-base sm:text-lg font-extrabold text-emerald-700 mt-1">ATINGIDOS</div>
-        <p class="text-[10px] text-slate-500 mt-0.5">Rede habilitada</p>
+      <div class="filter-bottom">
+        <div class="chips" role="group" aria-label="Situação do ICM final">
+          <span class="tiny" style="font-weight:800;margin-right:2px">ICM final:</span>
+          <button class="chip active" type="button" data-status="">Todos</button>
+          <button class="chip" type="button" data-status="diam">Diamante</button>
+          <button class="chip" type="button" data-status="parc">Parcial</button>
+          <button class="chip" type="button" data-status="zero">Zerado</button>
+        </div>
+        <div class="actions"><button class="btn soft" id="downloadCsv" type="button">↓ Baixar resultados (CSV)</button></div>
       </div>
     </section>
 
-    <!-- Filtros de Busca -->
-    <section class="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
-      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
-        <div class="sm:col-span-5">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Buscar Escola (Nome, CIE ou INEP)</label>
-          <input id="filtroBusca" type="text" placeholder="Ex: Aparecido Roberto Tonellotti..." oninput="filtrarDados()"
-            class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
-        </div>
-        <div class="sm:col-span-3">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Diretoria / URE</label>
-          <select id="filtroURE" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
-            <option value="">Todas as UREs</option>
-          </select>
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Patamar</label>
-          <select id="filtroPatamar" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
-            <option value="">Todos</option>
-            <option value="DIAMANTE">Diamante (1,00)</option>
-            <option value="OURO">Ouro (≥ 0,50)</option>
-            <option value="PARCIAL">Parcial</option>
-            <option value="ZERO">Zerado (0,00)</option>
-          </select>
-        </div>
-        <div class="sm:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Gatilhos</label>
-          <select id="filtroGatilho" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
-            <option value="">Todos</option>
-            <option value="OK">Atendidos</option>
-            <option value="PENDENTE">Pendentes</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
-        <span id="contadorRegistros">Carregando unidades...</span>
-        <span>Fórmula: ICM = Max(IC; IQ) × IFA × TPSS</span>
-      </div>
+    <div class="result-head"><span class="result-count" id="resultCount">Carregando registros…</span><span class="result-hint">Selecione um cartão para abrir o detalhamento completo</span></div>
+    <ul class="list" id="schoolList" aria-live="polite"><li class="loading"><div class="spinner"></div><strong>Carregando dados oficiais estruturados</strong>Consultando a base pública de escolas e UREs…</li></ul>
+    <div class="more-wrap"><button class="btn primary more" id="showMore" type="button" hidden>Mostrar mais resultados</button></div>
+
+    <div class="lower-grid">
+      <section class="panel info-panel">
+        <h2>Como interpretar o resultado</h2>
+        <p><strong>ICM final da escola:</strong> nas unidades com base SARESP/SAEB, é a soma dos componentes ICM-SARESP/Provão Paulista e ICM-SAEB, cada um limitado a 0,50. Nas 33 unidades apuradas exclusivamente pelo SARESP, existe meta própria e o componente pode chegar a 1,00.</p>
+        <p><strong>Critério de cálculo:</strong> no nível da escola, utiliza-se o maior valor entre o Índice de Cumprimento (IC) e o Índice de Qualidade (IQ), condicionado aos gatilhos de frequência (IFA) e participação (TPSS). Se um gatilho aplicável não for cumprido, o componente correspondente é zerado.</p>
+        <div class="callout"><strong>Atenção:</strong> 0,50 é o teto de cada componente quando a escola integra as duas avaliações. Não se deve multiplicar novamente os ICMs apurados por 50%. O resultado final Diamante corresponde a ICM 1,00.</div>
+        <p class="tiny">Os índices apresentados são resultados institucionais publicados. Eles não representam, isoladamente, o valor individual em reais a ser recebido por cada servidor.</p>
+      </section>
+
+      <section class="panel info-panel">
+        <h2>Unidades sem resultado próprio</h2>
+        <p>A nota técnica também informa categorias que recebem o ICM da respectiva URE ou da escola vinculadora, conforme seu enquadramento. Essas unidades não devem ser confundidas com escolas que tiveram ICM zero.</p>
+        <ul>
+          <li><strong>44</strong> CEEJA</li>
+          <li><strong>44</strong> escolas estaduais indígenas</li>
+          <li><strong>4</strong> escolas quilombolas</li>
+          <li><strong>621</strong> escolas vinculadas</li>
+        </ul>
+        <div class="callout">Total informado na nota técnica: <strong>713 unidades</strong>. A base nominal do Anexo Escola usada nesta consulta contém 4.972 registros; as 713 unidades acima são tratadas por atribuição de resultado e não devem ser acrescentadas como se fossem linhas com ICM próprio sem a identificação oficial correspondente.</div>
+      </section>
+    </div>
+
+    <section class="panel info-panel" style="margin-top:14px">
+      <div class="section-head"><div><h2>Resultados consolidados por URE</h2><p>Valores consolidados publicados no Anexo SEDUC/URE. Selecione uma URE para filtrar as escolas correspondentes.</p></div><button class="btn" id="downloadUres" type="button">↓ Baixar UREs (CSV)</button></div>
+      <div class="ure-list" id="ureList"><div class="loading">Aguardando a base consolidada das UREs…</div></div>
     </section>
 
-    <!-- Tabela -->
-    <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-      <div class="overflow-x-auto">
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="bg-slate-100 border-b border-slate-200 text-[11px] font-bold uppercase text-slate-600">
-              <th class="py-3 px-3">CIE / INEP</th>
-              <th class="py-3 px-3">Escola</th>
-              <th class="py-3 px-3">URE / Jornada</th>
-              <th class="py-3 px-3 text-center">Gatilhos</th>
-              <th class="py-3 px-3 text-right">SARESP</th>
-              <th class="py-3 px-3 text-right">SAEB</th>
-              <th class="py-3 px-3 text-right">ICM Final</th>
-              <th class="py-3 px-3 text-center">Status</th>
-              <th class="py-3 px-3 text-center">Simular</th>
-            </tr>
-          </thead>
-          <tbody id="tabelaCorpo" class="divide-y divide-slate-100 text-xs sm:text-sm"></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- Simulador -->
-    <section id="secaoSimulador" class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm">
-      <h2 class="text-sm sm:text-base font-bold text-slate-800 mb-1">Simulador de Bonificação (BR 2025)</h2>
-      <p class="text-xs text-slate-500 mb-4">Selecione uma escola na tabela ou ajuste o ICM manualmente.</p>
-      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">ICM Final (0,00 a 1,00)</label>
-          <input id="simICM" type="number" step="0.01" min="0" max="1" value="0.72" oninput="calcularBonus()"
-            class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Retribuição Mensal Base (R$)</label>
-          <input id="simSalario" type="number" step="10" value="5500" oninput="calcularBonus()"
-            class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Dias Trabalhados</label>
-          <input id="simDias" type="number" min="1" max="365" value="365" oninput="calcularBonus()"
-            class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
-        </div>
-        <div class="bg-slate-900 text-white p-3 rounded-lg flex flex-col justify-center">
-          <span class="text-[10px] uppercase tracking-wider text-sky-400 font-semibold">Estimativa Bruta</span>
-          <span id="simResultado" class="text-lg sm:text-xl font-extrabold mt-0.5">R$ 9.504,00</span>
-        </div>
-      </div>
-    </section>
-
+    <footer class="footer">
+      <p>Ferramenta independente de consulta. Fonte normativa: Resolução SEDUC nº 106, de 11/11/2026 · DOE-SP de 12/11/2026.</p>
+      <p>Em caso de divergência, prevalecem o Diário Oficial e os sistemas oficiais da Secretaria da Educação.</p>
+      <p><a href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">Consultar publicação oficial</a> · <span id="baseFooter">Base de dados não carregada</span></p>
+    </footer>
   </main>
 
-  <!-- Modal -->
-  <div id="modalImport" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-3 sm:p-4 z-50">
-    <div class="bg-white rounded-2xl max-w-xl w-full p-5 shadow-2xl space-y-3">
-      <div class="flex items-center justify-between border-b pb-2">
-        <h3 class="text-base font-bold text-slate-900">Importar Base Oficial (JSON / CSV)</h3>
-        <button onclick="fecharModalImportacao()" class="text-slate-400 hover:text-slate-700 font-bold text-lg cursor-pointer">✕</button>
-      </div>
-      <p class="text-xs text-slate-600">Carregue o arquivo JSON contendo todas as escolas do anexo da Resolução 106/2026.</p>
-      <input id="inputArquivo" type="file" accept=".json,.csv" onchange="lerArquivo(event)"
-        class="text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700" />
-      <textarea id="textoImportacao" rows="5" placeholder="Ou cole o JSON aqui..."
-        class="w-full p-2.5 text-xs font-mono border border-slate-300 rounded-lg"></textarea>
-      <div class="flex justify-end gap-2 pt-1">
-        <button onclick="fecharModalImportacao()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer">Cancelar</button>
-        <button onclick="processarTextoImportado()" class="px-3 py-2 text-xs font-semibold bg-sky-600 hover:bg-sky-500 text-white rounded-lg cursor-pointer">Carregar Dados</button>
-      </div>
+  <dialog id="detailDialog" aria-labelledby="detailTitle">
+    <div class="dialog-scroll">
+      <div class="dlg-top"><div><h2 id="detailTitle">Detalhamento da escola</h2><div class="dlg-meta" id="detailMeta"></div></div><button class="close" id="closeDialog" type="button" aria-label="Fechar">×</button></div>
+      <div class="dlg-content" id="detailContent"></div>
     </div>
-  </div>
+  </dialog>
 
   <script>
-    let escolasDB = [
-      { cie: "12", inep: "35000012", escola: "AYRES DE MOURA PROFESSOR", ure: "NORTE 1", jornada: "PARCIAL", tpss: 1, ifa: 1, icm_saresp: 0.50, icm_saeb: 0.50, icm_final: 1.00 },
-      { cie: "48", inep: "35000048", escola: "WALFREDO ARANTES CALDAS PROFESSOR", ure: "NORTE 1", jornada: "PEI", tpss: 1, ifa: 1, icm_saresp: 0.42, icm_saeb: 0.18, icm_final: 0.60 },
-      { cie: "176", inep: "35000176", escola: "ZENAIDE VILALVA DE ARAUJO PROFESSORA", ure: "NORTE 2", jornada: "PARCIAL", tpss: 1, ifa: 1, icm_saresp: 0.50, icm_saeb: 0.08, icm_final: 0.58 }
-    ];
+  (() => {
+    'use strict';
 
-    const salvo = localStorage.getItem('bonus_br_2025_res106_v2');
-    if (salvo) {
-      try { const p = JSON.parse(salvo); if (p.length > 0) escolasDB = p; } catch(e){}
+    /*
+      BASE DE DADOS
+      - Primeiro tenta arquivos locais no próprio repositório: ./data/escolas.json e ./data/ures.json.
+      - Se ainda não existirem, usa os arquivos públicos do projeto de origem.
+      - Para independência total, copie os dois JSON para a pasta /data do seu repositório.
+    */
+    const DATA_ENDPOINTS = {
+      escolas: [
+        './data/escolas.json',
+        'https://joaobrunon.github.io/bonus-br-2025/data/escolas.json',
+        'https://raw.githubusercontent.com/joaobrunon/bonus-br-2025/main/data/escolas.json'
+      ],
+      ures: [
+        './data/ures.json',
+        'https://joaobrunon.github.io/bonus-br-2025/data/ures.json',
+        'https://raw.githubusercontent.com/joaobrunon/bonus-br-2025/main/data/ures.json'
+      ]
+    };
+
+    /* Opcional: informe um ID de medição GA4 (G-XXXXXXXXXX) para contar acessos.
+       Deixe vazio para manter a ferramenta sem analytics. Não coleta nome, CIE, INEP ou texto pesquisado. */
+    const GA4_MEASUREMENT_ID = '';
+
+    const EXPECTED = { schools: 4972, diamond: 1320, partial: 3073, zero: 579, saebFull: 1508 };
+    const PAGE_SIZE = 48;
+    const $ = (id) => document.getElementById(id);
+    const state = { schools: [], ures: {}, filtered: [], visible: PAGE_SIZE, status: '', dataOrigin: '', selectedSchool: null };
+    const fold = (value) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
+    const num = (value) => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
+    const fmt = (value, digits = 2) => { const n = num(value); return n === null ? '—' : n.toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits }); };
+    const intFmt = (value) => Number(value || 0).toLocaleString('pt-BR');
+    const pct = (value, digits = 1) => { const n = num(value); return n === null ? '—' : `${fmt(n, digits)}%`; };
+    const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+    const statusOf = (icm) => { const n = num(icm) ?? 0; return n >= .999999 ? 'diam' : n > 0 ? 'parc' : 'zero'; };
+    const statusLabel = { diam: 'Diamante', parc: 'Parcial', zero: 'Zerado' };
+    const saebOf = (s) => s.base !== 'SARESP/SAEB' ? 'na' : (num(s.icmSaeb) ?? 0) >= .499999 ? 'int' : (num(s.icmSaeb) ?? 0) > 0 ? 'parc' : 'nao';
+
+    async function fetchJsonFromCandidates(urls) {
+      let lastError = null;
+      for (const url of urls) {
+        try {
+          const response = await fetch(url, { method: 'GET', cache: 'default', headers: { 'Accept': 'application/json' } });
+          if (!response.ok) throw new Error(`HTTP ${response.status}`);
+          const data = await response.json();
+          if (url.startsWith('./')) state.dataOrigin = 'arquivos do próprio repositório';
+          else if (!state.dataOrigin) state.dataOrigin = 'base pública do projeto de origem';
+          return data;
+        } catch (error) { lastError = error; }
+      }
+      throw lastError || new Error('Não foi possível obter o arquivo de dados.');
     }
 
-    function classificarStatus(icm, ifa, tpss) {
-      if (ifa === 0 || tpss === 0 || icm <= 0) return { label: "ZERADO", classe: "badge-zero", cod: "ZERO" };
-      if (icm >= 1.0) return { label: "DIAMANTE", classe: "badge-diamante", cod: "DIAMANTE" };
-      if (icm >= 0.5) return { label: "OURO", classe: "badge-ouro", cod: "OURO" };
-      return { label: "PARCIAL", classe: "badge-parcial", cod: "PARCIAL" };
+    function validateData(schools, ures) {
+      if (!Array.isArray(schools) || schools.length === 0) throw new Error('O arquivo escolas.json não contém uma lista válida.');
+      if (!ures || typeof ures !== 'object' || Array.isArray(ures)) throw new Error('O arquivo ures.json não contém um objeto válido.');
+      const missing = schools.filter(s => !s || s.cie == null || !s.nome || !s.ure || num(s.icm) === null).length;
+      if (missing) throw new Error(`A base contém ${missing} registro(s) sem campos essenciais. Os dados não serão apresentados como íntegros.`);
     }
 
-    function atualizarFiltroURE() {
-      const select = document.getElementById('filtroURE');
-      const ures = [...new Set(escolasDB.map(e => e.ure).filter(Boolean))].sort();
-      const atual = select.value;
-      select.innerHTML = '<option value="">Todas as UREs</option>' + ures.map(u => `<option value="${u}">${u}</option>`).join('');
-      select.value = atual;
-    }
-
-    function filtrarDados() {
-      const busca = document.getElementById('filtroBusca').value.toLowerCase().trim();
-      const ure = document.getElementById('filtroURE').value;
-      const patamar = document.getElementById('filtroPatamar').value;
-      const gatilho = document.getElementById('filtroGatilho').value;
-
-      const filtrados = escolasDB.filter(item => {
-        const st = classificarStatus(item.icm_final, item.ifa, item.tpss);
-        const matchTexto = !busca || String(item.escola).toLowerCase().includes(busca) || String(item.cie).includes(busca) || String(item.inep).includes(busca);
-        const matchURE = !ure || item.ure === ure;
-        const matchPatamar = !patamar || st.cod === patamar;
-        const matchGatilho = !gatilho || (gatilho === 'OK' && item.ifa === 1 && item.tpss === 1) || (gatilho === 'PENDENTE' && (item.ifa === 0 || item.tpss === 0));
-        return matchTexto && matchURE && matchPatamar && matchGatilho;
+    function prepareData() {
+      state.schools.forEach(s => {
+        s._st = statusOf(s.icm);
+        s._saeb = saebOf(s);
+        s._k = fold(s.nome);
+        s._ureKey = String(s.ure || '');
       });
-
-      renderizarTabela(filtrados);
+      const names = [...new Set(state.schools.map(s => s.ure).filter(Boolean))].sort((a,b) => a.localeCompare(b, 'pt-BR'));
+      $('ureFilter').innerHTML = '<option value="">Todas as UREs</option>' + names.map(n => `<option value="${esc(n)}">${esc(n)}</option>`).join('');
+      renderKpis();
+      renderUres();
+      applyFilters();
+      const fromHash = () => {
+        const cie = decodeURIComponent(location.hash.slice(1));
+        if (!cie) return;
+        const school = state.schools.find(s => String(s.cie) === cie);
+        if (school) openSchool(school, false);
+      };
+      window.addEventListener('hashchange', fromHash);
+      fromHash();
     }
 
-    function renderizarTabela(lista) {
-      const tbody = document.getElementById('tabelaCorpo');
-      document.getElementById('contadorRegistros').textContent = `Exibindo ${lista.length} de ${escolasDB.length} unidades`;
+    function renderKpis() {
+      const c = { diam:0, parc:0, zero:0 }, saeb = { int:0, parc:0, nao:0, na:0 };
+      state.schools.forEach(s => { c[s._st]++; saeb[s._saeb]++; });
+      $('kpiTotal').textContent = intFmt(state.schools.length);
+      $('kpiDiamond').textContent = intFmt(c.diam);
+      $('kpiPartial').textContent = intFmt(c.parc);
+      $('kpiZero').textContent = intFmt(c.zero);
+      $('kpiSaebFull').textContent = intFmt(saeb.int);
+      const matches = state.schools.length === EXPECTED.schools && c.diam === EXPECTED.diamond && c.parc === EXPECTED.partial && c.zero === EXPECTED.zero && saeb.int === EXPECTED.saebFull;
+      const dot = $('stateDot');
+      dot.className = 'live-dot ' + (matches ? 'ok' : 'warn');
+      $('dataState').textContent = matches ? 'Base carregada e totais conferidos' : 'Base carregada · totais diferentes do quadro de conferência';
+      $('sourceState').textContent = `Fonte: ${state.dataOrigin} · carregado neste acesso em ${new Date().toLocaleDateString('pt-BR')}`;
+      $('baseFooter').textContent = `${intFmt(state.schools.length)} registros carregados · ${Object.keys(state.ures).length} entradas de consolidação URE/SEDUC`;
+      if (!matches) {
+        $('dataState').title = 'Os totais da base carregada não coincidem integralmente com os valores publicados no repositório de origem. Confira a fonte antes de utilizar os resultados.';
+        const note = document.createElement('div');
+        note.className = 'notice show';
+        note.textContent = 'Atenção: um ou mais totais da base carregada diferem dos totais de conferência informados na publicação de origem. A consulta continua disponível, mas confira a versão dos arquivos e a Resolução SEDUC nº 106/2026.';
+        $('schoolList').before(note);
+      }
+    }
 
-      if (lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400">Nenhuma escola encontrada.</td></tr>`;
+    function applyFilters() {
+      const qRaw = $('q').value.trim();
+      const q = fold(qRaw);
+      const digits = /^\d+$/.test(qRaw);
+      const ure = $('ureFilter').value;
+      const saeb = $('saebFilter').value;
+      const base = $('baseFilter').value;
+      state.filtered = state.schools.filter(s => {
+        if (ure && s.ure !== ure) return false;
+        if (state.status && s._st !== state.status) return false;
+        if (saeb && s._saeb !== saeb) return false;
+        if (base && s.base !== base) return false;
+        if (!q) return true;
+        if (digits) return String(s.cie) === qRaw || String(s.inep || '') === qRaw || String(s.cie).startsWith(qRaw) || String(s.inep || '').startsWith(qRaw);
+        return q.split(/\s+/).every(word => s._k.includes(word) || fold(s.ure).includes(word));
+      });
+      const sort = $('sortFilter').value;
+      if (sort === 'nome') state.filtered.sort((a,b) => a._k.localeCompare(b._k, 'pt-BR'));
+      else if (sort === 'icm-desc') state.filtered.sort((a,b) => (num(b.icm)||0) - (num(a.icm)||0) || a._k.localeCompare(b._k, 'pt-BR'));
+      else state.filtered.sort((a,b) => (num(a.icm)||0) - (num(b.icm)||0) || a._k.localeCompare(b._k, 'pt-BR'));
+      state.visible = PAGE_SIZE;
+      renderSchools();
+    }
+
+    function tag(text, cls='') { return `<span class="tag ${cls}">${text}</span>`; }
+    function schoolCard(s) {
+      const st = s._st;
+      const saeb = s._saeb;
+      const saebTag = saeb === 'na' ? tag('SAEB não se aplica','na') : saeb === 'int' ? tag('SAEB integral','good') : saeb === 'parc' ? tag('SAEB parcial','partial') : tag('SAEB zerado','bad');
+      const srspMax = s.base === 'SARESP' ? 1 : .5;
+      const srspVal = num(s.icmSrsp);
+      const srspCls = srspVal > 0 ? 'good' : 'bad';
+      return `<li><button class="school-card" type="button" data-cie="${esc(s.cie)}" aria-label="Abrir detalhes de ${esc(s.nome)}">
+        <span class="school-main"><span class="school-name">${esc(s.nome)}</span>
+          <span class="school-meta">CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '—')}<br>${esc(s.ure)} · ${esc(s.jornada || 'Jornada não informada')} · ${esc(s.tipo || 'Tipo não informado')}</span>
+          <span class="school-tags">${tag(`SARESP ${fmt(s.icmSrsp)} / ${fmt(srspMax)}`, srspCls)}${saebTag}</span>
+        </span>
+        <span class="icm-badge ${st}"><b>${Math.round((num(s.icm)||0)*100)}%</b><small>${statusLabel[st]}</small></span>
+      </button></li>`;
+    }
+
+    function renderSchools() {
+      const list = $('schoolList');
+      const total = state.filtered.length;
+      $('resultCount').textContent = `${intFmt(total)} ${total === 1 ? 'escola encontrada' : 'escolas encontradas'}`;
+      if (!total) {
+        list.innerHTML = '<li class="empty"><strong>Nenhuma escola encontrada</strong>Altere os filtros ou pesquise por outro nome, CIE ou INEP. As categorias sem resultado próprio são explicadas nesta página.</li>';
+        $('showMore').hidden = true;
         return;
       }
-
-      tbody.innerHTML = lista.slice(0, 250).map(item => {
-        const st = classificarStatus(item.icm_final, item.ifa, item.tpss);
-        return `
-          <tr class="hover:bg-slate-50 transition">
-            <td class="py-2.5 px-3 font-mono text-xs text-slate-600">
-              <div class="font-bold text-slate-800">${item.cie}</div>
-              <div class="text-[10px] text-slate-400">${item.inep}</div>
-            </td>
-            <td class="py-2.5 px-3 font-semibold text-slate-800">${item.escola}</td>
-            <td class="py-2.5 px-3 text-xs text-slate-600">
-              <div>${item.ure || '-'}</div>
-              <div class="text-[10px] text-slate-400">${item.jornada || ''}</div>
-            </td>
-            <td class="py-2.5 px-3 text-center text-xs">
-              ${item.tpss ? '<span class="text-emerald-600 font-bold">✓</span>' : '<span class="text-rose-600 font-bold">✗</span>'} | 
-              ${item.ifa ? '<span class="text-emerald-600 font-bold">✓</span>' : '<span class="text-rose-600 font-bold">✗</span>'}
-            </td>
-            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saresp || 0).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saeb || 0).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900">${Number(item.icm_final || 0).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${st.classe}">${st.label}</span></td>
-            <td class="py-2.5 px-3 text-center">
-              <button onclick="selecionarParaSimular(${item.icm_final})" class="text-xs font-semibold text-sky-600 hover:text-sky-800 underline cursor-pointer">Calc</button>
-            </td>
-          </tr>
-        `;
-      }).join('');
+      list.innerHTML = state.filtered.slice(0, state.visible).map(schoolCard).join('');
+      const remaining = total - state.visible;
+      $('showMore').hidden = remaining <= 0;
+      $('showMore').textContent = `Mostrar mais ${intFmt(Math.min(PAGE_SIZE, remaining))} (${intFmt(remaining)} restantes)`;
     }
 
-    function selecionarParaSimular(icm) {
-      document.getElementById('simICM').value = Number(icm).toFixed(2);
-      calcularBonus();
-      document.getElementById('secaoSimulador').scrollIntoView({ behavior: 'smooth' });
+    function gateText(ok, value, meta) {
+      const cls = ok ? 'gate-yes' : 'gate-no';
+      const symbol = ok ? '✓' : '✕';
+      return `<span class="${cls}">${symbol} ${pct(value)}</span>${meta != null ? ` <span class="tiny">(meta ${pct(meta)})</span>` : ''}`;
     }
 
-    function calcularBonus() {
-      const icm = parseFloat(document.getElementById('simICM').value) || 0;
-      const salario = parseFloat(document.getElementById('simSalario').value) || 0;
-      const dias = Math.min(365, Math.max(0, parseFloat(document.getElementById('simDias').value) || 0));
-      const bruto = (salario * 12) * 0.20 * icm * (dias / 365);
-      document.getElementById('simResultado').textContent = bruto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    function componentExplanation(icm, ic, iq, gates) {
+      const failed = gates.filter(g => !g.ok).map(g => g.name);
+      if (failed.length) return `O componente foi zerado porque não foi cumprido ${failed.join(' e ')}. O índice antes da aplicação dos gatilhos era ${fmt(Math.max(num(ic)||0, num(iq)||0),3)}.`;
+      if ((num(icm)||0) >= .499999) return 'O componente atingiu o teto aplicável para esta avaliação.';
+      if ((num(icm)||0) > 0) return 'O componente registrou cumprimento parcial da meta.';
+      return 'O índice calculado não gerou pontuação positiva nesta apuração.';
     }
 
-    function abrirModalImportacao() { document.getElementById('modalImport').classList.remove('hidden'); document.getElementById('modalImport').classList.add('flex'); }
-    function fecharModalImportacao() { document.getElementById('modalImport').classList.add('hidden'); document.getElementById('modalImport').classList.remove('flex'); }
-    function lerArquivo(e) {
-      const f = e.target.files[0];
-      if (!f) return;
-      const r = new FileReader();
-      r.onload = ev => { document.getElementById('textoImportacao').value = ev.target.result; };
-      r.readAsText(f, 'UTF-8');
+    function componentHtml({title, value, max, baselineLabel, baseline, finalLabel, finalValue, goalLabel, goal, diamondGoal, quality, ic, ifa, ifaMeta, ifaOk, tps, tpsOk, tpsGoal=80, baseOnly=false}) {
+      const width = max > 0 ? Math.max(0, Math.min(100, ((num(value)||0) / max) * 100)) : 0;
+      const gates = [{ name:'o gatilho IFA (frequência)', ok:!!ifaOk }, { name:'o gatilho TPSS (participação)', ok:!!tpsOk }];
+      return `<section class="component">
+        <div class="component-head"><h3>${title}</h3><span class="component-score">${fmt(value)} / ${fmt(max)}</span></div>
+        <div class="meter"><i style="width:${width}%"></i></div>
+        <dl class="kv">
+          <dt>${baselineLabel}</dt><dd>${fmt(baseline,1)}</dd>
+          <dt>${finalLabel}</dt><dd>${fmt(finalValue,1)}</dd>
+          <dt>${goalLabel}</dt><dd>${fmt(goal,1)}</dd>
+          ${diamondGoal != null ? '<dt>Meta Diamante</dt><dd>'+fmt(diamondGoal,1)+'</dd>' : ''}
+          <dt>Piso de qualidade (IQ)</dt><dd>${fmt(quality,1)}</dd>
+          <dt>Índice de Cumprimento (IC)</dt><dd>${fmt(ic,3)}</dd>
+          <dt>Frequência (IFA)</dt><dd>${gateText(ifaOk, ifa, ifaMeta)}</dd>
+          <dt>Participação (TPSS)</dt><dd>${gateText(tpsOk, tps, tpsGoal)}</dd>
+        </dl>
+        <p class="why">${componentExplanation(value, ic, quality, gates)}</p>
+      </section>`;
     }
-    function processarTextoImportado() {
-      const txt = document.getElementById('textoImportacao').value.trim();
-      if (!txt) return;
+
+    function openSchool(s, updateHash=true) {
+      state.selectedSchool = s;
+      const st = s._st;
+      const percent = Math.round((num(s.icm)||0)*100);
+      $('detailTitle').textContent = s.nome;
+      $('detailMeta').innerHTML = `${esc(s.tipo || 'Tipo não informado')} · CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '—')}<br>URE ${esc(s.ure)} · ${esc(s.jornada || 'Jornada não informada')} · Ciclos ${esc(s.ciclos || '—')}`;
+      let html = `<div class="verdict ${st}">Resultado final: <strong>${statusLabel[st]} — ICM ${fmt(s.icm)} (${percent}%)</strong>. ${st==='diam'?'O patamar máximo foi atingido.':st==='parc'?'A escola obteve resultado positivo, abaixo de 1,00.':'O resultado final publicado para esta unidade é 0,00.'}</div>`;
+      const srspMax = s.base === 'SARESP' ? 1 : .5;
+      html += `<div class="sum-grid"><div class="sum-cell"><b>${fmt(s.icmSrsp)}</b><span>ICM SARESP</span></div><div class="sum-op">+</div><div class="sum-cell"><b>${s.base==='SARESP'?'—':fmt(s.icmSaeb)}</b><span>ICM SAEB</span></div><div class="sum-op">=</div><div class="sum-cell"><b>${fmt(s.icm)}</b><span>ICM FINAL</span></div></div>`;
+      html += componentHtml({title:'SARESP / Provão Paulista',value:s.icmSrsp,max:srspMax,baselineLabel:'Nota final 2024 (linha de base)',baseline:s.nfSrsp24,finalLabel:'Nota final 2025',finalValue:s.nfSrsp,goalLabel:'Meta Ouro',goal:s.metaSrsp,diamondGoal:s.metaSrspDiam,quality:s.iqSrsp,ic:s.icSrsp,ifa:s.ifa,ifaMeta:s.ifaMeta,ifaOk:s.ifaOk,tps:s.tpsSrsp,tpsOk:s.tpsSrspOk,tpsGoal:80});
+      if (s.base === 'SARESP/SAEB') {
+        html += componentHtml({title:'SAEB',value:s.icmSaeb,max:.5,baselineLabel:'Nota final 2023 (linha de base)',baseline:s.nfSaeb23,finalLabel:'Nota final 2025',finalValue:s.nfSaeb,goalLabel:'Meta Ouro',goal:s.metaSaeb,quality:s.iqSaeb,ic:s.icSaeb,ifa:s.ifa,ifaMeta:s.ifaMeta,ifaOk:s.ifaOk,tps:s.tpsSaeb,tpsOk:s.tpsSaebOk,tpsGoal:80});
+      } else {
+        html += `<div class="saeb-note"><strong>SAEB: não se aplica a esta unidade.</strong><br>Esta escola integra o grupo de 33 unidades apuradas exclusivamente pelo SARESP / Provão Paulista. Não se deve interpretar a ausência de parcela SAEB como ICM-SAEB igual a zero. A meta SARESP própria pode levar o resultado final até 1,00.</div>`;
+      }
+      const u = state.ures[s.ure];
+      if (u) {
+        html += `<section class="ure-summary"><h3>Resultado consolidado da URE ${esc(s.ure)}</h3><div class="ure-kpis"><div><b>${fmt(u.icmSrsp)}</b><span>ICM SARESP</span></div><div><b>${fmt(u.icmSaeb)}</b><span>ICM SAEB</span></div><div><b>${fmt(u.icm)}</b><span>ICM URE</span></div></div><p class="why">Este é o resultado regional consolidado, não uma substituição automática do resultado próprio desta escola. A atribuição às unidades sem meta própria depende do enquadramento normativo correspondente.</p></section>`;
+      }
+      html += `<div class="dlg-actions"><button class="btn" type="button" id="printDetail">Imprimir detalhamento</button><button class="btn soft" type="button" id="copySchoolLink">Copiar link desta escola</button></div>`;
+      $('detailContent').innerHTML = html;
+      if (updateHash) history.replaceState(null, '', '#' + encodeURIComponent(String(s.cie)));
+      const dlg = $('detailDialog');
+      if (!dlg.open) dlg.showModal();
+      $('printDetail').addEventListener('click', () => window.print());
+      $('copySchoolLink').addEventListener('click', async () => {
+        const link = location.href.split('#')[0] + '#' + encodeURIComponent(String(s.cie));
+        try { await navigator.clipboard.writeText(link); $('copySchoolLink').textContent = 'Link copiado'; }
+        catch { $('copySchoolLink').textContent = link; }
+      });
+    }
+
+    function renderUres() {
+      const entries = Object.entries(state.ures).filter(([name, val]) => val && typeof val === 'object' && num(val.icm) !== null);
+      entries.sort((a,b) => a[0] === 'SEDUC' ? -1 : b[0] === 'SEDUC' ? 1 : a[0].localeCompare(b[0], 'pt-BR'));
+      $('ureList').innerHTML = entries.map(([name, v]) => {
+        const n = state.schools.filter(s => s.ure === name).length;
+        const isSeduc = name === 'SEDUC';
+        return `<button class="ure-row" type="button" data-ure="${esc(name)}"><span><span class="ure-name">${esc(isSeduc?'SEDUC · Resultado estadual':name)}</span><span class="ure-sub">${isSeduc?'Consolidação da Secretaria':`${intFmt(n)} escolas no Anexo Escola`}</span></span><span class="ure-value">${fmt(v.icm)}<small>SARESP ${fmt(v.icmSrsp)} · SAEB ${fmt(v.icmSaeb)}</small></span></button>`;
+      }).join('') || '<div class="empty">Nenhum resultado de URE foi encontrado no arquivo de consolidação.</div>';
+    }
+
+    function downloadCsv(rows, fileName, headers) {
+      if (!rows.length) { alert('Não há registros para baixar.'); return; }
+      const escapeCsv = (v) => `"${String(v ?? '').replace(/"/g,'""')}"`;
+      const csv = '\uFEFF' + [headers.map(escapeCsv).join(';'), ...rows.map(r => r.map(escapeCsv).join(';'))].join('\r\n');
+      const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    }
+
+    function downloadFiltered() {
+      const headers = ['Escola','CIE','INEP','URE','Tipo','Jornada','Base de apuração','ICM SARESP','ICM SAEB','ICM final','Status','IFA cumprido','TPSS SARESP cumprido','TPSS SAEB cumprido'];
+      const rows = state.filtered.map(s => [s.nome,s.cie,s.inep,s.ure,s.tipo,s.jornada,s.base,s.icmSrsp,s.base==='SARESP'?'Não se aplica':s.icmSaeb,s.icm,statusLabel[s._st],s.ifaOk?'Sim':'Não',s.tpsSrspOk?'Sim':'Não',s.base==='SARESP'?'Não se aplica':(s.tpsSaebOk?'Sim':'Não')]);
+      downloadCsv(rows,'consulta_bonus_br_2025_escolas.csv',headers);
+    }
+    function downloadUreCsv() {
+      const entries = Object.entries(state.ures).filter(([name,v]) => v && typeof v === 'object' && num(v.icm) !== null);
+      const headers = ['URE','ICM SARESP','ICM SAEB','ICM URE/SEDUC','Quantidade de escolas no Anexo Escola'];
+      const rows = entries.map(([name,v]) => [name,v.icmSrsp,v.icmSaeb,v.icm,state.schools.filter(s=>s.ure===name).length]);
+      downloadCsv(rows,'consulta_bonus_br_2025_ures.csv',headers);
+    }
+
+    function setupEvents() {
+      let timer;
+      $('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(applyFilters, 120); });
+      ['ureFilter','saebFilter','baseFilter','sortFilter'].forEach(id => $(id).addEventListener('change', applyFilters));
+      document.querySelectorAll('[data-status]').forEach(button => button.addEventListener('click', () => {
+        state.status = button.dataset.status;
+        document.querySelectorAll('[data-status]').forEach(b => b.classList.toggle('active', b === button));
+        applyFilters();
+      }));
+      $('clearFilters').addEventListener('click', () => {
+        $('q').value='';$('ureFilter').value='';$('saebFilter').value='';$('baseFilter').value='';$('sortFilter').value='nome';
+        state.status='';document.querySelectorAll('[data-status]').forEach(b=>b.classList.toggle('active',!b.dataset.status));applyFilters();
+      });
+      $('schoolList').addEventListener('click', e => { const card=e.target.closest('[data-cie]'); if(!card)return; const s=state.schools.find(x=>String(x.cie)===String(card.dataset.cie)); if(s)openSchool(s); });
+      $('showMore').addEventListener('click', () => { state.visible += PAGE_SIZE; renderSchools(); });
+      $('downloadCsv').addEventListener('click', downloadFiltered);
+      $('downloadUres').addEventListener('click', downloadUreCsv);
+      $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
+      $('closeDialog').addEventListener('click', () => $('detailDialog').close());
+      $('detailDialog').addEventListener('click', e => { if(e.target === $('detailDialog')) $('detailDialog').close(); });
+      $('detailDialog').addEventListener('close', () => { if(location.hash)history.replaceState(null,'',location.pathname+location.search); });
+    }
+
+    function setupAnalytics() {
+      if (!/^G-[A-Z0-9]+$/.test(GA4_MEASUREMENT_ID)) return;
+      const script = document.createElement('script');script.async=true;script.src=`https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;document.head.appendChild(script);
+      window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config',GA4_MEASUREMENT_ID,{send_page_view:true});
+    }
+
+    async function init() {
+      setupEvents();setupAnalytics();
       try {
-        const json = JSON.parse(txt);
-        if (Array.isArray(json)) {
-          escolasDB = json;
-          localStorage.setItem('bonus_br_2025_res106_v2', JSON.stringify(escolasDB));
-          atualizarFiltroURE();
-          filtrarDados();
-          fecharModalImportacao();
-          alert(`Base atualizada com sucesso (${escolasDB.length} registros).`);
-        }
-      } catch(err) {
-        alert('Erro ao processar JSON. Verifique a formatação.');
+        const [schools, ures] = await Promise.all([fetchJsonFromCandidates(DATA_ENDPOINTS.escolas),fetchJsonFromCandidates(DATA_ENDPOINTS.ures)]);
+        validateData(schools, ures);
+        state.schools = schools; state.ures = ures;
+        prepareData();
+      } catch (error) {
+        console.error('Falha ao carregar a base BR 2025:', error);
+        $('stateDot').className='live-dot warn';
+        $('dataState').textContent='Não foi possível confirmar o carregamento da base';
+        $('sourceState').textContent='Verifique a conexão e os arquivos JSON';
+        $('resultCount').textContent='Consulta indisponível';
+        $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar os dados</strong>${esc(error.message)}<br><br>Confira se os arquivos públicos estão acessíveis ou se a pasta <code>data/</code> contém <code>escolas.json</code> e <code>ures.json</code>.</li>`;
+        $('ureList').innerHTML='<div class="empty">A lista de UREs depende do arquivo de consolidação.</div>';
       }
     }
-    function exportarJSON() {
-      const blob = new Blob([JSON.stringify(escolasDB, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-      a.download = 'escolas_bonus_2025.json'; a.click();
-    }
-
-    atualizarFiltroURE();
-    filtrarDados();
-    calcularBonus();
+    init();
+  })();
   </script>
 </body>
 </html>
