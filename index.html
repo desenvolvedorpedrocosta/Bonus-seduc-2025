@@ -469,13 +469,14 @@
     }
 
     function dateBR(value) {
-      if (!value) return 'não informada';
-      const raw = String(value).slice(0,10);
-      const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-      if (m) return `${m[3]}/${m[2]}/${m[1]}`;
-      const d = new Date(`${raw}T12:00:00`);
-      return Number.isNaN(d.getTime()) ? raw : d.toLocaleDateString('pt-BR');
-    }
+    if (!value) return 'não informada';
+    const raw = String(value).slice(0, 10);
+    const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (m) return `${m[3]}/${m[2]}/${m[1]}`;
+    const parts = new Date(`${raw}T12:00:00`).toLocaleDateString('pt-BR').split('/');
+    if (parts.length === 3) return `${parts[0]}/${parts[1]}/${parts[2]}`;
+    return raw;
+  }
 
     function versionBR(value) {
       const m = String(value || '').match(/^(\d{4})\.(\d{2})\.(\d{2})(?:\.(\d+))?$/);
@@ -484,15 +485,15 @@
     }
 
     function renderVersionInfo() {
-      const m = state.manifest || DEFAULT_MANIFEST;
-      const last = dateBR(m.lastOfficialUpdate || m.publicationDate);
-      $('versionTag').textContent = `Base ${versionBR(m.dataVersion || DEFAULT_MANIFEST.dataVersion)}`;
-      $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação ${dateBR(m.publicationDate)}`;
-      const amendments = Array.isArray(m.retifications) ? m.retifications : [];
-      $('historyState').textContent = amendments.length
-        ? `${amendments.length} retificação(ões) incorporada(s) · última atualização ${last}`
-        : `Última atualização oficial incorporada: ${last}`;
-    }
+    const m = state.manifest || DEFAULT_MANIFEST;
+    const last = dateBR(m.lastOfficialUpdate || m.publicationDate);
+    $('versionTag').textContent = `Base ${versionBR(m.dataVersion || DEFAULT_MANIFEST.dataVersion)}`;
+    $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação de ${dateBR(m.publicationDate)}`;
+    const amendments = Array.isArray(m.retifications) ? m.retifications : [];
+    $('historyState').textContent = amendments.length
+      ? `${amendments.length} retificação(ões) incorporada(s) · última atualização ${last}`
+      : `Última atualização oficial incorporada: ${last}`;
+  }
 
     async function loadDisciplineData(cie) {
       const status = $('disciplineState');
