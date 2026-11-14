@@ -401,6 +401,8 @@
       Publique o backend/Code.gs como Aplicativo da Web e cole a URL /exec abaixo.
       O index não contém links para repositórios de terceiros nem arquivos brutos da base.
     */
+    const BACKEND_URL = 'tém links para repositórios de terceiros nem arquivos brutos da base.
+    */
     const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbz6nXxvhSabaJq8DA3lNYi-GG6W3TRL3hJzCZbcb0ib40S2d-cqWfjoVKqF6eqKuLPsFA/exec';
     const GA4_MEASUREMENT_ID = 'G-JE0FG198WY';
     const DEFAULT_MANIFEST = {
@@ -469,22 +471,34 @@
     }
 
     function dateBR(value) {
-      if (!value) return 'não informada';
-      const s = String(value).trim();
-      // Se já estiver no formato brasileiro DD/MM/AAAA, retorna direto
-      if (/^\d{2}\/\d{2}\/\d{4}$/.test(s)) return s;
-      // Se estiver no formato ISO AAAA-MM-DD (ex: 2026-11-12)
-      const m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-      if (m) return `${m[3]}/${m[2]}/${m[1]}`;
-      // Fallback seguro caso venha qualquer outro formato
-      const d = new Date(s);
-      if (!Number.isNaN(d.getTime())) {
-        const day = String(d.getDate()).padStart(2, '0');
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const year = d.getFullYear();
-        return `${day}/${month}/${year}`;
+      if (value === null || value === undefined || value === '') return 'não informada';
+      const formatParts = (day, month, year) => `${String(day).padStart(2, '0')}/${String(month).padStart(2, '0')}/${year}`;
+      if (value instanceof Date && !Number.isNaN(value.getTime())) {
+        return formatParts(value.getDate(), value.getMonth() + 1, value.getFullYear());
       }
-      return s;
+
+      // Mantém o texto completo: valores Date vindos da planilha podem chegar como
+      // "Thu Nov 12 2026 ...". Cortar os primeiros 10 caracteres removia o ano.
+      const raw = String(value).trim();
+      const iso = raw.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T\s])/);
+      if (iso) return formatParts(iso[3], iso[2], iso[1]);
+
+      const brazilian = raw.match(/^(\d{2})[\/.](\d{2})[\/.](\d{4})$/);
+      if (brazilian) return formatParts(brazilian[1], brazilian[2], brazilian[3]);
+
+      // Converte explicitamente meses abreviados em inglês, sem depender do idioma do navegador.
+      const englishMonths = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+      const english = raw.match(/^(?:(?:mon|tue|wed|thu|fri|sat|sun)\s+)?([a-z]{3})\s+(\d{1,2})\s+(\d{4})\b/i);
+      if (english) {
+        const month = englishMonths[english[1].toLowerCase()];
+        if (month) return formatParts(english[2], month, english[3]);
+      }
+
+      // Último recurso para outros formatos de data válidos; a saída continua numérica e pt-BR.
+      const parsed = new Date(raw);
+      return Number.isNaN(parsed.getTime())
+        ? raw
+        : formatParts(parsed.getDate(), parsed.getMonth() + 1, parsed.getFullYear());
     }
 
     function versionBR(value) {
@@ -495,12 +509,9 @@
 
     function renderVersionInfo() {
       const m = state.manifest || DEFAULT_MANIFEST;
-      const pubDate = dateBR(m.publicationDate || '2026-11-12');
-      const last = dateBR(m.lastOfficialUpdate || m.publicationDate || '2026-11-12');
-      
+      const last = dateBR(m.lastOfficialUpdate || m.publicationDate);
       $('versionTag').textContent = `Base ${versionBR(m.dataVersion || DEFAULT_MANIFEST.dataVersion)}`;
-      $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação de ${pubDate}`;
-      
+      $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação ${dateBR(m.publicationDate)}`;
       const amendments = Array.isArray(m.retifications) ? m.retifications : [];
       $('historyState').textContent = amendments.length
         ? `${amendments.length} retificação(ões) incorporada(s) · última atualização ${last}`
