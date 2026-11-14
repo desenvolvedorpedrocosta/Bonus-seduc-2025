@@ -4,37 +4,37 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#10233f">
-  <meta name="description" content="Consulta pública dos resultados da Bonificação por Resultados BR 2025 por escola e Unidade Regional de Ensino, conforme a Resolução SEDUC nº 106/2026.">
-  <title>Consulta BR 2025 | Escolas e UREs</title>
+  <meta name="description" content="Consulta independente dos resultados oficiais BR 2025 por escola, URE e, quando incorporado, disciplina-série.">
+  <title>Consulta BR 2025 | Resultados oficiais</title>
   <style>
     :root{
-      --navy:#10233f;--navy2:#183657;--blue:#176b9a;--cyan:#dff4f8;--teal:#0f766e;
-      --ink:#152238;--muted:#64748b;--line:#e2e8f0;--paper:#f4f7fb;--white:#fff;
-      --gold:#a16207;--goldbg:#fff6d9;--green:#13795b;--greenbg:#e2f7ee;
-      --red:#b42318;--redbg:#fff0ee;--shadow:0 14px 38px rgba(15,35,63,.10);
-      --radius:18px;--focus:0 0 0 3px rgba(14,165,233,.22)
+      --navy:#1b3933;--navy2:#2a554b;--blue:#52786d;--cyan:#eaf1ec;--teal:#317163;
+      --ink:#26342f;--muted:#68766f;--line:#dfe6df;--paper:#f4f6f1;--white:#fff;
+      --gold:#946b35;--goldbg:#f8f1e4;--green:#236b4c;--greenbg:#e8f3ec;
+      --red:#ad3d35;--redbg:#fff0ed;--shadow:0 14px 38px rgba(27,57,51,.09);
+      --radius:16px;--focus:0 0 0 3px rgba(77,127,111,.20)
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;text-size-adjust:100%}
-    body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.45;min-width:320px}
+    body{margin:0;background:var(--paper);color:var(--ink);font-family:"Aptos","Segoe UI Variable","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;line-height:1.45;min-width:320px}
     button,input,select{font:inherit}
     button,a,select{touch-action:manipulation}
     button{cursor:pointer}
     a{color:inherit}
     .wrap{width:min(1200px,calc(100% - 36px));margin-inline:auto}
-    .hero{background:radial-gradient(circle at 85% 10%,rgba(22,130,160,.32),transparent 30%),linear-gradient(118deg,#10233f,#163d5b 74%,#11546a);color:#fff;padding:28px 0 32px;position:relative;overflow:hidden}
+    .hero{background:radial-gradient(circle at 87% 8%,rgba(190,157,99,.20),transparent 31%),linear-gradient(118deg,#183730,#28564b 72%,#486c5b);color:#fff;padding:28px 0 32px;position:relative;overflow:hidden}
     .hero:after{content:"";position:absolute;width:370px;height:370px;border:1px solid rgba(255,255,255,.09);border-radius:50%;right:-150px;bottom:-265px;box-shadow:0 0 0 35px rgba(255,255,255,.025),0 0 0 75px rgba(255,255,255,.02)}
     .hero-inner{position:relative;z-index:1}
     .topline{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;flex-wrap:wrap}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.01em}
-    .brand-mark{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,.14);display:grid;place-items:center;border:1px solid rgba(255,255,255,.19);font-weight:900;font-size:17px}
-    .source-tag{font-size:11px;font-weight:750;letter-spacing:.09em;text-transform:uppercase;color:#c7f3f4;background:rgba(13,148,136,.18);border:1px solid rgba(153,246,228,.25);padding:7px 11px;border-radius:999px}
-    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:#95dbe5;font-weight:800;margin:0 0 7px}
+    .brand-mark{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.10);display:grid;place-items:center;border:1px solid rgba(210,184,133,.52);font-weight:900;font-size:17px;color:#f1dfb8}
+    .source-tag{font-size:11px;font-weight:750;letter-spacing:.07em;text-transform:uppercase;color:#f0dfbc;background:rgba(182,145,82,.13);border:1px solid rgba(220,191,139,.32);padding:7px 11px;border-radius:999px}
+    .eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.13em;color:#d2bd91;font-weight:800;margin:0 0 7px}
     h1{font-size:clamp(27px,4vw,42px);letter-spacing:-.035em;line-height:1.08;margin:0;max-width:790px}
-    .lede{font-size:14px;color:#d5e7f1;max-width:790px;margin:12px 0 0;line-height:1.65}
+    .lede{font-size:14px;color:#e0eae3;max-width:790px;margin:12px 0 0;line-height:1.65}
     .hero-links{display:flex;gap:9px;flex-wrap:wrap;margin-top:19px}
-    .hero-link{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(255,255,255,.23);color:#f2fbff;background:rgba(255,255,255,.08);padding:9px 12px;border-radius:11px;text-decoration:none;font-size:12px;font-weight:700;transition:.18s ease}
-    .hero-link:hover{background:rgba(255,255,255,.16);transform:translateY(-1px)}
+    .hero-link{display:inline-flex;align-items:center;gap:7px;border:1px solid rgba(220,191,139,.35);color:#f7f3e9;background:rgba(255,255,255,.07);padding:9px 12px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:700;transition:.18s ease}
+    .hero-link:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
     main{padding:22px 0 48px}
     .statusline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 13px;font-size:12px;color:var(--muted)}
     .live-state{display:inline-flex;align-items:center;gap:8px;font-weight:700}
@@ -73,7 +73,7 @@
     .result-count{font-size:13px;font-weight:850;color:var(--navy)}
     .result-hint{font-size:11px;color:var(--muted)}
     .list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;margin:0;list-style:none}
-    .school-card{width:100%;height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px 15px;color:inherit;box-shadow:0 2px 10px rgba(15,35,63,.025);transition:border .16s,box-shadow .16s,transform .16s}
+    .school-card{width:100%;height:100%;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;text-align:left;border:1px solid var(--line);background:#fff;border-radius:13px;padding:14px 15px;color:inherit;box-shadow:0 2px 10px rgba(27,57,51,.025);transition:border .16s,box-shadow .16s,transform .16s}
     .school-card:hover{border-color:#b5d8e3;box-shadow:0 9px 22px rgba(15,35,63,.07);transform:translateY(-1px)}
     .school-main{min-width:0}
     .school-name{display:block;font-size:13px;font-weight:850;color:#172a43;line-height:1.35;overflow-wrap:anywhere}
@@ -135,8 +135,50 @@
     @media(max-width:1050px){.kpis{grid-template-columns:repeat(3,minmax(0,1fr))}.field-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.field.search-field{grid-column:span 3}}
     @media(max-width:760px){.wrap{width:min(100% - 24px,650px)}.hero{padding:20px 0 25px}.topline{margin-bottom:16px}.brand{font-size:12px}.brand-mark{width:34px;height:34px}.source-tag{font-size:9px}.lede{font-size:12px}.hero-links{gap:7px}.hero-link{font-size:10px;padding:8px 9px}.kpis{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.kpi{padding:12px}.kpi-label{font-size:9px;min-height:23px}.kpi-value{font-size:24px}.kpi-note{font-size:9px}.search-panel{padding:13px}.field-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.field.search-field{grid-column:span 2}.control{height:46px;font-size:16px}.list{grid-template-columns:1fr;gap:8px}.school-card{padding:13px}.school-name{font-size:12px}.lower-grid{grid-template-columns:1fr;gap:11px;margin-top:20px}.info-panel{padding:15px}.result-head{margin-top:14px}.dlg-top{padding:14px}.dlg-content{padding:14px}.dlg-top h2{font-size:16px}.sum-grid{gap:4px}.sum-cell{padding:9px 4px}.sum-cell b{font-size:17px}.sum-cell span{font-size:8px}.kv{font-size:10px}}
     @media(max-width:390px){.wrap{width:calc(100% - 18px)}.field-grid{grid-template-columns:1fr}.field.search-field{grid-column:auto}.filter-bottom{align-items:flex-start}.chips{gap:5px}.chip{font-size:10px;padding:6px 9px}.icm-badge{min-width:65px}.icm-badge b{font-size:17px}.hero-link{flex:1}.kv{grid-template-columns:1fr auto;gap:7px}.ure-kpis{grid-template-columns:1fr 1fr}.ure-kpis div:last-child{grid-column:span 2}}
+
+    .version-line{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:11px;color:#d2e0d7;font-size:10px}
+    .version-line .version-pill{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(220,191,139,.28);background:rgba(13,36,30,.20);border-radius:999px;padding:5px 9px;color:#f0e4ca;font-weight:750}
+    .version-line .version-pill:before{content:"";width:6px;height:6px;border-radius:50%;background:#c8a96c}
+    .data-panel{padding:17px;margin-top:16px}
+    .discipline-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .discipline-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}
+    .discipline-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff;min-width:0}
+    .discipline-card h3{font-size:12px;margin:0;color:var(--navy);line-height:1.45}
+    .discipline-meta{font-size:10px;color:var(--muted);margin-top:4px;line-height:1.5}
+    .discipline-score{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:9px;padding:8px 9px;background:#f2f6f2;border:1px solid #e1e9e1;border-radius:10px}
+    .discipline-score b{font-size:19px;letter-spacing:-.03em;color:var(--navy)}
+    .discipline-score span{font-size:9px;font-weight:800;color:#5b7065;text-transform:uppercase}
+    .discipline-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 12px;margin:9px 0 0;font-size:10px}
+    .discipline-detail dt{color:#718078}.discipline-detail dd{margin:0;text-align:right;font-weight:800;color:#34463d}
+    .manager-panel{margin-top:14px;border:1px solid #dce6dc;background:#f7faf6;border-radius:13px;padding:13px}
+    .manager-panel h3{font-size:12px;color:var(--navy);margin:0 0 9px}
+    .manager-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+    .manager-metric{background:#fff;border:1px solid #e2e9e1;border-radius:10px;padding:9px;min-width:0}
+    .manager-metric span{display:block;color:#718078;font-size:9px;font-weight:750;text-transform:uppercase;line-height:1.35}
+    .manager-metric b{display:block;color:#254b40;font-size:15px;margin-top:4px;font-variant-numeric:tabular-nums}
+    .manager-status{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
+    .manager-status .tag{font-size:9px}
+    .simulator{padding:17px;margin-top:16px}
+    .sim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .sim-slot{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fff;min-width:0}
+    .sim-slot h3{font-size:12px;color:var(--navy);margin:0 0 10px}
+    .sim-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .sim-fields .field label{font-size:10px}
+    .sim-fields .control{height:39px;font-size:13px}
+    .sim-readout{font-size:10px;color:#6d7c72;margin-top:8px;min-height:16px;line-height:1.45}
+    .sim-result{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-top:12px;background:#203f36;color:#fff;border-radius:12px;padding:13px 15px}
+    .sim-result span{display:block;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:#d1dfd5;font-weight:800}
+    .sim-result strong{display:block;font-size:24px;letter-spacing:-.035em;margin-top:3px;font-variant-numeric:tabular-nums}
+    .sim-result small{display:block;color:#c4d4c8;font-size:9px;text-align:right;line-height:1.5;max-width:210px}
+    .formula-note{font-size:10px;color:#6c7b71;line-height:1.65;margin-top:10px}
+    .formula-note a{color:#3d6d5c}
+    .pill-yes{color:#236b4c!important}.pill-no{color:#ad3d35!important}
+    .panel-warning{border-left:3px solid #b68d4d;background:#faf5e9;color:#76603b}
+    @media(max-width:900px){.discipline-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.manager-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:760px){.discipline-results{grid-template-columns:1fr}.sim-grid{grid-template-columns:1fr}.data-panel,.simulator{padding:13px}.manager-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:390px){.discipline-grid{grid-template-columns:1fr}.sim-fields{grid-template-columns:1fr}.manager-grid{grid-template-columns:1fr 1fr}.sim-result{grid-template-columns:1fr}.sim-result small{text-align:left;max-width:none}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
-    @media print{body{background:#fff}.hero{background:#fff;color:#111;padding:10px 0}.hero:after,.hero-links,.search-panel,.more-wrap,.footer,.dlg-actions{display:none!important}.lede{color:#333}.panel,.school-card{box-shadow:none}.list{grid-template-columns:1fr 1fr}.school-card{break-inside:avoid}}
+    @media print{@page{size:A4;margin:9mm}body{background:#fff}.hero,main>.statusline,main>.kpis,main>.search-panel,main>.result-head,main>.list,main>.more-wrap,main>.lower-grid,main>#disciplinePanel,main>#bonusSimulator,main>section:not(#ureSection),.footer{display:none!important}#detailDialog[open]{display:block!important;position:static!important;inset:auto!important;width:100%!important;max-width:none!important;max-height:none!important;margin:0!important;padding:0!important;overflow:visible!important;box-shadow:none!important;border-radius:0!important}#detailDialog::backdrop{display:none!important}.dialog-scroll{max-height:none!important;overflow:visible!important}.dlg-top{position:static!important;padding:0 0 7px!important}.dlg-content{padding:8px 0!important}.dlg-actions{display:none!important}.component,.ure-summary,.verdict,.sum-grid{break-inside:avoid;page-break-inside:avoid}}
   </style>
 </head>
 <body>
@@ -144,15 +186,15 @@
     <div class="wrap hero-inner">
       <div class="topline">
         <div class="brand"><span class="brand-mark">BR</span><span>PAINEL DE CONSULTA EDUCACIONAL</span></div>
-        <span class="source-tag">Base documental · BR 2025</span>
+        <span class="source-tag" id="versionTag">Base oficial · BR 2025</span>
       </div>
       <p class="eyebrow">Bonificação por Resultados · exercício 2025</p>
       <h1>Consulta de resultados por escola e URE</h1>
       <p class="lede">Consulte os índices oficiais publicados para SARESP / Provão Paulista e SAEB, confira os gatilhos de frequência e participação e entenda a composição do ICM final.</p>
       <div class="hero-links">
-        <a class="hero-link" href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">↗ Diário Oficial · Resolução 106/2026</a>
-        <a class="hero-link" href="https://drive.google.com/file/d/1NNcRziv5osRaGyPnDXuP5zeIBnBTXApY/view?usp=sharing" target="_blank" rel="noopener">↗ PDF compartilhado no Drive</a>
+        <a class="hero-link" href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">Consultar publicação oficial no DOE-SP ↗</a>
       </div>
+      <div class="version-line"><span class="version-pill" id="versionState">Resolução SEDUC nº 106/2026 · publicação de 12/11/2026</span><span id="historyState">Versão inicial da base oficial</span></div>
     </div>
   </header>
 
@@ -202,6 +244,20 @@
     <ul class="list" id="schoolList" aria-live="polite"><li class="loading"><div class="spinner"></div><strong>Carregando dados oficiais estruturados</strong>Consultando a base pública de escolas e UREs…</li></ul>
     <div class="more-wrap"><button class="btn primary more" id="showMore" type="button" hidden>Mostrar mais resultados</button></div>
 
+    <section class="panel data-panel" id="disciplinePanel" aria-label="Consulta por disciplina e série">
+      <div class="section-head">
+        <div><h2>Consulta por disciplina e série · resultado do professor</h2><p>Consulta separada por avaliação, componente curricular e ano/série, conforme o Anexo Disciplina-Série da Resolução SEDUC nº 106/2026.</p></div>
+      </div>
+      <div class="discipline-grid">
+        <div class="field"><label for="disciplineSchool">Escola, CIE ou INEP</label><input class="control" id="disciplineSchool" list="disciplineSchoolOptions" placeholder="Digite nome ou código"><datalist id="disciplineSchoolOptions"></datalist></div>
+        <div class="field"><label for="disciplineSystem">Avaliação</label><select class="control" id="disciplineSystem"><option value="">Todas</option><option value="SARESP">SARESP / Provão Paulista</option><option value="SAEB">SAEB</option></select></div>
+        <div class="field"><label for="disciplineSubject">Disciplina</label><select class="control" id="disciplineSubject"><option value="">Todas</option></select></div>
+        <div class="field"><label for="disciplineSeries">Ano / série</label><select class="control" id="disciplineSeries"><option value="">Todos</option></select></div>
+      </div>
+      <div class="filter-bottom"><span class="tiny" id="disciplineState">Verificando o Anexo Disciplina-Série…</span><button class="btn" id="clearDisciplineFilters" type="button">Limpar consulta</button></div>
+      <div class="discipline-results" id="disciplineResults"><div class="loading"><strong>Consulta específica</strong>Os dados só serão exibidos após a incorporação do anexo oficial.</div></div>
+    </section>
+
     <div class="lower-grid">
       <section class="panel info-panel">
         <h2>Como interpretar o resultado</h2>
@@ -224,9 +280,44 @@
       </section>
     </div>
 
-    <section class="panel info-panel" style="margin-top:14px">
+    <section class="panel info-panel" id="ureSection" style="margin-top:14px">
       <div class="section-head"><div><h2>Resultados consolidados por URE</h2><p>Valores consolidados publicados no Anexo SEDUC/URE. Selecione uma URE para filtrar as escolas correspondentes.</p></div><button class="btn" id="downloadUres" type="button">↓ Baixar UREs (CSV)</button></div>
       <div class="ure-list" id="ureList"><div class="loading">Aguardando a base consolidada das UREs…</div></div>
+    </section>
+
+    <section class="panel simulator" id="bonusSimulator" aria-label="Simulador de Bonificação por Resultados">
+      <div class="section-head">
+        <div><h2>Simulador de BR 2025 · acúmulo de cargo</h2><p>Informe até dois vínculos para visualizar uma estimativa bruta individualizada e o total combinado.</p></div>
+      </div>
+      <div class="sim-grid">
+        <div class="sim-slot" data-slot="1">
+          <h3>Vínculo / escola 1</h3>
+          <div class="sim-fields">
+            <div class="field" style="grid-column:1/-1"><label for="simSchool1">Escola de exercício</label><select class="control sim-school" id="simSchool1"><option value="">Selecione uma escola (opcional)</option></select></div>
+            <div class="field"><label for="simHours1">Jornada / carga horária</label><input class="control" id="simHours1" placeholder="Ex.: 25h ou 40h"></div>
+            <div class="field"><label for="simSalary1">Retribuição mensal computável (R$)</label><input class="control sim-calc" id="simSalary1" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></div>
+            <div class="field"><label for="simMonths1">Meses remunerados no período</label><input class="control sim-calc" id="simMonths1" type="number" min="0" max="8" step="0.5" value="8"></div>
+            <div class="field"><label for="simExpected1">Dias previstos de exercício</label><input class="control sim-calc" id="simExpected1" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"></div>
+            <div class="field"><label for="simWorked1">Dias de efetivo exercício</label><input class="control sim-calc" id="simWorked1" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"></div>
+          </div>
+          <div class="sim-readout" id="simReadout1">A jornada é informativa; a remuneração mensal deve refletir o vínculo informado.</div>
+        </div>
+        <div class="sim-slot" data-slot="2">
+          <h3>Vínculo / escola 2 (opcional)</h3>
+          <div class="sim-fields">
+            <div class="field" style="grid-column:1/-1"><label for="simSchool2">Escola de exercício</label><select class="control sim-school" id="simSchool2"><option value="">Não adicionar segundo vínculo</option></select></div>
+            <div class="field"><label for="simHours2">Jornada / carga horária</label><input class="control" id="simHours2" placeholder="Ex.: 20h ou 30h"></div>
+            <div class="field"><label for="simSalary2">Retribuição mensal computável (R$)</label><input class="control sim-calc" id="simSalary2" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></div>
+            <div class="field"><label for="simMonths2">Meses remunerados no período</label><input class="control sim-calc" id="simMonths2" type="number" min="0" max="8" step="0.5" value="8"></div>
+            <div class="field"><label for="simExpected2">Dias previstos de exercício</label><input class="control sim-calc" id="simExpected2" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"></div>
+            <div class="field"><label for="simWorked2">Dias de efetivo exercício</label><input class="control sim-calc" id="simWorked2" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"></div>
+          </div>
+          <div class="sim-readout" id="simReadout2">O segundo vínculo é opcional e pode ter carga horária e dias próprios.</div>
+        </div>
+      </div>
+      <div class="sim-result"><div><span>Estimativa bruta combinada</span><strong id="simTotal">Preencha os dados</strong></div><small id="simBreakdown">Parâmetros oficiais: 16,67% · IACM SEDUC 0,72</small></div>
+      <p class="formula-note"><strong>Fórmula de referência:</strong> percentual de 16,67% × soma da retribuição mensal computável no período × IACM 0,72 × índice individual de dias de efetivo exercício. A regra de elegibilidade exige participação mínima de 2/3 do período. Informe os dias previstos e efetivos de cada vínculo separadamente. <a href="https://www.al.sp.gov.br/repositorio/legislacao/lei.complementar/2021/lei.complementar-1361-21.10.2021.html" target="_blank" rel="noopener">LC 1.361/2021</a> · <a href="https://www.al.sp.gov.br/repositorio/legislacao/decreto/2026/decreto-70530-14.04.2026.html" target="_blank" rel="noopener">Decreto 70.530/2026</a>.</p>
+      <p class="formula-note panel-warning" style="padding:9px 11px;border-radius:0 9px 9px 0"><strong>Importante:</strong> esta é uma simulação bruta com base nos parâmetros gerais publicados. Não calcula eventual adicional específico, ajuste orçamentário, compensação de adiantamentos ou particularidades de acumulação/afastamento. A remuneração deve excluir as parcelas não computáveis previstas no art. 5º, VI, da LC 1.361/2021. Confirme o valor definitivo com o RH/holerite.</p>
     </section>
 
     <footer class="footer">
@@ -268,12 +359,15 @@
 
     /* Opcional: informe um ID de medição GA4 (G-XXXXXXXXXX) para contar acessos.
        Deixe vazio para manter a ferramenta sem analytics. Não coleta nome, CIE, INEP ou texto pesquisado. */
-    const GA4_MEASUREMENT_ID = '';
+    const GA4_MEASUREMENT_ID = 'GTM-W56MFSXX';
+    const DISCIPLINE_DATA_ENDPOINT = './data/disciplinas-series.json';
+    const DEFAULT_MANIFEST = { schemaVersion: 1, dataVersion: '2026.11.12.1', baseLabel: 'Resolução SEDUC nº 106/2026', publicationDate: '2026-11-12', lastOfficialUpdate: '2026-11-12', projectUpdatedAt: '2026-11-14', retifications: [], note: 'Base inicial vinculada à publicação de 12/11/2026.' };
+    const BONUS_RULES = { percent: 0.1667, iacm: 0.72, monthsInEvaluation: 8, minimumParticipation: 2/3 };
 
     const EXPECTED = { schools: 4972, diamond: 1320, partial: 3073, zero: 579, saebFull: 1508 };
     const PAGE_SIZE = 48;
     const $ = (id) => document.getElementById(id);
-    const state = { schools: [], ures: {}, filtered: [], visible: PAGE_SIZE, status: '', dataOrigin: '', selectedSchool: null };
+    const state = { schools: [], ures: {}, filtered: [], visible: PAGE_SIZE, status: '', dataOrigin: '', selectedSchool: null, manifest: DEFAULT_MANIFEST, disciplineRecords: [], disciplineAvailable: false };
     const fold = (value) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
     const num = (value) => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
     const fmt = (value, digits = 2) => { const n = num(value); return n === null ? '—' : n.toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits }); };
@@ -297,6 +391,227 @@
         } catch (error) { lastError = error; }
       }
       throw lastError || new Error('Não foi possível obter o arquivo de dados.');
+    }
+
+
+    function dateBR(value) {
+      if (!value) return 'não informada';
+      const d = new Date(`${String(value).slice(0,10)}T12:00:00`);
+      return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleDateString('pt-BR');
+    }
+
+    async function loadManifest() {
+      try {
+        const response = await fetch(`./data/manifest.json?v=${Date.now()}`, { cache: 'no-store', headers: { 'Accept':'application/json' } });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const incoming = await response.json();
+        if (!incoming || typeof incoming !== 'object' || Array.isArray(incoming)) throw new Error('manifesto inválido');
+        state.manifest = { ...DEFAULT_MANIFEST, ...incoming };
+      } catch (_) { state.manifest = DEFAULT_MANIFEST; }
+      renderVersionInfo();
+      return state.manifest;
+    }
+
+    function renderVersionInfo() {
+      const m = state.manifest || DEFAULT_MANIFEST;
+      const last = dateBR(m.lastOfficialUpdate || m.publicationDate);
+      $('versionTag').textContent = `Base ${m.dataVersion || DEFAULT_MANIFEST.dataVersion}`;
+      $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação ${dateBR(m.publicationDate)}`;
+      const amendments = Array.isArray(m.retifications) ? m.retifications : [];
+      $('historyState').textContent = amendments.length
+        ? `${amendments.length} retificação(ões) incorporada(s) · última atualização ${last}`
+        : `Última atualização oficial incorporada: ${last}`;
+    }
+
+    async function loadDisciplineData() {
+      const status = $('disciplineState');
+      const results = $('disciplineResults');
+      try {
+        const version = encodeURIComponent(state.manifest.dataVersion || '1');
+        const response = await fetch(`${DISCIPLINE_DATA_ENDPOINT}?v=${version}`, { cache: 'no-store', headers: { 'Accept':'application/json' } });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const payload = await response.json();
+        const records = Array.isArray(payload) ? payload : (Array.isArray(payload?.records) ? payload.records : []);
+        state.disciplineRecords = records.map(normalizeDisciplineRecord).filter(r => r.cie && r.disciplina && r.serie && num(r.icm) !== null);
+        state.disciplineAvailable = state.disciplineRecords.length > 0;
+        if (!state.disciplineAvailable) {
+          status.textContent = 'Anexo Disciplina-Série ainda não incorporado à base local. Nenhuma nota ou ICM foi inventado.';
+          results.innerHTML = '<div class="empty"><strong>Consulta por disciplina/série aguardando a fonte original</strong>Para ativar esta área, é necessário incorporar o PDF oficial do Anexo Disciplina-Série em registros estruturados. Enquanto isso, os resultados gerais por escola e URE continuam disponíveis normalmente.</div>';
+          return;
+        }
+        fillDisciplineFilters();
+        status.textContent = `${intFmt(state.disciplineRecords.length)} resultados disciplina-série carregados do arquivo oficial estruturado.`;
+        renderDisciplineResults();
+      } catch (error) {
+        state.disciplineAvailable = false;
+        status.textContent = 'Arquivo data/disciplinas-series.json não encontrado ou indisponível.';
+        results.innerHTML = '<div class="empty"><strong>Dados disciplina-série não disponíveis</strong>A consulta não apresenta resultados estimados. Disponibilize o Anexo Disciplina-Série e converta seus registros para o formato documentado no LEIA-ME.</div>';
+      }
+    }
+
+    function normalizeDisciplineRecord(raw) {
+      const r = raw || {};
+      const school = state.schools.find(s => String(s.cie) === String(r.cie ?? r.CIE ?? r.codigoCIE ?? ''));
+      return {
+        cie: String(r.cie ?? r.CIE ?? r.codigoCIE ?? ''),
+        escola: String(r.escola ?? r.nome ?? r.unidade ?? school?.nome ?? ''),
+        ure: String(r.ure ?? school?.ure ?? ''),
+        sistema: String(r.sistema ?? r.avaliacao ?? r.avaliação ?? ''),
+        disciplina: String(r.disciplina ?? r.componente ?? r.componenteCurricular ?? ''),
+        serie: String(r.serie ?? r.anoSerie ?? r.ano_série ?? r.ano ?? ''),
+        notaBase: num(r.notaBase ?? r.nota_base ?? r.linhaBase),
+        notaFinal: num(r.notaFinal ?? r.nota_final ?? r.nf),
+        metaOuro: num(r.metaOuro ?? r.meta_ouro),
+        metaDiamante: num(r.metaDiamante ?? r.meta_diamante),
+        ic: num(r.ic ?? r.indiceCumprimento),
+        icm: num(r.icm ?? r.icmDisciplinaSerie),
+        ifa: num(r.ifa), ifaMeta: num(r.ifaMeta ?? r.ifa_meta),
+        ifaOk: typeof r.ifaOk === 'boolean' ? r.ifaOk : (typeof r.ifa_ok === 'boolean' ? r.ifa_ok : null),
+        tpss: num(r.tpss ?? r.tps ?? r.participacao),
+        tpssMeta: num(r.tpssMeta ?? r.tpss_meta ?? r.tpsMeta),
+        tpssOk: typeof r.tpssOk === 'boolean' ? r.tpssOk : (typeof r.tpss_ok === 'boolean' ? r.tpss_ok : null),
+        alunos: num(r.alunos ?? r.totalAlunos ?? r.participantes)
+      };
+    }
+
+    function fillDisciplineFilters() {
+      const rows = state.disciplineRecords;
+      const subjects = [...new Set(rows.map(r => r.disciplina).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      const series = [...new Set(rows.map(r => r.serie).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      $('disciplineSubject').innerHTML = '<option value="">Todas</option>' + subjects.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+      $('disciplineSeries').innerHTML = '<option value="">Todos</option>' + series.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
+      $('disciplineSchoolOptions').innerHTML = state.schools.map(s=>`<option value="${esc(s.nome)} · CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '')}"></option>`).join('');
+    }
+
+    function renderDisciplineResults() {
+      if (!state.disciplineAvailable) return;
+      const schoolQuery = fold($('disciplineSchool').value.trim());
+      const sys = $('disciplineSystem').value;
+      const subject = $('disciplineSubject').value;
+      const series = $('disciplineSeries').value;
+      let rows = state.disciplineRecords.filter(r => {
+        const evalKey = fold(r.sistema);
+        if (sys === 'SAEB' && !evalKey.includes('SAEB')) return false;
+        if (sys === 'SARESP' && !(evalKey.includes('SARESP') || evalKey.includes('PROVAO'))) return false;
+        if (subject && r.disciplina !== subject) return false;
+        if (series && r.serie !== series) return false;
+        if (!schoolQuery) return true;
+        return fold(r.escola).includes(schoolQuery) || r.cie.includes(schoolQuery.replace(/\D/g,'')) || fold(r.ure).includes(schoolQuery);
+      });
+      rows.sort((a,b)=>a.escola.localeCompare(b.escola,'pt-BR') || a.serie.localeCompare(b.serie,'pt-BR') || a.disciplina.localeCompare(b.disciplina,'pt-BR'));
+      $('disciplineState').textContent = `${intFmt(rows.length)} registro(s) disciplina-série encontrados de ${intFmt(state.disciplineRecords.length)} na base.`;
+      if (!rows.length) {
+        $('disciplineResults').innerHTML = '<div class="empty"><strong>Nenhum resultado encontrado</strong>Altere escola, sistema, disciplina ou ano/série.</div>';
+        return;
+      }
+      $('disciplineResults').innerHTML = rows.slice(0,120).map(r => {
+        const im = r.icm;
+        const gate = (v) => v === true ? '<span class="pill-yes">Cumprido</span>' : v === false ? '<span class="pill-no">Não cumprido</span>' : 'Não informado';
+        return `<article class="discipline-card"><h3>${esc(r.disciplina)} · ${esc(r.serie)}</h3><div class="discipline-meta">${esc(r.escola)} · CIE ${esc(r.cie)} · ${esc(r.ure || 'URE não informada')} · ${esc(r.sistema || 'Avaliação não informada')}</div><div class="discipline-score"><div><span>ICM disciplina-série</span><b>${fmt(im,3)}</b></div><b>${fmt(im*100,1)}%</b></div><dl class="discipline-detail"><dt>Nota final</dt><dd>${fmt(r.notaFinal,2)}</dd><dt>Nota base</dt><dd>${fmt(r.notaBase,2)}</dd><dt>Meta Ouro</dt><dd>${fmt(r.metaOuro,2)}</dd><dt>Meta Diamante</dt><dd>${fmt(r.metaDiamante,2)}</dd><dt>Índice de Cumprimento (IC)</dt><dd>${fmt(r.ic,3)}</dd><dt>IFA / meta</dt><dd>${r.ifa == null ? '—' : fmt(r.ifa,1)+'%'} / ${r.ifaMeta == null ? '—' : fmt(r.ifaMeta,1)+'%'}</dd><dt>TPSS / meta</dt><dd>${r.tpss == null ? '—' : fmt(r.tpss,1)+'%'} / ${r.tpssMeta == null ? '—' : fmt(r.tpssMeta,1)+'%'}</dd><dt>Participantes</dt><dd>${r.alunos == null ? '—' : intFmt(r.alunos)}</dd><dt>Gatilho IFA</dt><dd>${gate(r.ifaOk)}</dd><dt>Gatilho TPSS</dt><dd>${gate(r.tpssOk)}</dd></dl></article>`;
+      }).join('') + (rows.length > 120 ? `<div class="empty">Mostrando os primeiros 120 resultados. Refine os filtros para reduzir a lista.</div>` : '');
+    }
+
+    function gapText(note, target) {
+      const a = num(note), b = num(target);
+      if (a === null || b === null) return 'Não informado';
+      const gap = b - a;
+      return gap <= 0 ? `Meta atingida (+${fmt(Math.abs(gap),2)} ponto${Math.abs(gap) === 1 ? '' : 's'})` : `Faltam ${fmt(gap,2)} ponto(s)`;
+    }
+
+    function managerPanelHtml(s, u) {
+      const delta = u && num(u.icm) !== null ? (num(s.icm)||0) - num(u.icm) : null;
+      const ifa = typeof s.ifaOk === 'boolean' ? (s.ifaOk ? 'Cumprido' : 'Não cumprido') : 'Não informado';
+      const tpsS = typeof s.tpsSrspOk === 'boolean' ? (s.tpsSrspOk ? 'Cumprido' : 'Não cumprido') : 'Não informado';
+      const tpsB = s.base === 'SARESP' ? 'Não se aplica' : (typeof s.tpsSaebOk === 'boolean' ? (s.tpsSaebOk ? 'Cumprido' : 'Não cumprido') : 'Não informado');
+      return `<section class="manager-panel"><h3>Painel gerencial · escola e URE</h3><div class="manager-grid"><div class="manager-metric"><span>Distância até Meta Ouro · SARESP</span><b>${esc(gapText(s.nfSrsp,s.metaSrsp))}</b></div><div class="manager-metric"><span>Distância até Meta Diamante · SARESP</span><b>${esc(gapText(s.nfSrsp,s.metaSrspDiam))}</b></div><div class="manager-metric"><span>Distância até Meta Ouro · SAEB</span><b>${esc(s.base==='SARESP'?'Não se aplica':gapText(s.nfSaeb,s.metaSaeb))}</b></div><div class="manager-metric"><span>ICM da escola</span><b>${fmt(s.icm,3)}</b></div><div class="manager-metric"><span>ICM consolidado da URE</span><b>${u && num(u.icm)!==null ? fmt(u.icm,3) : '—'}</b></div><div class="manager-metric"><span>Diferença escola − URE</span><b>${delta===null?'—':(delta>0?'+':'')+fmt(delta*100,1)+' p.p.'}</b></div></div><div class="manager-status"><span class="tag ${s.ifaOk===true?'good':s.ifaOk===false?'bad':'na'}">IFA: ${esc(ifa)}</span><span class="tag ${s.tpsSrspOk===true?'good':s.tpsSrspOk===false?'bad':'na'}">TPSS SARESP: ${esc(tpsS)}</span><span class="tag ${s.base==='SARESP'?'na':s.tpsSaebOk===true?'good':s.tpsSaebOk===false?'bad':'na'}">TPSS SAEB: ${esc(tpsB)}</span></div><p class="why">As distâncias são diferenças entre a nota final publicada e a meta da avaliação, em pontos da escala da nota. A comparação regional usa o ICM consolidado da URE publicado no anexo, não uma média calculada de forma independente nesta página. Campos ausentes permanecem como não informados.</p></section>`;
+    }
+
+    function printDetailReport() {
+      if (!state.selectedSchool) return;
+      const school = state.selectedSchool;
+      const title = esc(school.nome);
+      const meta = $('detailMeta').innerHTML;
+      const clone = $('detailContent').cloneNode(true);
+      const actions = clone.querySelector('.dlg-actions');
+      if (actions) actions.remove();
+      const bodyContent = clone.innerHTML;
+      const w = window.open('', '_blank');
+      if (!w) { alert('O navegador bloqueou a janela de impressão. Autorize pop-ups para este site e tente novamente.'); return; }
+      const printCss = `
+        @page{size:A4 portrait;margin:9mm}
+        *{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+        body{margin:0;color:#26342f;font:9px/1.32 Arial,Helvetica,sans-serif;background:#fff}
+        header{border-bottom:2px solid #b68d4d;padding-bottom:6px;margin-bottom:8px}
+        header .eyebrow{font-size:8px;letter-spacing:1px;text-transform:uppercase;color:#86693d;font-weight:bold;margin:0 0 3px}
+        h1{font-size:17px;line-height:1.15;margin:0;color:#1b3933}
+        .dlg-meta{font-size:8px;color:#68766f;line-height:1.4;margin-top:4px}
+        .dlg-content{padding:0!important}
+        .verdict{padding:7px 9px;border-radius:7px;font-size:9px;line-height:1.4;margin:0 0 7px;background:#edf3ef;border:1px solid #d6e3d9;color:#254b40}
+        .verdict.parc{background:#f8f1e4;border-color:#ead8b5;color:#795b2a}.verdict.zero{background:#fff0ed;border-color:#f1d3cd;color:#8c3029}
+        .sum-grid{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:5px;align-items:center;margin:7px 0}
+        .sum-cell{background:#f4f6f1;border:1px solid #e0e6df;border-radius:6px;padding:6px 4px;text-align:center}
+        .sum-cell b{display:block;font-size:15px;color:#1b3933}.sum-cell span{display:block;font-size:7px;color:#68766f;font-weight:bold;margin-top:2px}.sum-op{font-weight:bold;color:#849087}
+        .component{border:1px solid #dfe6df;border-radius:7px;padding:8px;margin-top:7px;break-inside:avoid;page-break-inside:avoid}
+        .component-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.component h3{font-size:10px;color:#1b3933;margin:0}.component-score{font-size:9px;color:#317163;font-weight:bold}
+        .meter{height:5px;background:#edf1ec;border-radius:10px;margin:5px 0 7px;overflow:hidden}.meter i{display:block;height:100%;background:#4f8b78}
+        .kv{display:grid;grid-template-columns:1fr auto;gap:3px 9px;margin:0;font-size:8px}.kv dt{color:#68766f}.kv dd{margin:0;color:#26342f;font-weight:bold;text-align:right}
+        .why{font-size:7.5px;color:#68766f;line-height:1.35;margin:6px 0 0}
+        .saeb-note{margin:6px 0;padding:7px;background:#f5f7f4;border:1px solid #dfe6df;border-radius:6px;font-size:8px;color:#53645a}
+        .ure-summary{margin-top:7px;padding:7px;border:1px solid #d6e5df;border-radius:7px;background:#f3f8f4;break-inside:avoid}
+        .ure-summary h3,.manager-panel h3{font-size:9px;margin:0 0 5px;color:#1b3933}
+        .ure-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.ure-kpis div{padding:5px;background:#fff;border:1px solid #e0e8e1;border-radius:5px;text-align:center}.ure-kpis b{display:block;font-size:12px;color:#1b3933}.ure-kpis span{font-size:7px;color:#68766f}
+        .manager-panel{margin-top:7px;padding:7px;border:1px solid #dfe6df;border-radius:7px;background:#f7faf6;break-inside:avoid}
+        .manager-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}.manager-metric{border:1px solid #e2e9e1;border-radius:5px;padding:5px;background:#fff}.manager-metric span{font-size:6.5px;color:#718078;text-transform:uppercase;font-weight:bold}.manager-metric b{display:block;font-size:9px;color:#254b40;margin-top:2px}
+        .manager-status{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}.tag{display:inline-block;border-radius:20px;padding:2px 5px;font-size:7px;font-weight:bold;background:#f1f5f2;border:1px solid #dce6dc;color:#526278}.tag.good{background:#e8f3ec;color:#236b4c}.tag.bad{background:#fff0ed;color:#ad3d35}.tag.na{background:#f1f5f9;color:#64748b}
+        .dlg-actions{display:none!important}
+        .print-foot{border-top:1px solid #e2e8e2;margin-top:7px;padding-top:5px;color:#78847d;font-size:7px}
+      `;
+      w.document.open();
+      w.document.write(`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><title>BR 2025 · ${title}</title><style>${printCss}</style></head><body><header><p class="eyebrow">Bonificação por Resultados · exercício 2025</p><h1>${title}</h1><div class="dlg-meta">${meta}</div></header><main class="dlg-content">${bodyContent}</main><div class="print-foot">Consulta independente · Fonte: Resolução SEDUC nº 106/2026 · DOE-SP de 12/11/2026. Em caso de divergência, prevalece a publicação oficial.</div></body></html>`);
+      w.document.close();
+      w.focus();
+      w.addEventListener('afterprint', () => { try { w.close(); } catch (_) {} }, { once:true });
+      setTimeout(() => { try { w.print(); } catch (error) { console.error('Falha ao imprimir detalhamento:', error); } }, 250);
+    }
+
+    function populateSimulatorSchools() {
+      const options = '<option value="">Selecione uma escola (opcional)</option>' + state.schools.map(s => `<option value="${esc(s.cie)}">${esc(s.nome)} · CIE ${esc(s.cie)} · ${esc(s.ure)}</option>`).join('');
+      $('simSchool1').innerHTML = options;
+      $('simSchool2').innerHTML = options.replace('Selecione uma escola (opcional)', 'Não adicionar segundo vínculo');
+    }
+
+    function simulateLink(slot) {
+      const get = id => $(id + slot);
+      const salary = num(get('simSalary').value);
+      const months = num(get('simMonths').value) ?? BONUS_RULES.monthsInEvaluation;
+      const expected = num(get('simExpected').value);
+      const worked = num(get('simWorked').value);
+      const cie = get('simSchool').value;
+      const school = cie ? state.schools.find(s => String(s.cie) === String(cie)) : null;
+      const readout = $('simReadout' + slot);
+      if (salary === null || expected === null || worked === null || expected <= 0 || salary < 0 || worked < 0 || months < 0 || months > BONUS_RULES.monthsInEvaluation) {
+        readout.textContent = 'Informe a retribuição computável, os meses remunerados e os dias previstos/efetivos para calcular este vínculo.';
+        return { complete:false, amount:0, label:`Vínculo ${slot}: dados incompletos` };
+      }
+      const effectiveDays = Math.min(worked, expected);
+      const index = expected > 0 ? effectiveDays / expected : 0;
+      const eligible = index >= BONUS_RULES.minimumParticipation;
+      const remunerationTotal = salary * months;
+      const amount = eligible ? remunerationTotal * BONUS_RULES.percent * BONUS_RULES.iacm * index : 0;
+      const jornada = get('simHours').value.trim();
+      const schoolLabel = school ? `${school.nome} (CIE ${school.cie})` : 'Escola não selecionada';
+      readout.innerHTML = `${esc(schoolLabel)}${jornada ? ' · '+esc(jornada) : ''}${school ? ` · ICM da escola ${fmt(school.icm,3)} (informativo)` : ''}<br>Retribuição no período: ${fmt(remunerationTotal,2)} · Dias efetivos: ${pct(index*100,1)} · Elegibilidade mínima: ${eligible ? '<span class="pill-yes">Atendida</span>' : '<span class="pill-no">Não atendida (2/3)</span>'}`;
+      return { complete:true, amount, eligible, index, remunerationTotal, label:`Vínculo ${slot}` };
+    }
+
+    function calculateSimulator() {
+      const a = simulateLink('1');
+      const b = simulateLink('2');
+      const any = a.complete || b.complete;
+      const total = (a.complete ? a.amount : 0) + (b.complete ? b.amount : 0);
+      $('simTotal').textContent = any ? total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : 'Preencha os dados';
+      const parts = [a,b].filter(x=>x.complete).map(x=>`${x.label}: ${x.amount.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}${x.eligible?'':' (inelegível)'}`);
+      $('simBreakdown').textContent = any ? parts.join(' · ') : 'Parâmetros oficiais: 16,67% · IACM SEDUC 0,72';
     }
 
     function validateData(schools, ures) {
@@ -460,12 +775,13 @@
       if (u) {
         html += `<section class="ure-summary"><h3>Resultado consolidado da URE ${esc(s.ure)}</h3><div class="ure-kpis"><div><b>${fmt(u.icmSrsp)}</b><span>ICM SARESP</span></div><div><b>${fmt(u.icmSaeb)}</b><span>ICM SAEB</span></div><div><b>${fmt(u.icm)}</b><span>ICM URE</span></div></div><p class="why">Este é o resultado regional consolidado, não uma substituição automática do resultado próprio desta escola. A atribuição às unidades sem meta própria depende do enquadramento normativo correspondente.</p></section>`;
       }
+      html += managerPanelHtml(s, u);
       html += `<div class="dlg-actions"><button class="btn" type="button" id="printDetail">Imprimir detalhamento</button><button class="btn soft" type="button" id="copySchoolLink">Copiar link desta escola</button></div>`;
       $('detailContent').innerHTML = html;
       if (updateHash) history.replaceState(null, '', '#' + encodeURIComponent(String(s.cie)));
       const dlg = $('detailDialog');
       if (!dlg.open) dlg.showModal();
-      $('printDetail').addEventListener('click', () => window.print());
+      $('printDetail').addEventListener('click', printDetailReport);
       $('copySchoolLink').addEventListener('click', async () => {
         const link = location.href.split('#')[0] + '#' + encodeURIComponent(String(s.cie));
         try { await navigator.clipboard.writeText(link); $('copySchoolLink').textContent = 'Link copiado'; }
@@ -524,6 +840,13 @@
       $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
       $('closeDialog').addEventListener('click', () => $('detailDialog').close());
       $('detailDialog').addEventListener('click', e => { if(e.target === $('detailDialog')) $('detailDialog').close(); });
+      ['disciplineSchool','disciplineSystem','disciplineSubject','disciplineSeries'].forEach(id => $(id).addEventListener(id==='disciplineSchool'?'input':'change', renderDisciplineResults));
+      $('clearDisciplineFilters').addEventListener('click', () => { $('disciplineSchool').value='';$('disciplineSystem').value='';$('disciplineSubject').value='';$('disciplineSeries').value='';renderDisciplineResults(); });
+      document.querySelectorAll('.sim-calc').forEach(input => input.addEventListener('input', calculateSimulator));
+      document.querySelectorAll('.sim-school').forEach(input => input.addEventListener('change', calculateSimulator));
+      document.querySelectorAll('#simHours1,#simHours2').forEach(input => input.addEventListener('input', calculateSimulator));
+      $('simSchool1').addEventListener('change', () => { const s=state.schools.find(x=>String(x.cie)===String($('simSchool1').value)); if(s && !$('simHours1').value) $('simHours1').value=s.jornada||''; calculateSimulator(); });
+      $('simSchool2').addEventListener('change', () => { const s=state.schools.find(x=>String(x.cie)===String($('simSchool2').value)); if(s && !$('simHours2').value) $('simHours2').value=s.jornada||''; calculateSimulator(); });
       $('detailDialog').addEventListener('close', () => { if(location.hash)history.replaceState(null,'',location.pathname+location.search); });
     }
 
@@ -535,11 +858,17 @@
 
     async function init() {
       setupEvents();setupAnalytics();
+      await loadManifest();
       try {
-        const [schools, ures] = await Promise.all([fetchJsonFromCandidates(DATA_ENDPOINTS.escolas),fetchJsonFromCandidates(DATA_ENDPOINTS.ures)]);
+        const revision = encodeURIComponent(state.manifest.dataVersion || '1');
+        const revisioned = endpoints => endpoints.map(url => `${url}${url.includes('?')?'&':'?'}v=${revision}`);
+        const [schools, ures] = await Promise.all([fetchJsonFromCandidates(revisioned(DATA_ENDPOINTS.escolas)),fetchJsonFromCandidates(revisioned(DATA_ENDPOINTS.ures))]);
         validateData(schools, ures);
         state.schools = schools; state.ures = ures;
         prepareData();
+        populateSimulatorSchools();
+        await loadDisciplineData();
+        calculateSimulator();
       } catch (error) {
         console.error('Falha ao carregar a base BR 2025:', error);
         $('stateDot').className='live-dot warn';
