@@ -2,12 +2,12 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Consulta Bônus BR 2025 — Resolução SEDUC nº 106/2026</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; }
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #0f172a; -webkit-text-size-adjust: 100%; }
     .badge-diamante { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
     .badge-ouro { background: #fef3c7; color: #b45309; border: 1px solid #fde68a; }
     .badge-parcial { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; }
@@ -18,126 +18,125 @@
 
   <!-- Cabeçalho Institucional -->
   <header class="bg-slate-900 text-white shadow-md">
-    <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
       <div>
-        <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-sky-400">
+        <div class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-sky-400">
           <span>DOE-SP 12/11/2026</span>
           <span>•</span>
           <span>Resolução SEDUC nº 106/2026</span>
         </div>
-        <h1 class="text-xl md:text-2xl font-extrabold mt-1">Painel de Consulta — Bonificação por Resultados (BR 2025)</h1>
-        <p class="text-slate-300 text-xs md:text-sm mt-0.5">Apuração Oficial Consolidada: SARESP / Provão Paulista + SAEB 2025</p>
+        <h1 class="text-lg sm:text-xl font-extrabold mt-0.5">Bonificação por Resultados (BR 2025)</h1>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <button onclick="abrirModalImportacao()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs md:text-sm font-semibold px-4 py-2.5 rounded-lg transition shadow cursor-pointer">
-          + Importar Base Anexo (CSV / JSON)
+      <div class="flex items-center gap-2">
+        <button onclick="abrirModalImportacao()" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold px-3.5 py-2 rounded-lg transition shadow cursor-pointer">
+          + Importar Base Real (JSON/CSV)
         </button>
-        <button onclick="exportarJSON()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs md:text-sm font-medium px-3 py-2.5 rounded-lg transition cursor-pointer">
-          Exportar JSON
+        <button onclick="exportarJSON()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-medium px-3 py-2 rounded-lg transition cursor-pointer">
+          Exportar
         </button>
       </div>
     </div>
   </header>
 
-  <main class="max-w-7xl w-full mx-auto px-4 py-6 flex-1 space-y-6">
+  <main class="max-w-7xl w-full mx-auto px-3 sm:px-4 py-5 flex-1 space-y-4 sm:space-y-6">
 
     <!-- KPIs Oficiais SEDUC (Resolução 106/2026) -->
-    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-xs font-semibold text-slate-500 uppercase">IACM Final SEDUC</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-slate-900 mt-1">0,72 <span class="text-sm font-bold text-emerald-600">(72%)</span></div>
-        <p class="text-[11px] text-slate-500 mt-1">Art. 1º Res. SEDUC 106/2026</p>
+    <section class="grid grid-cols-2 lg:grid-cols-5 gap-3">
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+        <span class="text-[11px] font-semibold text-slate-500 uppercase">IACM SEDUC</span>
+        <div class="text-xl sm:text-2xl font-extrabold text-slate-900 mt-1">0,72 <span class="text-xs font-bold text-emerald-600">(72%)</span></div>
+        <p class="text-[10px] text-slate-500 mt-0.5">Art. 1º Res. 106/2026</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-xs font-semibold text-slate-500 uppercase">ICM SARESP / Provão</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-amber-600 mt-1">0,50 <span class="text-sm font-bold">(50%)</span></div>
-        <p class="text-[11px] text-slate-500 mt-1">Nota 4,30 (Meta Ouro: 4,10)</p>
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+        <span class="text-[11px] font-semibold text-slate-500 uppercase">ICM SARESP</span>
+        <div class="text-xl sm:text-2xl font-extrabold text-amber-600 mt-1">0,50 <span class="text-xs font-bold">(50%)</span></div>
+        <p class="text-[10px] text-slate-500 mt-0.5">Nota 4,30 (Meta: 4,10)</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-xs font-semibold text-slate-500 uppercase">ICM SAEB 2025</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-sky-700 mt-1">0,22 <span class="text-sm font-bold">(22%)</span></div>
-        <p class="text-[11px] text-slate-500 mt-1">Nota 5,33 (Base: 5,05 | Ouro: 5,42)</p>
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+        <span class="text-[11px] font-semibold text-slate-500 uppercase">ICM SAEB</span>
+        <div class="text-xl sm:text-2xl font-extrabold text-sky-700 mt-1">0,22 <span class="text-xs font-bold">(22%)</span></div>
+        <p class="text-[10px] text-slate-500 mt-0.5">Nota 5,33 (Base: 5,05)</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
-        <span class="text-xs font-semibold text-slate-500 uppercase">Escolas Diamante (100%)</span>
-        <div class="text-2xl md:text-3xl font-extrabold text-sky-600 mt-1">1.320</div>
-        <p class="text-[11px] text-slate-500 mt-1">26,55% de 4.972 unidades</p>
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm">
+        <span class="text-[11px] font-semibold text-slate-500 uppercase">Escolas Diamante</span>
+        <div class="text-xl sm:text-2xl font-extrabold text-sky-600 mt-1">1.320</div>
+        <p class="text-[10px] text-slate-500 mt-0.5">26,55% da rede</p>
       </div>
-      <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm col-span-2 lg:col-span-1">
-        <span class="text-xs font-semibold text-slate-500 uppercase">Gatilhos Rede (IFA / TPSS)</span>
-        <div class="text-lg md:text-xl font-extrabold text-emerald-700 mt-1.5">ATINGIDOS</div>
-        <p class="text-[11px] text-slate-500 mt-1">Freq: 77% Not / 82% Diurno | Part: 80%</p>
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm col-span-2 lg:col-span-1">
+        <span class="text-[11px] font-semibold text-slate-500 uppercase">Gatilhos (IFA / TPSS)</span>
+        <div class="text-base sm:text-lg font-extrabold text-emerald-700 mt-1">ATINGIDOS</div>
+        <p class="text-[10px] text-slate-500 mt-0.5">Rede habilitada</p>
       </div>
     </section>
 
-    <!-- Barra de Busca e Filtros -->
-    <section class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
-      <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
-        <div class="md:col-span-5">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Buscar Unidade Escolar (Nome, CIE ou INEP)</label>
-          <input id="filtroBusca" type="text" placeholder="Ex: Aparecido Roberto Tonellotti, 35000012..." oninput="filtrarDados()"
+    <!-- Filtros de Busca -->
+    <section class="bg-white p-3.5 sm:p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+      <div class="grid grid-cols-1 sm:grid-cols-12 gap-3">
+        <div class="sm:col-span-5">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Buscar Escola (Nome, CIE ou INEP)</label>
+          <input id="filtroBusca" type="text" placeholder="Ex: Aparecido Roberto Tonellotti..." oninput="filtrarDados()"
             class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500" />
         </div>
-        <div class="md:col-span-3">
+        <div class="sm:col-span-3">
           <label class="block text-xs font-semibold text-slate-600 mb-1">Diretoria / URE</label>
           <select id="filtroURE" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
             <option value="">Todas as UREs</option>
           </select>
         </div>
-        <div class="md:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Patamar ICM Final</label>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Patamar</label>
           <select id="filtroPatamar" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
             <option value="">Todos</option>
             <option value="DIAMANTE">Diamante (1,00)</option>
-            <option value="OURO">Ouro / Alto (≥ 0,50)</option>
-            <option value="PARCIAL">Parcial (0,01 a 0,49)</option>
+            <option value="OURO">Ouro (≥ 0,50)</option>
+            <option value="PARCIAL">Parcial</option>
             <option value="ZERO">Zerado (0,00)</option>
           </select>
         </div>
-        <div class="md:col-span-2">
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Gatilhos (IFA / TPSS)</label>
+        <div class="sm:col-span-2">
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Gatilhos</label>
           <select id="filtroGatilho" onchange="filtrarDados()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-sky-500">
             <option value="">Todos</option>
-            <option value="OK">Atingidos (1 / 1)</option>
-            <option value="PENDENTE">Não Atingidos (0)</option>
+            <option value="OK">Atendidos</option>
+            <option value="PENDENTE">Pendentes</option>
           </select>
         </div>
       </div>
-      <div class="flex flex-wrap items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
-        <span id="contadorRegistros">Exibindo 0 unidades escolares</span>
-        <span>Fórmula Escola: <code>ICM = Max(IC; IQ) × IFA × TPSS</code> (Soma SARESP + SAEB)</span>
+      <div class="flex items-center justify-between text-xs text-slate-500 pt-1 border-t border-slate-100">
+        <span id="contadorRegistros">Carregando unidades...</span>
+        <span>Fórmula: ICM = Max(IC; IQ) × IFA × TPSS</span>
       </div>
     </section>
 
-    <!-- Tabela de Resultados -->
+    <!-- Tabela -->
     <section class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="bg-slate-100 border-b border-slate-200 text-[11px] font-bold uppercase text-slate-600">
               <th class="py-3 px-3">CIE / INEP</th>
-              <th class="py-3 px-3">Unidade Escolar</th>
+              <th class="py-3 px-3">Escola</th>
               <th class="py-3 px-3">URE / Jornada</th>
-              <th class="py-3 px-3 text-center">Gatilhos<br><span class="font-normal text-[10px]">(TPSS | IFA)</span></th>
-              <th class="py-3 px-3 text-right">ICM SARESP</th>
-              <th class="py-3 px-3 text-right">ICM SAEB</th>
+              <th class="py-3 px-3 text-center">Gatilhos</th>
+              <th class="py-3 px-3 text-right">SARESP</th>
+              <th class="py-3 px-3 text-right">SAEB</th>
               <th class="py-3 px-3 text-right">ICM Final</th>
               <th class="py-3 px-3 text-center">Status</th>
               <th class="py-3 px-3 text-center">Simular</th>
             </tr>
           </thead>
-          <tbody id="tabelaCorpo" class="divide-y divide-slate-100 text-xs md:text-sm"></tbody>
+          <tbody id="tabelaCorpo" class="divide-y divide-slate-100 text-xs sm:text-sm"></tbody>
         </table>
       </div>
     </section>
 
-    <!-- Simulador Financeiro BR 2025 -->
-    <section id="secaoSimulador" class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-      <h2 class="text-base font-bold text-slate-800 mb-1">Simulador Estimado de Bonificação (BR 2025)</h2>
-      <p class="text-xs text-slate-500 mb-4">Selecione uma escola na tabela acima ou informe manualmente o ICM da unidade para estimar o valor proporcional.</p>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <!-- Simulador -->
+    <section id="secaoSimulador" class="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-sm">
+      <h2 class="text-sm sm:text-base font-bold text-slate-800 mb-1">Simulador de Bonificação (BR 2025)</h2>
+      <p class="text-xs text-slate-500 mb-4">Selecione uma escola na tabela ou ajuste o ICM manualmente.</p>
+      <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 sm:gap-4">
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">ICM Final da Escola (0,00 a 1,00)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">ICM Final (0,00 a 1,00)</label>
           <input id="simICM" type="number" step="0.01" min="0" max="1" value="0.72" oninput="calcularBonus()"
             class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
         </div>
@@ -147,113 +146,54 @@
             class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
         </div>
         <div>
-          <label class="block text-xs font-semibold text-slate-600 mb-1">Dias Efetivos no Ano (máx. 365)</label>
+          <label class="block text-xs font-semibold text-slate-600 mb-1">Dias Trabalhados</label>
           <input id="simDias" type="number" min="1" max="365" value="365" oninput="calcularBonus()"
             class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg" />
         </div>
-        <div class="bg-slate-900 text-white p-3.5 rounded-lg flex flex-col justify-center">
-          <span class="text-[11px] uppercase tracking-wider text-sky-400 font-semibold">Estimativa Bruta (até 20%)</span>
-          <span id="simResultado" class="text-xl font-extrabold mt-0.5">R$ 9.504,00</span>
-          <span id="simDetalhe" class="text-[10px] text-slate-400">Base: 12 meses × 20% × ICM × Frequência</span>
+        <div class="bg-slate-900 text-white p-3 rounded-lg flex flex-col justify-center">
+          <span class="text-[10px] uppercase tracking-wider text-sky-400 font-semibold">Estimativa Bruta</span>
+          <span id="simResultado" class="text-lg sm:text-xl font-extrabold mt-0.5">R$ 9.504,00</span>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- Modal de Importação de Dados do Anexo -->
-  <div id="modalImport" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-4 z-50">
-    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="text-lg font-bold text-slate-900">Atualizar Base com Dados do Anexo (Res. 106/2026)</h3>
+  <!-- Modal -->
+  <div id="modalImport" class="fixed inset-0 bg-slate-900/60 hidden items-center justify-center p-3 sm:p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-xl w-full p-5 shadow-2xl space-y-3">
+      <div class="flex items-center justify-between border-b pb-2">
+        <h3 class="text-base font-bold text-slate-900">Importar Base Oficial (JSON / CSV)</h3>
         <button onclick="fecharModalImportacao()" class="text-slate-400 hover:text-slate-700 font-bold text-lg cursor-pointer">✕</button>
       </div>
-      <p class="text-xs text-slate-600 leading-relaxed">
-        Carregue um arquivo <strong>.JSON</strong> ou <strong>.CSV</strong> extraído das páginas 1411–1455 (Anexo Escola) ou cole diretamente linhas copiadas do PDF oficial. O sistema reconhece automaticamente separadores <code>;</code>, <code>,</code> ou espaços tabulados.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-3">
-        <input id="inputArquivo" type="file" accept=".csv,.json,.txt" onchange="lerArquivo(event)"
-          class="text-xs text-slate-600 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100" />
-      </div>
-      <textarea id="textoImportacao" rows="6" placeholder="Ou cole aqui os dados em JSON ou linhas do Anexo Escola..."
-        class="w-full p-3 text-xs font-mono border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-sky-500"></textarea>
-      <div class="flex justify-end gap-2 pt-2">
-        <button onclick="fecharModalImportacao()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer">Cancelar</button>
-        <button onclick="processarTextoImportado()" class="px-4 py-2 text-xs font-semibold bg-sky-600 hover:bg-sky-500 text-white rounded-lg cursor-pointer">Aplicar Dados no Painel</button>
+      <p class="text-xs text-slate-600">Carregue o arquivo JSON contendo todas as escolas do anexo da Resolução 106/2026.</p>
+      <input id="inputArquivo" type="file" accept=".json,.csv" onchange="lerArquivo(event)"
+        class="text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-sky-50 file:text-sky-700" />
+      <textarea id="textoImportacao" rows="5" placeholder="Ou cole o JSON aqui..."
+        class="w-full p-2.5 text-xs font-mono border border-slate-300 rounded-lg"></textarea>
+      <div class="flex justify-end gap-2 pt-1">
+        <button onclick="fecharModalImportacao()" class="px-3 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg cursor-pointer">Cancelar</button>
+        <button onclick="processarTextoImportado()" class="px-3 py-2 text-xs font-semibold bg-sky-600 hover:bg-sky-500 text-white rounded-lg cursor-pointer">Carregar Dados</button>
       </div>
     </div>
   </div>
 
   <script>
-    // Base inicial estruturada conforme colunas oficiais do Anexo Escola (Resolução SEDUC 106/2026)
     let escolasDB = [
-      {
-        cie: "12",
-        inep: "35000012",
-        escola: "AYRES DE MOURA PROFESSOR",
-        ure: "NORTE 1",
-        jornada: "PARCIAL",
-        grupo25: "6",
-        tpss: 1,
-        ifa: 1,
-        icm_saresp: 0.50,
-        icm_saeb: 0.50,
-        icm_final: 1.00
-      },
-      {
-        cie: "48",
-        inep: "35000048",
-        escola: "WALFREDO ARANTES CALDAS PROFESSOR",
-        ure: "NORTE 1",
-        jornada: "PEI",
-        grupo25: "3",
-        tpss: 1,
-        ifa: 1,
-        icm_saresp: 0.42,
-        icm_saeb: 0.18,
-        icm_final: 0.60
-      },
-      {
-        cie: "176",
-        inep: "35000176",
-        escola: "ZENAIDE VILALVA DE ARAUJO PROFESSORA",
-        ure: "NORTE 2",
-        jornada: "PARCIAL",
-        grupo25: "7",
-        tpss: 1,
-        ifa: 1,
-        icm_saresp: 0.50,
-        icm_saeb: 0.08,
-        icm_final: 0.58
-      },
-      {
-        cie: "45895",
-        inep: "35045895",
-        escola: "JOSE CARDOSO PROFESSOR",
-        ure: "INTERIOR",
-        jornada: "PARCIAL",
-        grupo25: "4",
-        tpss: 1,
-        ifa: 0,
-        icm_saresp: 0.00,
-        icm_saeb: 0.00,
-        icm_final: 0.00
-      }
+      { cie: "12", inep: "35000012", escola: "AYRES DE MOURA PROFESSOR", ure: "NORTE 1", jornada: "PARCIAL", tpss: 1, ifa: 1, icm_saresp: 0.50, icm_saeb: 0.50, icm_final: 1.00 },
+      { cie: "48", inep: "35000048", escola: "WALFREDO ARANTES CALDAS PROFESSOR", ure: "NORTE 1", jornada: "PEI", tpss: 1, ifa: 1, icm_saresp: 0.42, icm_saeb: 0.18, icm_final: 0.60 },
+      { cie: "176", inep: "35000176", escola: "ZENAIDE VILALVA DE ARAUJO PROFESSORA", ure: "NORTE 2", jornada: "PARCIAL", tpss: 1, ifa: 1, icm_saresp: 0.50, icm_saeb: 0.08, icm_final: 0.58 }
     ];
 
-    // Recupera base salva no navegador se houver
-    const salvoLocal = localStorage.getItem('bonus_br_2025_res106');
-    if (salvoLocal) {
-      try {
-        const parsed = JSON.parse(salvoLocal);
-        if (Array.isArray(parsed) && parsed.length > 0) escolasDB = parsed;
-      } catch (e) {}
+    const salvo = localStorage.getItem('bonus_br_2025_res106_v2');
+    if (salvo) {
+      try { const p = JSON.parse(salvo); if (p.length > 0) escolasDB = p; } catch(e){}
     }
 
     function classificarStatus(icm, ifa, tpss) {
       if (ifa === 0 || tpss === 0 || icm <= 0) return { label: "ZERADO", classe: "badge-zero", cod: "ZERO" };
       if (icm >= 1.0) return { label: "DIAMANTE", classe: "badge-diamante", cod: "DIAMANTE" };
-      if (icm >= 0.5) return { label: "OURO / ALTO", classe: "badge-ouro", cod: "OURO" };
+      if (icm >= 0.5) return { label: "OURO", classe: "badge-ouro", cod: "OURO" };
       return { label: "PARCIAL", classe: "badge-parcial", cod: "PARCIAL" };
     }
 
@@ -261,8 +201,7 @@
       const select = document.getElementById('filtroURE');
       const ures = [...new Set(escolasDB.map(e => e.ure).filter(Boolean))].sort();
       const atual = select.value;
-      select.innerHTML = '<option value="">Todas as UREs</option>' +
-        ures.map(u => `<option value="${u}">${u}</option>`).join('');
+      select.innerHTML = '<option value="">Todas as UREs</option>' + ures.map(u => `<option value="${u}">${u}</option>`).join('');
       select.value = atual;
     }
 
@@ -274,16 +213,10 @@
 
       const filtrados = escolasDB.filter(item => {
         const st = classificarStatus(item.icm_final, item.ifa, item.tpss);
-        const matchTexto = !busca ||
-          String(item.escola).toLowerCase().includes(busca) ||
-          String(item.cie).includes(busca) ||
-          String(item.inep).includes(busca);
+        const matchTexto = !busca || String(item.escola).toLowerCase().includes(busca) || String(item.cie).includes(busca) || String(item.inep).includes(busca);
         const matchURE = !ure || item.ure === ure;
         const matchPatamar = !patamar || st.cod === patamar;
-        const matchGatilho = !gatilho ||
-          (gatilho === 'OK' && item.ifa === 1 && item.tpss === 1) ||
-          (gatilho === 'PENDENTE' && (item.ifa === 0 || item.tpss === 0));
-
+        const matchGatilho = !gatilho || (gatilho === 'OK' && item.ifa === 1 && item.tpss === 1) || (gatilho === 'PENDENTE' && (item.ifa === 0 || item.tpss === 0));
         return matchTexto && matchURE && matchPatamar && matchGatilho;
       });
 
@@ -292,41 +225,36 @@
 
     function renderizarTabela(lista) {
       const tbody = document.getElementById('tabelaCorpo');
-      document.getElementById('contadorRegistros').textContent =
-        `Exibindo ${lista.length} de ${escolasDB.length} unidades escolares carregadas`;
+      document.getElementById('contadorRegistros').textContent = `Exibindo ${lista.length} de ${escolasDB.length} unidades`;
 
       if (lista.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400">Nenhuma unidade encontrada para os filtros aplicados.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="py-8 text-center text-slate-400">Nenhuma escola encontrada.</td></tr>`;
         return;
       }
 
-      tbody.innerHTML = lista.slice(0, 300).map(item => {
+      tbody.innerHTML = lista.slice(0, 250).map(item => {
         const st = classificarStatus(item.icm_final, item.ifa, item.tpss);
-        const gTPSS = item.tpss ? '<span class="text-emerald-600 font-bold">OK</span>' : '<span class="text-rose-600 font-bold">NÃO</span>';
-        const gIFA = item.ifa ? '<span class="text-emerald-600 font-bold">OK</span>' : '<span class="text-rose-600 font-bold">NÃO</span>';
-
         return `
           <tr class="hover:bg-slate-50 transition">
             <td class="py-2.5 px-3 font-mono text-xs text-slate-600">
               <div class="font-bold text-slate-800">${item.cie}</div>
-              <div class="text-[11px] text-slate-400">${item.inep}</div>
+              <div class="text-[10px] text-slate-400">${item.inep}</div>
             </td>
             <td class="py-2.5 px-3 font-semibold text-slate-800">${item.escola}</td>
             <td class="py-2.5 px-3 text-xs text-slate-600">
               <div>${item.ure || '-'}</div>
-              <div class="text-[11px] text-slate-400">${item.jornada || ''} ${item.grupo25 ? '• Grp ' + item.grupo25 : ''}</div>
+              <div class="text-[10px] text-slate-400">${item.jornada || ''}</div>
             </td>
-            <td class="py-2.5 px-3 text-center text-xs">${gTPSS} | ${gIFA}</td>
-            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saresp).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saeb).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900">${Number(item.icm_final).toFixed(2).replace('.', ',')}</td>
-            <td class="py-2.5 px-3 text-center">
-              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${st.classe}">${st.label}</span>
+            <td class="py-2.5 px-3 text-center text-xs">
+              ${item.tpss ? '<span class="text-emerald-600 font-bold">✓</span>' : '<span class="text-rose-600 font-bold">✗</span>'} | 
+              ${item.ifa ? '<span class="text-emerald-600 font-bold">✓</span>' : '<span class="text-rose-600 font-bold">✗</span>'}
             </td>
+            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saresp || 0).toFixed(2).replace('.', ',')}</td>
+            <td class="py-2.5 px-3 text-right font-mono">${Number(item.icm_saeb || 0).toFixed(2).replace('.', ',')}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-extrabold text-slate-900">${Number(item.icm_final || 0).toFixed(2).replace('.', ',')}</td>
+            <td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${st.classe}">${st.label}</span></td>
             <td class="py-2.5 px-3 text-center">
-              <button onclick="selecionarParaSimular(${item.icm_final})" class="text-xs font-semibold text-sky-600 hover:text-sky-800 underline cursor-pointer">
-                Calcular
-              </button>
+              <button onclick="selecionarParaSimular(${item.icm_final})" class="text-xs font-semibold text-sky-600 hover:text-sky-800 underline cursor-pointer">Calc</button>
             </td>
           </tr>
         `;
@@ -343,90 +271,40 @@
       const icm = parseFloat(document.getElementById('simICM').value) || 0;
       const salario = parseFloat(document.getElementById('simSalario').value) || 0;
       const dias = Math.min(365, Math.max(0, parseFloat(document.getElementById('simDias').value) || 0));
-
-      // Parâmetro BR: até 20% da retribuição anual (12 meses) proporcional ao ICM e aos dias trabalhados
       const bruto = (salario * 12) * 0.20 * icm * (dias / 365);
       document.getElementById('simResultado').textContent = bruto.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     }
 
-    function abrirModalImportacao() {
-      document.getElementById('modalImport').classList.remove('hidden');
-      document.getElementById('modalImport').classList.add('flex');
+    function abrirModalImportacao() { document.getElementById('modalImport').classList.remove('hidden'); document.getElementById('modalImport').classList.add('flex'); }
+    function fecharModalImportacao() { document.getElementById('modalImport').classList.add('hidden'); document.getElementById('modalImport').classList.remove('flex'); }
+    function lerArquivo(e) {
+      const f = e.target.files[0];
+      if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => { document.getElementById('textoImportacao').value = ev.target.result; };
+      r.readAsText(f, 'UTF-8');
     }
-
-    function fecharModalImportacao() {
-      document.getElementById('modalImport').classList.add('hidden');
-      document.getElementById('modalImport').classList.remove('flex');
-    }
-
-    function lerArquivo(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => { document.getElementById('textoImportacao').value = e.target.result; };
-      reader.readAsText(file, 'UTF-8');
-    }
-
-    function parseNumeroBR(val) {
-      if (val === undefined || val === null) return 0;
-      const limpo = String(val).trim().replace(',', '.');
-      const num = parseFloat(limpo);
-      return isNaN(num) ? 0 : num;
-    }
-
     function processarTextoImportado() {
-      const raw = document.getElementById('textoImportacao').value.trim();
-      if (!raw) return;
-
+      const txt = document.getElementById('textoImportacao').value.trim();
+      if (!txt) return;
       try {
-        if (raw.startsWith('[') || raw.startsWith('{')) {
-          const json = JSON.parse(raw);
-          escolasDB = Array.isArray(json) ? json : (json.escolas || []);
-        } else {
-          const linhas = raw.split(/\r?\n/).filter(l => l.trim().length > 0);
-          const sep = linhas[0].includes(';') ? ';' : (linhas[0].includes('\t') ? '\t' : ',');
-          const novos = [];
-
-          linhas.forEach((linha, idx) => {
-            const cols = linha.split(sep).map(c => c.trim());
-            if (idx === 0 && isNaN(Number(cols[0]))) return; // pula cabeçalho
-            if (cols.length >= 6) {
-              novos.push({
-                cie: cols[0] || '',
-                inep: cols[1] || '',
-                escola: cols[2] || 'ESCOLA SEM NOME',
-                ure: cols[9] || cols[3] || '',
-                jornada: cols[5] || '',
-                grupo25: cols[8] || '',
-                tpss: parseNumeroBR(cols[cols.length - 5] ?? 1),
-                ifa: parseNumeroBR(cols[cols.length - 4] ?? 1),
-                icm_saresp: parseNumeroBR(cols[cols.length - 3]),
-                icm_saeb: parseNumeroBR(cols[cols.length - 2]),
-                icm_final: parseNumeroBR(cols[cols.length - 1])
-              });
-            }
-          });
-          if (novos.length > 0) escolasDB = novos;
+        const json = JSON.parse(txt);
+        if (Array.isArray(json)) {
+          escolasDB = json;
+          localStorage.setItem('bonus_br_2025_res106_v2', JSON.stringify(escolasDB));
+          atualizarFiltroURE();
+          filtrarDados();
+          fecharModalImportacao();
+          alert(`Base atualizada com sucesso (${escolasDB.length} registros).`);
         }
-
-        localStorage.setItem('bonus_br_2025_res106', JSON.stringify(escolasDB));
-        atualizarFiltroURE();
-        filtrarDados();
-        fecharModalImportacao();
-        alert(`Base atualizada com sucesso: ${escolasDB.length} registros carregados.`);
-      } catch (err) {
-        alert('Erro ao interpretar os dados. Verifique o formato CSV ou JSON.');
+      } catch(err) {
+        alert('Erro ao processar JSON. Verifique a formatação.');
       }
     }
-
     function exportarJSON() {
       const blob = new Blob([JSON.stringify(escolasDB, null, 2)], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'bonus_br_2025_res106_atualizado.json';
-      a.click();
-      URL.revokeObjectURL(url);
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = 'escolas_bonus_2025.json'; a.click();
     }
 
     atualizarFiltroURE();
