@@ -37,6 +37,7 @@
     .hero-link:hover{background:rgba(255,255,255,.13);transform:translateY(-1px)}
     main{padding:22px 0 48px}
     .statusline{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 13px;font-size:12px;color:var(--muted)}
+    .statusline #sourceState{display:inline-flex;align-items:center;max-width:100%;padding:6px 10px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.82);color:#64736b;font-size:11px;font-weight:650}
     .live-state{display:inline-flex;align-items:center;gap:8px;font-weight:700}
     .live-dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;display:inline-block}
     .live-dot.ok{background:#16a34a;box-shadow:0 0 0 4px rgba(22,163,74,.12)}
@@ -78,7 +79,8 @@
     .school-main{min-width:0}
     .school-name{display:block;font-size:13px;font-weight:850;color:#172a43;line-height:1.35;overflow-wrap:anywhere}
     .school-meta{display:block;margin-top:6px;color:#718198;font-size:10px;line-height:1.55}
-    .school-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+    .school-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+    .school-tags .tag{padding:5px 9px;border-radius:8px;font-size:9px;line-height:1.3;font-weight:800;letter-spacing:.01em}
     .tag{display:inline-flex;align-items:center;border-radius:999px;padding:4px 7px;font-size:9px;font-weight:800;border:1px solid #e1e8ef;color:#526278;background:#f8fafc}
     .tag.good{background:var(--greenbg);border-color:#c9eddf;color:var(--green)}.tag.bad{background:var(--redbg);border-color:#ffd7d2;color:var(--red)}.tag.partial{background:var(--goldbg);border-color:#f8e5a5;color:var(--gold)}.tag.na{background:#f1f5f9;color:#64748b}
     .icm-badge{min-width:73px;align-self:start;text-align:center;padding:8px 8px 7px;border-radius:12px;background:#eff6fb;border:1px solid #d5e8f4;color:#12648a}
@@ -211,8 +213,8 @@
 
   <main class="wrap">
     <div class="statusline">
-      <span class="live-state"><i class="live-dot" id="stateDot"></i><span id="dataState">Preparando consulta da base documental…</span></span>
-      <span id="sourceState">Fonte de dados: aguardando carregamento</span>
+      <span class="live-state"><i class="live-dot" id="stateDot"></i><span id="dataState">Preparando o carregamento da base de dados e dos anexos oficiais…</span></span>
+      <span id="sourceState">Fonte: aguardando carregamento da base de dados</span>
     </div>
 
     <section class="kpis" aria-label="Resumo dos resultados">
@@ -356,6 +358,7 @@
       <p>Ferramenta independente de consulta. Fonte normativa: Resolução SEDUC nº 106, de 11/11/2026 · DOE-SP de 12/11/2026.</p>
       <p>Em caso de divergência, prevalecem o Diário Oficial e os sistemas oficiais da Secretaria da Educação.</p>
       <p>As retificações do DOE-SP não são monitoradas automaticamente. A base é atualizada depois da conferência do novo ato e da substituição dos registros na planilha privada do aplicativo.</p>
+      <p>Fonte dos dados: planilha privada do aplicativo · dados dos anexos do DOE-SP.</p>
       <p><a href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">Consultar publicação oficial</a> · <span id="baseFooter">Base de dados não carregada</span></p>
       <p>2026 | Criado e Desenvolvido por Pedro Costa · desenvolvedorpedrocosta@gmail.com</p>
     </footer>
@@ -446,7 +449,7 @@
     function apiRequest(action, params = {}) {
       const endpoint = String(BACKEND_URL || '').trim();
       if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint)) {
-        return Promise.reject(new Error('A URL /exec do Apps Script não está configurada. Abra o index.html, localize BACKEND_URL e informe o endereço da implantação publicada.'));
+        return Promise.reject(new Error('O serviço de consulta não está configurado para acessar a base de dados.'));
       }
 
       return new Promise((resolve, reject) => {
@@ -474,7 +477,7 @@
           if (payload && payload.ok === true && payload.data !== undefined) {
             finish(resolve, payload.data);
           } else {
-            finish(reject, new Error(payload?.error || 'O Apps Script respondeu sem os dados esperados.'));
+            finish(reject, new Error(payload?.error || 'O serviço de dados não retornou as informações esperadas.'));
           }
         };
 
@@ -487,8 +490,8 @@
 
         script.async = true;
         script.type = 'text/javascript';
-        script.onerror = () => finish(reject, new Error('Falha ao carregar a resposta JSONP do Apps Script. Confira se a implantação está ativa, acessível e termina em /exec.'));
-        timer = setTimeout(() => finish(reject, new Error('Tempo esgotado ao consultar o Apps Script. Verifique a implantação e tente novamente.')), 30000);
+        script.onerror = () => finish(reject, new Error('Não foi possível obter resposta do serviço de dados. Confira a conexão e tente novamente.'));
+        timer = setTimeout(() => finish(reject, new Error('O tempo de consulta da base foi excedido. Tente novamente em instantes.')), 30000);
         script.src = endpoint + '?' + query.toString();
         (document.head || document.body).appendChild(script);
       });
@@ -576,7 +579,7 @@
         state.disciplineAvailable = false;
         state.lastDisciplineCie = '';
         status.textContent = 'Não foi possível carregar o Anexo Disciplina-Série.';
-        results.innerHTML = `<div class="empty"><strong>Consulta indisponível</strong>${esc(error.message)}. Confira se a aba DisciplinaSerie foi importada e se o serviço Apps Script está publicado.</div>`;
+        results.innerHTML = `<div class="empty"><strong>Consulta indisponível</strong>${esc(error.message)}. Confira se os registros do Anexo Disciplina-Série estão disponíveis na base de dados e tente novamente.</div>`;
       }
     }
 
@@ -890,7 +893,8 @@
       const dot = $('stateDot');
       dot.className = 'live-dot ' + (matches ? 'ok' : 'warn');
       $('dataState').textContent = matches ? 'Base carregada e totais conferidos' : 'Base carregada · totais diferentes do quadro oficial de conferência';
-      $('sourceState').textContent = `Fonte: ${state.dataOrigin || 'serviço de dados do aplicativo'} · carregado neste acesso em ${new Date().toLocaleDateString('pt-BR')}`;
+      $('sourceState').textContent = `Fonte: ${state.dataOrigin || 'origem dos dados informada pelo aplicativo'}`;
+      $('sourceState').title = `Base consultada em ${new Date().toLocaleDateString('pt-BR')}`;
       $('baseFooter').textContent = `${intFmt(state.schools.length)} escolas · ${intFmt(uresCount)} UREs + SEDUC · ${intFmt(disciplineCount)} registros disciplina-série`;
       if (!matches) {
         $('dataState').title = 'Os totais da base carregada não coincidem integralmente com os valores de conferência da Resolução SEDUC nº 106/2026. Confira a versão importada antes de utilizar os resultados.';
@@ -932,11 +936,14 @@
     function schoolCard(s) {
       const st = s._st;
       const saeb = s._saeb;
-      const saebTag = saeb === 'na' ? tag('SAEB não se aplica','na') : saeb === 'int' ? tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'good') : saeb === 'parc' ? tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'partial') : tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'bad');
+      const saebTag = saeb === 'na'
+        ? tag('SAEB · Não se aplica','na')
+        : tag(`SAEB · ${saeb === 'int' ? 'Integral' : saeb === 'parc' ? 'Parcial' : 'Não atingiu'} · ${fmt(s.icmSaeb)} / 0,50`, saeb === 'int' ? 'good' : saeb === 'parc' ? 'partial' : 'bad');
       const srspMax = s.base === 'SARESP' ? 1 : .5;
-      const srspVal = num(s.icmSrsp);
-      const srspCls = srspVal > 0 ? 'good' : 'bad';
-      const srspTag = tag(`SARESP ${fmt(s.icmSrsp)} / ${fmt(srspMax)}`, srspCls);
+      const srspVal = num(s.icmSrsp) ?? 0;
+      const srspCls = srspVal >= srspMax - 0.000001 ? 'good' : srspVal > 0 ? 'partial' : 'bad';
+      const srspLabel = srspCls === 'good' ? 'Integral' : srspCls === 'partial' ? 'Parcial' : 'Não atingiu';
+      const srspTag = tag(`SARESP · ${srspLabel} · ${fmt(s.icmSrsp)} / ${fmt(srspMax)}`, srspCls);
       const evaluation = $('evaluationFilter').value;
       const tags = evaluation === 'SARESP' ? srspTag : evaluation === 'SAEB' ? saebTag : `${srspTag}${saebTag}`;
       return `<li><button class="school-card" type="button" data-cie="${esc(s.cie)}" aria-label="Abrir detalhes de ${esc(s.nome)}">
@@ -1196,7 +1203,7 @@
 
     async function init() {
       try {
-        $('dataState').textContent = 'Conectando à base oficial via Apps Script…';
+        $('dataState').textContent = 'Carregando a base de dados e os anexos oficiais…';
         setupEvents();
         setupAnalytics();
         const payload = await apiRequest('bootstrap');
@@ -1221,9 +1228,9 @@
         console.error('Falha ao carregar a base BR 2025:', error);
         $('stateDot').className='live-dot warn';
         $('dataState').textContent='Não foi possível iniciar a consulta da base';
-        $('sourceState').textContent='Aguardando configuração do serviço de dados';
+        $('sourceState').textContent='Fonte: base de dados indisponível no momento';
         $('resultCount').textContent='Consulta indisponível';
-        $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar a base oficial</strong>${esc(error.message)}<br><br>Configure a URL do serviço Apps Script no index.html, confirme as quatro abas da base privada e confira se a implantação está publicada para acesso público.</li>`;
+        $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar a base oficial</strong>${esc(error.message)}<br><br>Confira a conexão com o serviço de dados, a configuração da base privada e a disponibilidade da consulta.</li>`;
         $('ureList').innerHTML='<div class="empty">A lista de UREs depende da conexão com o serviço de dados.</div>';
         $('versionTag').textContent='Base oficial · aguardando conexão';
         $('versionState').textContent='Resolução SEDUC nº 106/2026 · publicação de 12/11/2026';
