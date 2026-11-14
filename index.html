@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consulta Bônus BR 2025 · Painel Inteligente SEDUC-SP</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    .glass-card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); }
+    .badge-diamante { background: linear-gradient(135deg, #0ea5e9, #2563eb); color: white; }
+    .badge-parcial { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .badge-zero { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+  </style>
+</head>
+<body class="text-slate-800 antialiased pb-16">
+
+  <!-- Cabeçalho -->
+  <header class="bg-slate-900 text-white shadow-lg border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 text-sky-400 text-xs font-bold uppercase tracking-wider mb-1">
+            <i class="fa-solid fa-chart-line"></i> Bonificação por Resultados · Exercício 2025
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Painel Bônus BR 2025 <span class="text-sky-400">Pro</span></h1>
+          <p class="text-slate-400 text-xs sm:text-sm mt-1">
+            Baseado na Resolução SEDUC nº 106, de 11/11/2026 (DOE 12/11/2026) · SARESP / Provão Paulista + SAEB
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <label class="cursor-pointer bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-3.5 py-2.5 rounded-lg border border-slate-700 transition flex items-center gap-2">
+            <i class="fa-solid fa-file-csv text-emerald-400"></i>
+            <span>Importar Base CSV</span>
+            <input type="file" id="csvUpload" accept=".csv" class="hidden" />
+          </label>
+          <button onclick="toggleModal('modalRegras')" class="bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold px-3.5 py-2.5 rounded-lg transition flex items-center gap-2">
+            <i class="fa-solid fa-circle-info"></i> Regras de Cálculo
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+    <!-- KPIs Dinâmicos (Recalculam conforme o filtro) -->
+    <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="glass-card p-4 rounded-xl border border-slate-200 shadow-sm">
+        <div class="text-xs font-medium text-slate-500 flex items-center justify-between">
+          <span>Escolas Filtradas</span>
+          <i class="fa-solid fa-school text-slate-400"></i>
+        </div>
+        <div id="kpiTotal" class="text-2xl font-extrabold text-slate-900 mt-1">0</div>
+        <div id="kpiSubUre" class="text-[11px] text-slate-400 mt-0.5">Todas as UREs</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-xl border border-sky-200 shadow-sm bg-sky-50/40">
+        <div class="text-xs font-medium text-sky-700 flex items-center justify-between">
+          <span>Patamar Diamante (100%)</span>
+          <i class="fa-solid fa-gem text-sky-500"></i>
+        </div>
+        <div id="kpiDiamante" class="text-2xl font-extrabold text-sky-700 mt-1">0</div>
+        <div id="kpiDiamantePct" class="text-[11px] text-sky-600 mt-0.5">0% do recorte</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-xl border border-amber-200 shadow-sm bg-amber-50/30">
+        <div class="text-xs font-medium text-amber-800 flex items-center justify-between">
+          <span>Patamar Parcial</span>
+          <i class="fa-solid fa-chart-pie text-amber-500"></i>
+        </div>
+        <div id="kpiParcial" class="text-2xl font-extrabold text-amber-700 mt-1">0</div>
+        <div id="kpiParcialPct" class="text-[11px] text-amber-600 mt-0.5">0% do recorte</div>
+      </div>
+
+      <div class="glass-card p-4 rounded-xl border border-emerald-200 shadow-sm bg-emerald-50/30">
+        <div class="text-xs font-medium text-emerald-800 flex items-center justify-between">
+          <span>Média ICM do Filtro</span>
+          <i class="fa-solid fa-percent text-emerald-500"></i>
+        </div>
+        <div id="kpiMediaIcm" class="text-2xl font-extrabold text-emerald-700 mt-1">0,00</div>
+        <div class="text-[11px] text-emerald-600 mt-0.5">Índice de Cumprimento Médio</div>
+      </div>
+    </section>
+
+    <!-- Simulador Financeiro + Filtros -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      
+      <!-- Painel de Filtros (2 colunas) -->
+      <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+          <h2 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-filter text-sky-600"></i> Filtros Inteligentes
+          </h2>
+          <button onclick="resetFilters()" class="text-xs text-sky-600 hover:underline font-medium">Limpar filtros</button>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div class="sm:col-span-2">
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Buscar Escola (Nome, CIE ou INEP)</label>
+            <div class="relative">
+              <i class="fa-solid fa-magnifying-glass absolute left-3 top-3 text-slate-400 text-xs"></i>
+              <input type="text" id="searchInput" placeholder="Ex: Aparecido Roberto Tonellotti, 35048823..." 
+                class="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Diretoria de Ensino (URE)</label>
+            <select id="ureFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="">Todas as UREs</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Patamar ICM Final</label>
+            <select id="patamarFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="">Todos os patamares</option>
+              <option value="diamante">Diamante (100% / 1,00)</option>
+              <option value="parcial">Parcial (entre 1% e 99%)</option>
+              <option value="zero">Não atingiu (0%)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Situação Bônus SAEB</label>
+            <select id="saebFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="">Todas as situações</option>
+              <option value="integral">Recebe SAEB Integral (0,50)</option>
+              <option value="parcial">Recebe SAEB Parcial</option>
+              <option value="nao">Não recebe SAEB (0,00)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">Ordenar por</label>
+            <select id="sortFilter" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white focus:ring-2 focus:ring-sky-500 outline-none">
+              <option value="nome">Nome da Escola (A–Z)</option>
+              <option value="icm_desc">Maior ICM Final</option>
+              <option value="icm_asc">Menor ICM Final</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Simulador de Valor Estimado -->
+      <div class="bg-slate-900 text-white p-5 rounded-xl shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+            <h2 class="font-bold text-sm flex items-center gap-2 text-emerald-400">
+              <i class="fa-solid fa-calculator"></i> Simulador Estimado
+            </h2>
+            <span class="text-[10px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded">Opcional</span>
+          </div>
+          <p class="text-xs text-slate-400 mb-3">
+            Informe sua base de cálculo mensal para projetar o valor bruto estimado nos cards das escolas:
+          </p>
+          <div class="space-y-2.5">
+            <div>
+              <label class="block text-[11px] text-slate-300 mb-1">Remuneração Base Mensal (R$)</label>
+              <input type="number" id="simSalario" placeholder="Ex: 5500" value="5500"
+                class="w-full px-3 py-1.5 text-sm bg-slate-800 border border-slate-700 rounded-lg text-white focus:border-emerald-400 outline-none" />
+            </div>
+            <div class="grid grid-cols-2 gap-2">
+              <div>
+                <label class="block text-[11px] text-slate-300 mb-1">Percentual Teto (%)</label>
+                <input type="number" id="simPercentual" value="20"
+                  class="w-full px-3 py-1.5 text-sm bg-slate-800 border border-slate-700 rounded-lg text-white focus:border-emerald-400 outline-none" />
+              </div>
+              <div>
+                <label class="block text-[11px] text-slate-300 mb-1">Frequência (%)</label>
+                <input type="number" id="simFreq" value="100" max="100"
+                  class="w-full px-3 py-1.5 text-sm bg-slate-800 border border-slate-700 rounded-lg text-white focus:border-emerald-400 outline-none" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-400">
+          * Cálculo ilustrativo: <code class="text-emerald-400">(Base × 12 × %Teto) × ICM × Freq</code>. Consulte a SED para valores oficiais.
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Barra de Comparação (Aparece quando há escolas selecionadas) -->
+    <section id="compareBar" class="hidden bg-sky-900 text-white p-4 rounded-xl shadow-md flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div class="flex items-center gap-2 text-sm">
+        <i class="fa-solid fa-scale-balanced text-sky-300"></i>
+        <span><strong id="compareCount">0</strong> escola(s) selecionada(s) para comparação lado a lado.</span>
+      </div>
+      <div class="flex gap-2">
+        <button onclick="openCompareModal()" class="bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs px-4 py-2 rounded-lg transition">
+          Comparar Agora
+        </button>
+        <button onclick="clearCompare()" class="bg-sky-800 hover:bg-sky-700 text-white text-xs px-3 py-2 rounded-lg transition">
+          Limpar
+        </button>
+      </div>
+    </section>
+
+    <!-- Lista de Resultados -->
+    <section>
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-sm font-bold text-slate-700">
+          Resultados Encontrados: <span id="resultCount" class="text-sky-600">0</span>
+        </h3>
+        <span class="text-xs text-slate-400">Marque até 3 escolas para comparar</span>
+      </div>
+
+      <div id="schoolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Cards injetados via JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Comparador -->
+  <div id="modalCompare" class="fixed inset-0 bg-slate-900/70 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between border-b pb-3 mb-4">
+        <h3 class="text-lg font-extrabold text-slate-800"><i class="fa-solid fa-scale-balanced text-sky-600 mr-2"></i>Comparativo de Unidades Escolares</h3>
+        <button onclick="toggleModal('modalCompare')" class="text-slate-400 hover:text-slate-600 text-xl">&times;</button>
+      </div>
+      <div id="compareTableContainer" class="overflow-x-auto"></div>
+    </div>
+  </div>
+
+  <!-- Modal Regras -->
+  <div id="modalRegras" class="fixed inset-0 bg-slate-900/70 hidden items-center justify-center p-4 z-50">
+    <div class="bg-white rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-3 text-sm text-slate-600">
+      <div class="flex items-center justify-between border-b pb-3">
+        <h3 class="text-lg font-extrabold text-slate-800">Como funciona o cálculo (Res. SEDUC 106/2026)</h3>
+        <button onclick="toggleModal('modalRegras')" class="text-slate-400 hover:text-slate-600 text-xl">&times;</button>
+      </div>
+      <p><strong>1. Composição do ICM Final:</strong> É a soma do <strong>ICM-SARESP/Provão Paulista (até 0,50)</strong> + <strong>ICM-SAEB (até 0,50)</strong>. Quando a escola atinge 1,00 (100%), alcança o patamar <strong>Diamante</strong>.</p>
+      <p><strong>2. Gatilhos Obrigatórios:</strong> Para que cada componente seja computado, a unidade precisa cumprir os gatilhos de frequência (IFA) e participação mínima (TPS ≥ 80%).</p>
+      <p><strong>3. Importação de CSV completo:</strong> Você pode converter o Anexo Escola do Diário Oficial em CSV com as colunas: <code>nome,cie,inep,ure,icm_final,icm_saresp,icm_saeb</code> e carregar no botão superior para visualizar todas as ~4.972 escolas da rede.</p>
+    </div>
+  </div>
+
+  <script>
+    // Base inicial de exemplo (inclui escolas reais da região de Caieiras/Francisco Morato e amostra estadual)
+    let escolasData = [
+      { nome: "APARECIDO ROBERTO TONELLOTTI PROF", cie: "924120", inep: "35924120", ure: "CAIEIRAS", icm_final: 1.00, icm_saresp: 0.50, icm_saeb: 0.50 },
+      { nome: "ADAIL JARBAS DUCLOS", cie: "48823", inep: "35048823", ure: "CAIEIRAS", icm_final: 0.94, icm_saresp: 0.50, icm_saeb: 0.44 },
+      { nome: "FRANCISCO GONCALVES VIEIRA PROF", cie: "48768", inep: "35048768", ure: "CAIEIRAS", icm_final: 0.72, icm_saresp: 0.50, icm_saeb: 0.22 },
+      { nome: "16 DE JULHO", cie: "923370", inep: "35923370", ure: "SANTO ANDRE", icm_final: 1.00, icm_saresp: 0.50, icm_saeb: 0.50 },
+      { nome: "18 DE JUNHO", cie: "32220", inep: "35032220", ure: "SANTO ANASTACIO", icm_final: 0.50, icm_saresp: 0.50, icm_saeb: 0.00 },
+      { nome: "ABEL AUGUSTO FRAGATA", cie: "33820", inep: "35033820", ure: "MARILIA", icm_final: 0.19, icm_saresp: 0.00, icm_saeb: 0.19 },
+      { nome: "ABELARDO CESAR DOUTOR", cie: "41506", inep: "35041506", ure: "SAO JOAO DA BOA VISTA", icm_final: 0.00, icm_saresp: 0.00, icm_saeb: 0.00 },
+      { nome: "ABILIO ALVES MARQUES", cie: "22767", inep: "35022767", ure: "JABOTICABAL", icm_final: 0.78, icm_saresp: 0.50, icm_saeb: 0.28 },
+      { nome: "ABRAHAO DE MORAES PROFESSOR", cie: "49098", inep: "35049098", ure: "ITAPECERICA DA SERRA", icm_final: 0.83, icm_saresp: 0.50, icm_saeb: 0.33 },
+      { nome: "ADEMAR HIROSHI SUDA PROF", cie: "1351", inep: "35001351", ure: "NORTE 2", icm_final: 1.00, icm_saresp: 0.50, icm_saeb: 0.50 }
+    ];
+
+    let selectedCompare = [];
+
+    // Inicialização
+    document.addEventListener("DOMContentLoaded", () => {
+      populateUreSelect();
+      render();
+
+      ["searchInput", "ureFilter", "patamarFilter", "saebFilter", "sortFilter", "simSalario", "simPercentual", "simFreq"]
+        .forEach(id => document.getElementById(id).addEventListener("input", render));
+
+      document.getElementById("csvUpload").addEventListener("change", handleCsvUpload);
+    });
+
+    function populateUreSelect() {
+      const select = document.getElementById("ureFilter");
+      const currentVal = select.value;
+      const ures = [...new Set(escolasData.map(e => e.ure))].sort();
+      select.innerHTML = '<option value="">Todas as UREs</option>';
+      ures.forEach(ure => {
+        const opt = document.createElement("option");
+        opt.value = ure;
+        opt.textContent = ure;
+        select.appendChild(opt);
+      });
+      select.value = currentVal;
+    }
+
+    function calcularEstimativa(icm) {
+      const sal = parseFloat(document.getElementById("simSalario").value) || 0;
+      const pct = (parseFloat(document.getElementById("simPercentual").value) || 0) / 100;
+      const freq = (parseFloat(document.getElementById("simFreq").value) || 0) / 100;
+      const valor = (sal * 12 * pct) * icm * freq;
+      return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
+
+    function render() {
+      const search = document.getElementById("searchInput").value.toLowerCase().trim();
+      const ure = document.getElementById("ureFilter").value;
+      const patamar = document.getElementById("patamarFilter").value;
+      const saeb = document.getElementById("saebFilter").value;
+      const sort = document.getElementById("sortFilter").value;
+
+      let filtered = escolasData.filter(e => {
+        const matchSearch = !search || e.nome.toLowerCase().includes(search) || e.cie.includes(search) || e.inep.includes(search);
+        const matchUre = !ure || e.ure === ure;
+        
+        let matchPatamar = true;
+        if (patamar === "diamante") matchPatamar = e.icm_final >= 1.0;
+        if (patamar === "parcial") matchPatamar = e.icm_final > 0 && e.icm_final < 1.0;
+        if (patamar === "zero") matchPatamar = e.icm_final === 0;
+
+        let matchSaeb = true;
+        if (saeb === "integral") matchSaeb = e.icm_saeb >= 0.50;
+        if (saeb === "parcial") matchSaeb = e.icm_saeb > 0 && e.icm_saeb < 0.50;
+        if (saeb === "nao") matchSaeb = e.icm_saeb === 0;
+
+        return matchSearch && matchUre && matchPatamar && matchSaeb;
+      });
+
+      // Ordenação
+      filtered.sort((a, b) => {
+        if (sort === "icm_desc") return b.icm_final - a.icm_final;
+        if (sort === "icm_asc") return a.icm_final - b.icm_final;
+        return a.nome.localeCompare(b.nome);
+      });
+
+      updateKPIs(filtered, ure);
+      renderCards(filtered);
+    }
+
+    function updateKPIs(list, ure) {
+      const total = list.length;
+      const diamantes = list.filter(e => e.icm_final >= 1.0).length;
+      const parciais = list.filter(e => e.icm_final > 0 && e.icm_final < 1.0).length;
+      const somaIcm = list.reduce((acc, e) => acc + e.icm_final, 0);
+      const mediaIcm = total > 0 ? (somaIcm / total) : 0;
+
+      document.getElementById("kpiTotal").textContent = total.toLocaleString("pt-BR");
+      document.getElementById("kpiSubUre").textContent = ure ? `URE: ${ure}` : "Todas as UREs";
+      
+      document.getElementById("kpiDiamante").textContent = diamantes.toLocaleString("pt-BR");
+      document.getElementById("kpiDiamantePct").textContent = total ? `${((diamantes / total) * 100).toFixed(1)}% do recorte` : "0%";
+
+      document.getElementById("kpiParcial").textContent = parciais.toLocaleString("pt-BR");
+      document.getElementById("kpiParcialPct").textContent = total ? `${((parciais / total) * 100).toFixed(1)}% do recorte` : "0%";
+
+      document.getElementById("kpiMediaIcm").textContent = mediaIcm.toFixed(2).replace(".", ",");
+      document.getElementById("resultCount").textContent = total.toLocaleString("pt-BR");
+    }
+
+    function renderCards(list) {
+      const grid = document.getElementById("schoolsGrid");
+      grid.innerHTML = "";
+
+      list.slice(0, 90).forEach(escola => {
+        const pctFinal = Math.round(escola.icm_final * 100);
+        const pctSaeb = Math.round((escola.icm_saeb / 0.50) * 100);
+        const pctSaresp = Math.round((escola.icm_saresp / 0.50) * 100);
+        const isChecked = selectedCompare.includes(escola.cie);
+
+        let badgeClass = "badge-zero";
+        let badgeLabel = "Não atingiu";
+        if (escola.icm_final >= 1.0) { badgeClass = "badge-diamante"; badgeLabel = "Diamante"; }
+        else if (escola.icm_final > 0) { badgeClass = "badge-parcial"; badgeLabel = "Parcial"; }
+
+        const card = document.createElement("div");
+        card.className = "bg-white rounded-xl border border-slate-200 p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-2">
+              <span class="text-[11px] font-bold uppercase tracking-wider text-sky-700 bg-sky-50 px-2 py-0.5 rounded">${escola.ure}</span>
+              <span class="text-xs font-bold px-2.5 py-0.5 rounded-full ${badgeClass}">${pctFinal}% · ${badgeLabel}</span>
+            </div>
+
+            <h4 class="font-bold text-slate-900 text-sm mt-2 leading-snug">${escola.nome}</h4>
+            <p class="text-[11px] text-slate-400 mt-0.5">CIE: ${escola.cie} · INEP: ${escola.inep}</p>
+
+            <!-- Barras de Progresso -->
+            <div class="mt-3 space-y-2 text-xs">
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5">
+                  <span class="font-medium text-slate-600">SARESP / Provão</span>
+                  <span class="font-bold ${escola.icm_saresp > 0 ? 'text-emerald-600' : 'text-slate-400'}">${escola.icm_saresp.toFixed(2)} (${pctSaresp}%)</span>
+                </div>
+                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-emerald-500 h-full" style="width: ${pctSaresp}%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-[11px] mb-0.5">
+                  <span class="font-medium text-slate-600">SAEB (2ª Etapa)</span>
+                  <span class="font-bold ${escola.icm_saeb > 0 ? 'text-sky-600' : 'text-slate-400'}">${escola.icm_saeb.toFixed(2)} (${pctSaeb}%)</span>
+                </div>
+                <div class="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
+                  <div class="bg-sky-500 h-full" style="width: ${pctSaeb}%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between">
+            <div>
+              <span class="block text-[10px] text-slate-400 uppercase">Projeção Estimada</span>
+              <span class="text-xs font-extrabold text-slate-800">${calcularEstimativa(escola.icm_final)}</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <button onclick="copiarResumo('${escola.cie}')" title="Copiar resumo" class="text-slate-400 hover:text-sky-600 p-1.5 rounded-lg hover:bg-slate-50 transition">
+                <i class="fa-regular fa-copy"></i>
+              </button>
+              <label class="flex items-center gap-1 text-[11px] text-slate-500 cursor-pointer select-none">
+                <input type="checkbox" ${isChecked ? "checked" : ""} onchange="toggleCompare('${escola.cie}')" class="rounded text-sky-600 focus:ring-sky-500" />
+                Comparar
+              </label>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function toggleCompare(cie) {
+      if (selectedCompare.includes(cie)) {
+        selectedCompare = selectedCompare.filter(item => item !== cie);
+      } else {
+        if (selectedCompare.length >= 3) {
+          alert("Você pode comparar no máximo 3 escolas por vez.");
+          render();
+          return;
+        }
+        selectedCompare.push(cie);
+      }
+      updateCompareBar();
+    }
+
+    function updateCompareBar() {
+      const bar = document.getElementById("compareBar");
+      document.getElementById("compareCount").textContent = selectedCompare.length;
+      if (selectedCompare.length > 0) bar.classList.remove("hidden");
+      else bar.classList.add("hidden");
+    }
+
+    function clearCompare() {
+      selectedCompare = [];
+      updateCompareBar();
+      render();
+    }
+
+    function openCompareModal() {
+      const items = escolasData.filter(e => selectedCompare.includes(e.cie));
+      let html = `<table class="w-full text-left border-collapse text-xs">
+        <thead>
+          <tr class="border-b bg-slate-50 text-slate-600">
+            <th class="p-3">Indicador</th>
+            ${items.map(e => `<th class="p-3 font-bold text-slate-900">${e.nome}</th>`).join("")}
+          </tr>
+        </thead>
+        <tbody class="divide-y">
+          <tr><td class="p-3 font-medium text-slate-500">URE</td>${items.map(e => `<td class="p-3">${e.ure}</td>`).join("")}</tr>
+          <tr><td class="p-3 font-medium text-slate-500">CIE / INEP</td>${items.map(e => `<td class="p-3">${e.cie} / ${e.inep}</td>`).join("")}</tr>
+          <tr><td class="p-3 font-medium text-slate-500">ICM Final</td>${items.map(e => `<td class="p-3 font-extrabold text-sky-700">${(e.icm_final * 100).toFixed(0)}% (${e.icm_final.toFixed(2)})</td>`).join("")}</tr>
+          <tr><td class="p-3 font-medium text-slate-500">ICM SARESP</td>${items.map(e => `<td class="p-3">${e.icm_saresp.toFixed(2)}</td>`).join("")}</tr>
+          <tr><td class="p-3 font-medium text-slate-500">ICM SAEB</td>${items.map(e => `<td class="p-3">${e.icm_saeb.toFixed(2)}</td>`).join("")}</tr>
+          <tr><td class="p-3 font-medium text-slate-500">Projeção Simulador</td>${items.map(e => `<td class="p-3 font-bold text-emerald-700">${calcularEstimativa(e.icm_final)}</td>`).join("")}</tr>
+        </tbody>
+      </table>`;
+      document.getElementById("compareTableContainer").innerHTML = html;
+      toggleModal("modalCompare");
+    }
+
+    function copiarResumo(cie) {
+      const e = escolasData.find(item => item.cie === cie);
+      if (!e) return;
+      const texto = `📊 *Bônus BR 2025 - ${e.nome}*\nURE: ${e.ure} | CIE: ${e.cie}\n• ICM Final: ${(e.icm_final * 100).toFixed(0)}% (${e.icm_final.toFixed(2)})\n• SARESP/Provão: ${e.icm_saresp.toFixed(2)}\n• SAEB: ${e.icm_saeb.toFixed(2)}`;
+      navigator.clipboard.writeText(texto);
+      alert("Resumo da escola copiado para a área de transferência!");
+    }
+
+    function resetFilters() {
+      document.getElementById("searchInput").value = "";
+      document.getElementById("ureFilter").value = "";
+      document.getElementById("patamarFilter").value = "";
+      document.getElementById("saebFilter").value = "";
+      document.getElementById("sortFilter").value = "nome";
+      render();
+    }
+
+    function toggleModal(id) {
+      const el = document.getElementById(id);
+      el.classList.toggle("hidden");
+      el.classList.toggle("flex");
+    }
+
+    // Importador CSV para carregar a base completa do DOE
+    function handleCsvUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const lines = e.target.result.split(/\r?\n/).filter(l => l.trim() !== "");
+        const parsed = [];
+        for (let i = 1; i < lines.length; i++) {
+          const cols = lines[i].split(/[,;]/);
+          if (cols.length >= 7) {
+            parsed.push({
+              nome: cols[0].trim().replace(/^"|"$/g, ""),
+              cie: cols[1].trim(),
+              inep: cols[2].trim(),
+              ure: cols[3].trim().toUpperCase(),
+              icm_final: parseFloat(cols[4].replace(",", ".")) || 0,
+              icm_saresp: parseFloat(cols[5].replace(",", ".")) || 0,
+              icm_saeb: parseFloat(cols[6].replace(",", ".")) || 0
+            });
+          }
+        }
+        if (parsed.length > 0) {
+          escolasData = parsed;
+          populateUreSelect();
+          render();
+          alert(`${parsed.length} escolas carregadas com sucesso!`);
+        } else {
+          alert("Não foi possível ler os dados. Verifique se o CSV possui as 7 colunas esperadas.");
+        }
+      };
+      reader.readAsText(file, "UTF-8");
+    }
+  </script>
+</body>
+</html>
