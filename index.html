@@ -62,9 +62,12 @@
     .searchicon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:#7d8da2;pointer-events:none}
     .filter-bottom{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid #edf1f5;margin-top:13px;padding-top:12px}
     .chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center}
-    .chip{border:1px solid #dce5ee;background:#fff;color:#56677d;border-radius:999px;padding:7px 11px;font-size:11px;font-weight:750;min-height:33px;transition:.15s}
-    .chip:hover{border-color:#8fb8cc;color:var(--navy)}
-    .chip.active{background:#eaf6fb;border-color:#9bd0e1;color:#075b7d}
+    .chip{border:1px solid #e0e7e2;background:linear-gradient(180deg,#fff,#fafcf9);color:#64736b;border-radius:999px;padding:8px 14px;font-size:11px;font-weight:780;min-height:36px;letter-spacing:.01em;box-shadow:0 2px 5px rgba(27,57,51,.035);transition:background .18s ease,border-color .18s ease,color .18s ease,box-shadow .18s ease,transform .18s ease}
+    .chip:hover{border-color:#a9c4b7;color:var(--navy);box-shadow:0 4px 10px rgba(27,57,51,.075);transform:translateY(-1px)}
+    .chip.active{background:linear-gradient(135deg,#244f44,#397565);border-color:#244f44;color:#fff;box-shadow:0 4px 11px rgba(36,79,68,.20)}
+    .chip[data-status="diam"].active{background:linear-gradient(135deg,#e9f3ec,#d8e9dd);border-color:#b8d4c1;color:#236b4c;box-shadow:0 3px 9px rgba(35,107,76,.11)}
+    .chip[data-status="parc"].active{background:linear-gradient(135deg,#fbf4e7,#f4e8cc);border-color:#e8d5a7;color:#89632e;box-shadow:0 3px 9px rgba(148,107,53,.11)}
+    .chip[data-status="zero"].active{background:linear-gradient(135deg,#fff0ed,#fbe1dc);border-color:#efc5be;color:#a43c34;box-shadow:0 3px 9px rgba(173,61,53,.10)}
     .actions{display:flex;gap:8px;flex-wrap:wrap}
     .btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #d6e0ea;border-radius:10px;background:#fff;color:#33465e;padding:9px 12px;min-height:37px;font-size:11px;font-weight:800;transition:.18s ease;text-decoration:none}
     .btn:hover{border-color:#9ab7c8;background:#f8fcff;transform:translateY(-1px)}
@@ -250,7 +253,6 @@
           <button class="chip" type="button" data-status="parc">Parcial</button>
           <button class="chip" type="button" data-status="zero">Zerado</button>
         </div>
-        <div class="actions"><button class="btn soft" id="downloadCsv" type="button">↓ Baixar resultados (CSV)</button></div>
       </div>
     </section>
 
@@ -1065,11 +1067,6 @@
       const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
     }
 
-    function downloadFiltered() {
-      const headers = ['Escola','CIE','INEP','URE','Tipo','Jornada','Base de apuração','ICM SARESP','ICM SAEB','ICM final','Status','IFA cumprido','TPSS SARESP cumprido','TPSS SAEB cumprido'];
-      const rows = state.filtered.map(s => [s.nome,s.cie,s.inep,s.ure,s.tipo,s.jornada,s.base,s.icmSrsp,s.base==='SARESP'?'Não se aplica':s.icmSaeb,s.icm,statusLabel[s._st],s.ifaOk?'Sim':'Não',s.tpsSrspOk?'Sim':'Não',s.base==='SARESP'?'Não se aplica':(s.tpsSaebOk?'Sim':'Não')]);
-      downloadCsv(rows,'consulta_bonus_br_2025_escolas.csv',headers);
-    }
     function downloadUreCsv() {
       const entries = Object.entries(state.ures).filter(([name,v]) => v && typeof v === 'object' && num(v.icm) !== null);
       const headers = ['URE','ICM SARESP','ICM SAEB','ICM URE/SEDUC','Quantidade de escolas no Anexo Escola'];
@@ -1093,7 +1090,6 @@
       });
       $('schoolList').addEventListener('click', e => { const card=e.target.closest('[data-cie]'); if(!card)return; const s=state.schools.find(x=>String(x.cie)===String(card.dataset.cie)); if(s)openSchool(s); });
       $('showMore').addEventListener('click', () => { state.visible += PAGE_SIZE; renderSchools(); });
-      $('downloadCsv').addEventListener('click', downloadFiltered);
       $('downloadUres').addEventListener('click', downloadUreCsv);
       $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
       $('closeDialog').addEventListener('click', () => $('detailDialog').close());
