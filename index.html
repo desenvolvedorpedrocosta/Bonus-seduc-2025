@@ -401,8 +401,6 @@
       Publique o backend/Code.gs como Aplicativo da Web e cole a URL /exec abaixo.
       O index não contém links para repositórios de terceiros nem arquivos brutos da base.
     */
-    const BACKEND_URL = 'tém links para repositórios de terceiros nem arquivos brutos da base.
-    */
     const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbz6nXxvhSabaJq8DA3lNYi-GG6W3TRL3hJzCZbcb0ib40S2d-cqWfjoVKqF6eqKuLPsFA/exec';
     const GA4_MEASUREMENT_ID = 'G-JE0FG198WY';
     const DEFAULT_MANIFEST = {
@@ -445,28 +443,53 @@
     const saebOf = (s) => s.base !== 'SARESP/SAEB' ? 'na' : (num(s.icmSaeb) ?? 0) >= .499999 ? 'int' : (num(s.icmSaeb) ?? 0) > 0 ? 'parc' : 'nao';
 
     function apiRequest(action, params = {}) {
-      if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(BACKEND_URL)) {
-        return Promise.reject(new Error('Falta configurar a URL do serviço Apps Script no início do index.html.'));
+      const endpoint = String(BACKEND_URL || '').trim();
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(endpoint)) {
+        return Promise.reject(new Error('A URL /exec do Apps Script não está configurada. Abra o index.html, localize BACKEND_URL e informe o endereço da implantação publicada.'));
       }
+
       return new Promise((resolve, reject) => {
         const callback = '__br2025_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
         const script = document.createElement('script');
-        let timer;
+        let timer = null;
+        let settled = false;
+
         const cleanup = () => {
-          if (timer) clearTimeout(timer);
+          if (timer !== null) clearTimeout(timer);
           try { delete window[callback]; } catch (_) { window[callback] = undefined; }
-          script.remove();
+          if (script.parentNode) script.parentNode.removeChild(script);
+          else if (typeof script.remove === 'function') script.remove();
         };
-        window[callback] = (payload) => {
+        const finish = (handler, value) => {
+          if (settled) return;
+          settled = true;
           cleanup();
-          if (payload && payload.ok && payload.data !== undefined) resolve(payload.data);
-          else reject(new Error(payload?.error || 'O serviço de dados retornou uma resposta inválida.'));
+          handler(value);
         };
-        const query = new URLSearchParams({ action, callback, ...Object.fromEntries(Object.entries(params).map(([k,v]) => [k, String(v)])) });
-        script.onerror = () => { cleanup(); reject(new Error('Não foi possível acessar o serviço de dados. Confira a implantação do Apps Script.')); };
-        script.src = `${BACKEND_URL}?${query.toString()}`;
-        timer = setTimeout(() => { cleanup(); reject(new Error('Tempo esgotado ao consultar o serviço de dados.')); }, 30000);
-        document.head.appendChild(script);
+
+        // O Apps Script devolve JavaScript no formato callback({...}); por isso
+        // a resposta precisa ser carregada como <script> (JSONP), não via fetch.
+        window[callback] = (payload) => {
+          if (payload && payload.ok === true && payload.data !== undefined) {
+            finish(resolve, payload.data);
+          } else {
+            finish(reject, new Error(payload?.error || 'O Apps Script respondeu sem os dados esperados.'));
+          }
+        };
+
+        const query = new URLSearchParams();
+        query.set('action', String(action || 'bootstrap'));
+        query.set('callback', callback);
+        Object.entries(params || {}).forEach(([key, value]) => {
+          if (value !== undefined && value !== null) query.set(key, String(value));
+        });
+
+        script.async = true;
+        script.type = 'text/javascript';
+        script.onerror = () => finish(reject, new Error('Falha ao carregar a resposta JSONP do Apps Script. Confira se a implantação está ativa, acessível e termina em /exec.'));
+        timer = setTimeout(() => finish(reject, new Error('Tempo esgotado ao consultar o Apps Script. Verifique a implantação e tente novamente.')), 30000);
+        script.src = endpoint + '?' + query.toString();
+        (document.head || document.body).appendChild(script);
       });
     }
 
@@ -1171,9 +1194,10 @@
     }
 
     async function init() {
-      setupEvents();
-      setupAnalytics();
       try {
+        $('dataState').textContent = 'Conectando à base oficial via Apps Script…';
+        setupEvents();
+        setupAnalytics();
         const payload = await apiRequest('bootstrap');
         if (!payload || !Array.isArray(payload.schools) || !payload.ures) {
           throw new Error('O serviço retornou uma base incompleta.');
@@ -1195,7 +1219,7 @@
       } catch (error) {
         console.error('Falha ao carregar a base BR 2025:', error);
         $('stateDot').className='live-dot warn';
-        $('dataState').textContent='Serviço de dados não configurado ou indisponível';
+        $('dataState').textContent='Não foi possível iniciar a consulta da base';
         $('sourceState').textContent='Aguardando configuração do serviço de dados';
         $('resultCount').textContent='Consulta indisponível';
         $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar a base oficial</strong>${esc(error.message)}<br><br>Configure a URL do serviço Apps Script no index.html, confirme as quatro abas da base privada e confira se a implantação está publicada para acesso público.</li>`;
