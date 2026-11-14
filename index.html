@@ -298,7 +298,7 @@
     </div>
 
     <section class="panel info-panel" id="ureSection" style="margin-top:14px">
-      <div class="section-head"><div><h2>Resultados consolidados por URE</h2><p>Valores consolidados publicados no Anexo SEDUC/URE. Selecione uma URE para filtrar as escolas correspondentes.</p></div><button class="btn" id="downloadUres" type="button">↓ Baixar UREs (CSV)</button></div>
+      <div class="section-head"><div><h2>Resultados consolidados por URE</h2><p>Valores consolidados publicados no Anexo SEDUC/URE. Selecione uma URE para filtrar as escolas correspondentes.</p></div></div>
       <div class="ure-list" id="ureList"><div class="loading">Aguardando a base consolidada das UREs…</div></div>
       <div class="callout" id="ureMappingNote" hidden></div>
     </section>
@@ -1058,21 +1058,9 @@
       }
     }
 
-    function downloadCsv(rows, fileName, headers) {
-      if (!rows.length) { alert('Não há registros para baixar.'); return; }
-      const escapeCsv = (v) => `"${String(v ?? '').replace(/"/g,'""')}"`;
-      const csv = '\uFEFF' + [headers.map(escapeCsv).join(';'), ...rows.map(r => r.map(escapeCsv).join(';'))].join('\r\n');
-      const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = fileName; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
-    }
 
-    function downloadUreCsv() {
-      const entries = Object.entries(state.ures).filter(([name,v]) => v && typeof v === 'object' && num(v.icm) !== null);
-      const headers = ['URE','ICM SARESP','ICM SAEB','ICM URE/SEDUC','Quantidade de escolas no Anexo Escola'];
-      const rows = entries.map(([name,v]) => [name,v.icmSrsp,v.icmSaeb,v.icm,state.schools.filter(s=>s.ure===name).length]);
-      downloadCsv(rows,'consulta_bonus_br_2025_ures.csv',headers);
-    }
+
+
 
     function setupEvents() {
       let timer;
@@ -1090,8 +1078,7 @@
       });
       $('schoolList').addEventListener('click', e => { const card=e.target.closest('[data-cie]'); if(!card)return; const s=state.schools.find(x=>String(x.cie)===String(card.dataset.cie)); if(s)openSchool(s); });
       $('showMore').addEventListener('click', () => { state.visible += PAGE_SIZE; renderSchools(); });
-      $('downloadUres').addEventListener('click', downloadUreCsv);
-      $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
+        $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
       $('closeDialog').addEventListener('click', () => $('detailDialog').close());
       $('detailDialog').addEventListener('click', e => { if(e.target === $('detailDialog')) $('detailDialog').close(); });
 
