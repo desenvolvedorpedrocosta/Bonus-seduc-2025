@@ -52,7 +52,7 @@
     .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:13px}
     .section-head h2{font-size:16px;margin:0;color:var(--navy);letter-spacing:-.02em}
     .section-head p{font-size:11px;color:var(--muted);margin:4px 0 0}
-    .field-grid{display:grid;grid-template-columns:minmax(220px,2fr) repeat(4,minmax(140px,1fr));gap:10px}
+    .field-grid{display:grid;grid-template-columns:minmax(220px,2fr) repeat(5,minmax(130px,1fr));gap:10px}
     .field label{display:block;font-size:11px;font-weight:800;color:#53657c;margin:0 0 6px}
     .control{width:100%;height:43px;border:1px solid #d6e0ea;border-radius:11px;padding:0 12px;background:#fff;color:var(--ink);font-size:13px;outline:none;transition:border .15s,box-shadow .15s}
     .control:focus{border-color:#2694be;box-shadow:var(--focus)}
@@ -158,6 +158,16 @@
     .manager-metric b{display:block;color:#254b40;font-size:15px;margin-top:4px;font-variant-numeric:tabular-nums}
     .manager-status{display:flex;gap:7px;flex-wrap:wrap;margin-top:9px}
     .manager-status .tag{font-size:9px}
+
+    .field-help{display:block;color:#7a887f;font-size:9px;line-height:1.45;margin-top:4px}
+    .share-layout{display:grid;grid-template-columns:220px minmax(0,1fr);align-items:center;gap:18px}
+    .share-qr-wrap{display:flex;justify-content:center;align-items:center;background:#f5f7f4;border:1px solid var(--line);border-radius:14px;padding:10px;min-height:220px}
+    .share-qr{width:200px;height:200px;object-fit:contain;background:#fff;border-radius:8px}
+    .share-text label{display:block;font-size:11px;font-weight:800;color:#53657c;margin-bottom:6px}
+    .share-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+    .share-text .tiny{margin-top:8px;color:var(--green)}
+    @media(max-width:640px){.share-layout{grid-template-columns:1fr}.share-qr-wrap{max-width:240px;margin:auto;width:100%}}
+
     .simulator{padding:17px;margin-top:16px}
     .sim-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .sim-slot{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fff;min-width:0}
@@ -193,6 +203,7 @@
       <p class="lede">Consulte os índices oficiais publicados para SARESP / Provão Paulista e SAEB, confira os gatilhos de frequência e participação e entenda a composição do ICM final.</p>
       <div class="hero-links">
         <a class="hero-link" href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">Consultar publicação oficial no DOE-SP ↗</a>
+        <button class="hero-link" id="shareSite" type="button">↗ Compartilhar consulta / QR Code</button>
       </div>
       <div class="version-line"><span class="version-pill" id="versionState">Resolução SEDUC nº 106/2026 · publicação de 12/11/2026</span><span id="historyState">Versão inicial da base oficial</span></div>
     </div>
@@ -215,7 +226,7 @@
 
     <section class="panel search-panel" aria-label="Filtros de consulta">
       <div class="section-head">
-        <div><h2>Localizar uma escola</h2><p>Pesquise pelo nome, código CIE ou código INEP. Os filtros podem ser combinados.</p></div>
+        <div><h2>Localizar uma escola</h2><p>Pesquise pelo nome, código CIE ou INEP. O SARESP consta nas 4.972 unidades; o SAEB integra 4.939. Os filtros podem ser combinados.</p></div>
         <button class="btn" id="clearFilters" type="button">Limpar filtros</button>
       </div>
       <div class="field-grid">
@@ -224,8 +235,9 @@
           <div class="searchwrap"><span class="searchicon">⌕</span><input class="control" id="q" type="search" placeholder="Ex.: nome da escola ou 12345" autocomplete="off" enterkeyhint="search"></div>
         </div>
         <div class="field"><label for="ureFilter">Unidade Regional de Ensino</label><select class="control" id="ureFilter"><option value="">Todas as UREs</option></select></div>
-        <div class="field"><label for="saebFilter">Componente SAEB</label><select class="control" id="saebFilter"><option value="">Todos</option><option value="int">Integral (0,50)</option><option value="parc">Parcial</option><option value="nao">Não recebe</option><option value="na">Não se aplica</option></select></div>
-        <div class="field"><label for="baseFilter">Base de apuração</label><select class="control" id="baseFilter"><option value="">Todas</option><option value="SARESP/SAEB">SARESP + SAEB</option><option value="SARESP">Somente SARESP</option></select></div>
+        <div class="field"><label for="saebFilter">Situação do índice SAEB</label><select class="control" id="saebFilter"><option value="">Todos</option><option value="int">Integral (0,50)</option><option value="parc">Parcial</option><option value="nao">Não recebe</option><option value="na">Não se aplica</option></select></div>
+        <div class="field"><label for="evaluationFilter">Exibir avaliação</label><select class="control" id="evaluationFilter"><option value="">Todos os componentes</option><option value="SARESP">SARESP / Provão Paulista</option><option value="SAEB">SAEB</option></select></div>
+        <div class="field"><label for="baseFilter">Grupo de apuração</label><select class="control" id="baseFilter"><option value="">Todos os grupos</option><option value="SARESP/SAEB">Duas avaliações (4.939)</option><option value="SARESP">Somente SARESP (33)</option></select></div>
         <div class="field"><label for="sortFilter">Ordenar por</label><select class="control" id="sortFilter"><option value="nome">Nome (A–Z)</option><option value="icm-desc">Maior ICM primeiro</option><option value="icm-asc">Menor ICM primeiro</option></select></div>
       </div>
       <div class="filter-bottom">
@@ -241,12 +253,12 @@
     </section>
 
     <div class="result-head"><span class="result-count" id="resultCount">Carregando registros…</span><span class="result-hint">Selecione um cartão para abrir o detalhamento completo</span></div>
-    <ul class="list" id="schoolList" aria-live="polite"><li class="loading"><div class="spinner"></div><strong>Carregando dados oficiais estruturados</strong>Consultando a base pública de escolas e UREs…</li></ul>
+    <ul class="list" id="schoolList" aria-live="polite"><li class="loading"><div class="spinner"></div><strong>Carregando dados oficiais estruturados</strong>Consultando o serviço de dados do aplicativo…</li></ul>
     <div class="more-wrap"><button class="btn primary more" id="showMore" type="button" hidden>Mostrar mais resultados</button></div>
 
     <section class="panel data-panel" id="disciplinePanel" aria-label="Consulta por disciplina e série">
       <div class="section-head">
-        <div><h2>Consulta por disciplina e série · resultado do professor</h2><p>Consulta separada por avaliação, componente curricular e ano/série, conforme o Anexo Disciplina-Série da Resolução SEDUC nº 106/2026.</p></div>
+        <div><h2>Consulta por disciplina e série · resultado do professor</h2><p>Consulta separada por avaliação, componente curricular e ano/série, conforme o Anexo Disciplina-Série. IC é o avanço em relação à meta; ICM é o índice após os critérios aplicáveis.</p></div>
       </div>
       <div class="discipline-grid">
         <div class="field"><label for="disciplineSchool">Escola, CIE ou INEP</label><input class="control" id="disciplineSchool" list="disciplineSchoolOptions" placeholder="Digite nome ou código"><datalist id="disciplineSchoolOptions"></datalist></div>
@@ -255,7 +267,7 @@
         <div class="field"><label for="disciplineSeries">Ano / série</label><select class="control" id="disciplineSeries"><option value="">Todos</option></select></div>
       </div>
       <div class="filter-bottom"><span class="tiny" id="disciplineState">Verificando o Anexo Disciplina-Série…</span><button class="btn" id="clearDisciplineFilters" type="button">Limpar consulta</button></div>
-      <div class="discipline-results" id="disciplineResults"><div class="loading"><strong>Consulta específica</strong>Os dados só serão exibidos após a incorporação do anexo oficial.</div></div>
+      <div class="discipline-results" id="disciplineResults"><div class="loading"><strong>Consulta específica</strong>Os dados do anexo oficial são consultados no serviço privado do aplicativo.</div></div>
     </section>
 
     <div class="lower-grid">
@@ -263,6 +275,7 @@
         <h2>Como interpretar o resultado</h2>
         <p><strong>ICM final da escola:</strong> nas unidades com base SARESP/SAEB, é a soma dos componentes ICM-SARESP/Provão Paulista e ICM-SAEB, cada um limitado a 0,50. Nas 33 unidades apuradas exclusivamente pelo SARESP, existe meta própria e o componente pode chegar a 1,00.</p>
         <p><strong>Critério de cálculo:</strong> no nível da escola, utiliza-se o maior valor entre o Índice de Cumprimento (IC) e o Índice de Qualidade (IQ), condicionado aos gatilhos de frequência (IFA) e participação (TPSS). Se um gatilho aplicável não for cumprido, o componente correspondente é zerado.</p>
+        <p><strong>Em linguagem simples:</strong> IC mede o avanço em relação à meta; IQ reconhece a manutenção de um patamar alto; IFA verifica a frequência dos alunos; TPSS verifica a participação nas avaliações; ICM é o índice final de cumprimento depois desses critérios.</p>
         <div class="callout"><strong>Atenção:</strong> 0,50 é o teto de cada componente quando a escola integra as duas avaliações. Não se deve multiplicar novamente os ICMs apurados por 50%. O resultado final Diamante corresponde a ICM 1,00.</div>
         <p class="tiny">Os índices apresentados são resultados institucionais publicados. Eles não representam, isoladamente, o valor individual em reais a ser recebido por cada servidor.</p>
       </section>
@@ -283,6 +296,7 @@
     <section class="panel info-panel" id="ureSection" style="margin-top:14px">
       <div class="section-head"><div><h2>Resultados consolidados por URE</h2><p>Valores consolidados publicados no Anexo SEDUC/URE. Selecione uma URE para filtrar as escolas correspondentes.</p></div><button class="btn" id="downloadUres" type="button">↓ Baixar UREs (CSV)</button></div>
       <div class="ure-list" id="ureList"><div class="loading">Aguardando a base consolidada das UREs…</div></div>
+      <div class="callout" id="ureMappingNote" hidden></div>
     </section>
 
     <section class="panel simulator" id="bonusSimulator" aria-label="Simulador de Bonificação por Resultados">
@@ -293,36 +307,55 @@
         <div class="sim-slot" data-slot="1">
           <h3>Vínculo / escola 1</h3>
           <div class="sim-fields">
-            <div class="field" style="grid-column:1/-1"><label for="simSchool1">Escola de exercício</label><select class="control sim-school" id="simSchool1"><option value="">Selecione uma escola (opcional)</option></select></div>
-            <div class="field"><label for="simHours1">Jornada / carga horária</label><input class="control" id="simHours1" placeholder="Ex.: 25h ou 40h"></div>
-            <div class="field"><label for="simSalary1">Retribuição mensal computável (R$)</label><input class="control sim-calc" id="simSalary1" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label for="simMonths1">Meses remunerados no período</label><input class="control sim-calc" id="simMonths1" type="number" min="0" max="8" step="0.5" value="8"></div>
-            <div class="field"><label for="simExpected1">Dias previstos de exercício</label><input class="control sim-calc" id="simExpected1" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"></div>
-            <div class="field"><label for="simWorked1">Dias de efetivo exercício</label><input class="control sim-calc" id="simWorked1" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"></div>
+            <div class="field" style="grid-column:1/-1">
+              <label for="simSchoolSearch1">Buscar escola para o vínculo 1</label>
+              <input class="control" id="simSchoolSearch1" type="search" placeholder="Digite parte do nome, CIE ou INEP">
+              <select class="control sim-school" id="simSchool1" aria-label="Escola de exercício do vínculo 1"><option value="">Selecione uma escola (opcional)</option></select>
+              <small class="field-help">A lista é organizada em ordem alfabética. A busca filtra as opções enquanto você digita.</small>
+            </div>
+            <div class="field"><label for="simHours1">Jornada / carga horária</label><input class="control" id="simHours1" placeholder="Ex.: 25h ou 40h"><small class="field-help">Campo de identificação. A carga horária já deve estar refletida no valor mensal informado.</small></div>
+            <div class="field">
+              <label for="simSalary1">Valor mensal considerado para a bonificação (R$) <span title="É o valor bruto do vínculo que entra no cálculo legal da BR, depois de excluir parcelas não computáveis. Não use o valor líquido do holerite." aria-label="Ajuda sobre o valor mensal">ⓘ</span></label>
+              <input class="control sim-calc" id="simSalary1" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
+              <small class="field-help">Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
+            </div>
+            <div class="field"><label for="simMonths1">Meses com remuneração no período <span title="Quantidade de meses considerados neste vínculo durante os períodos de avaliação de 2025." aria-label="Ajuda sobre meses">ⓘ</span></label><input class="control sim-calc" id="simMonths1" type="number" min="0" max="8" step="0.5" value="8"><small class="field-help">O período de avaliação de 2025 soma oito meses.</small></div>
+            <div class="field"><label for="simExpected1">Dias previstos de exercício <span title="Total de dias em que este vínculo deveria estar em exercício no período considerado." aria-label="Ajuda sobre dias previstos">ⓘ</span></label><input class="control sim-calc" id="simExpected1" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias em que você deveria estar em exercício nesse vínculo.</small></div>
+            <div class="field"><label for="simWorked1">Dias efetivamente considerados <span title="Dias que contam como efetivo exercício segundo as regras da bonificação." aria-label="Ajuda sobre dias de efetivo exercício">ⓘ</span></label><input class="control sim-calc" id="simWorked1" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias considerados como efetivo exercício pelas regras da BR.</small></div>
           </div>
           <div class="sim-readout" id="simReadout1">A jornada é informativa; a remuneração mensal deve refletir o vínculo informado.</div>
         </div>
         <div class="sim-slot" data-slot="2">
           <h3>Vínculo / escola 2 (opcional)</h3>
           <div class="sim-fields">
-            <div class="field" style="grid-column:1/-1"><label for="simSchool2">Escola de exercício</label><select class="control sim-school" id="simSchool2"><option value="">Não adicionar segundo vínculo</option></select></div>
-            <div class="field"><label for="simHours2">Jornada / carga horária</label><input class="control" id="simHours2" placeholder="Ex.: 20h ou 30h"></div>
-            <div class="field"><label for="simSalary2">Retribuição mensal computável (R$)</label><input class="control sim-calc" id="simSalary2" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00"></div>
-            <div class="field"><label for="simMonths2">Meses remunerados no período</label><input class="control sim-calc" id="simMonths2" type="number" min="0" max="8" step="0.5" value="8"></div>
-            <div class="field"><label for="simExpected2">Dias previstos de exercício</label><input class="control sim-calc" id="simExpected2" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"></div>
-            <div class="field"><label for="simWorked2">Dias de efetivo exercício</label><input class="control sim-calc" id="simWorked2" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"></div>
+            <div class="field" style="grid-column:1/-1">
+              <label for="simSchoolSearch2">Buscar escola para o vínculo 2</label>
+              <input class="control" id="simSchoolSearch2" type="search" placeholder="Digite parte do nome, CIE ou INEP">
+              <select class="control sim-school" id="simSchool2" aria-label="Escola de exercício do vínculo 2"><option value="">Não adicionar segundo vínculo</option></select>
+              <small class="field-help">O segundo vínculo pode ter outra escola, jornada, remuneração e quantidade de dias.</small>
+            </div>
+            <div class="field"><label for="simHours2">Jornada / carga horária</label><input class="control" id="simHours2" placeholder="Ex.: 20h ou 30h"><small class="field-help">Campo de identificação. A carga horária já deve estar refletida no valor mensal informado.</small></div>
+            <div class="field">
+              <label for="simSalary2">Valor mensal considerado para a bonificação (R$) <span title="É o valor bruto do vínculo que entra no cálculo legal da BR, depois de excluir parcelas não computáveis. Não use o valor líquido do holerite." aria-label="Ajuda sobre o valor mensal">ⓘ</span></label>
+              <input class="control sim-calc" id="simSalary2" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
+              <small class="field-help">Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
+            </div>
+            <div class="field"><label for="simMonths2">Meses com remuneração no período <span title="Quantidade de meses considerados neste vínculo durante os períodos de avaliação de 2025." aria-label="Ajuda sobre meses">ⓘ</span></label><input class="control sim-calc" id="simMonths2" type="number" min="0" max="8" step="0.5" value="8"><small class="field-help">O período de avaliação de 2025 soma oito meses.</small></div>
+            <div class="field"><label for="simExpected2">Dias previstos de exercício <span title="Total de dias em que este vínculo deveria estar em exercício no período considerado." aria-label="Ajuda sobre dias previstos">ⓘ</span></label><input class="control sim-calc" id="simExpected2" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias em que você deveria estar em exercício nesse vínculo.</small></div>
+            <div class="field"><label for="simWorked2">Dias efetivamente considerados <span title="Dias que contam como efetivo exercício segundo as regras da bonificação." aria-label="Ajuda sobre dias de efetivo exercício">ⓘ</span></label><input class="control sim-calc" id="simWorked2" type="number" min="0" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias considerados como efetivo exercício pelas regras da BR.</small></div>
           </div>
           <div class="sim-readout" id="simReadout2">O segundo vínculo é opcional e pode ter carga horária e dias próprios.</div>
         </div>
       </div>
       <div class="sim-result"><div><span>Estimativa bruta combinada</span><strong id="simTotal">Preencha os dados</strong></div><small id="simBreakdown">Parâmetros oficiais: 16,67% · IACM SEDUC 0,72</small></div>
-      <p class="formula-note"><strong>Fórmula de referência:</strong> percentual de 16,67% × soma da retribuição mensal computável no período × IACM 0,72 × índice individual de dias de efetivo exercício. A regra de elegibilidade exige participação mínima de 2/3 do período. Informe os dias previstos e efetivos de cada vínculo separadamente. <a href="https://www.al.sp.gov.br/repositorio/legislacao/lei.complementar/2021/lei.complementar-1361-21.10.2021.html" target="_blank" rel="noopener">LC 1.361/2021</a> · <a href="https://www.al.sp.gov.br/repositorio/legislacao/decreto/2026/decreto-70530-14.04.2026.html" target="_blank" rel="noopener">Decreto 70.530/2026</a>.</p>
+      <p class="formula-note"><strong>Como a estimativa funciona:</strong> percentual de 16,67% × soma dos valores mensais considerados em cada vínculo × IACM 0,72 × proporção dos dias de efetivo exercício. A regra de participação mínima exige pelo menos 2/3 do período de avaliação em cada vínculo, conforme os critérios legais aplicáveis. Informe separadamente os dias e valores de cada vínculo. <a href="https://www.al.sp.gov.br/repositorio/legislacao/lei.complementar/2021/lei.complementar-1361-21.10.2021.html" target="_blank" rel="noopener">LC 1.361/2021</a> · <a href="https://www.al.sp.gov.br/repositorio/legislacao/decreto/2026/decreto-70530-14.04.2026.html" target="_blank" rel="noopener">Decreto 70.530/2026</a>.</p>
       <p class="formula-note panel-warning" style="padding:9px 11px;border-radius:0 9px 9px 0"><strong>Importante:</strong> esta é uma simulação bruta com base nos parâmetros gerais publicados. Não calcula eventual adicional específico, ajuste orçamentário, compensação de adiantamentos ou particularidades de acumulação/afastamento. A remuneração deve excluir as parcelas não computáveis previstas no art. 5º, VI, da LC 1.361/2021. Confirme o valor definitivo com o RH/holerite.</p>
     </section>
 
     <footer class="footer">
       <p>Ferramenta independente de consulta. Fonte normativa: Resolução SEDUC nº 106, de 11/11/2026 · DOE-SP de 12/11/2026.</p>
       <p>Em caso de divergência, prevalecem o Diário Oficial e os sistemas oficiais da Secretaria da Educação.</p>
+      <p>As retificações do DOE-SP não são monitoradas automaticamente. A base é atualizada depois da conferência do novo ato e da substituição dos registros na planilha privada do aplicativo.</p>
       <p><a href="https://www.doe.sp.gov.br/executivo/secretaria-da-educacao/resolucao-seduc-n-106-de-11-de-novembro-de-2026-20261111112412202273773" target="_blank" rel="noopener">Consultar publicação oficial</a> · <span id="baseFooter">Base de dados não carregada</span></p>
     </footer>
   </main>
@@ -334,42 +367,73 @@
     </div>
   </dialog>
 
+
+  <dialog id="shareDialog" aria-labelledby="shareTitle">
+    <div class="dialog-scroll">
+      <div class="dlg-top">
+        <div><h2 id="shareTitle">Compartilhar a Consulta BR 2025</h2><div class="dlg-meta">Envie o endereço ou apresente o QR Code para acesso pelo celular.</div></div>
+        <button class="close" id="closeShare" type="button" aria-label="Fechar">×</button>
+      </div>
+      <div class="dlg-content">
+        <div class="share-layout">
+          <div class="share-qr-wrap"><img id="shareQr" class="share-qr" alt="QR Code para abrir a Consulta BR 2025"></div>
+          <div class="share-text">
+            <label for="shareUrl">Link desta consulta</label>
+            <input class="control" id="shareUrl" type="url" readonly>
+            <div class="share-actions">
+              <button class="btn primary" id="copyShareLink" type="button">Copiar link</button>
+              <button class="btn" id="nativeShareLink" type="button">Compartilhar pelo celular</button>
+            </div>
+            <small class="field-help">O QR Code leva ao endereço público desta página. Se o serviço de QR estiver indisponível, o link continua disponível para cópia e compartilhamento.</small>
+            <div class="tiny" id="shareStatus" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
   <script>
   (() => {
     'use strict';
 
     /*
-      BASE DE DADOS
-      - Primeiro tenta arquivos locais no próprio repositório: ./data/escolas.json e ./data/ures.json.
-      - Se ainda não existirem, usa os arquivos públicos do projeto de origem.
-      - Para independência total, copie os dois JSON para a pasta /data do seu repositório.
+      A base oficial fica em um serviço de dados privado do aplicativo.
+      Publique o backend/Code.gs como Aplicativo da Web e cole a URL /exec abaixo.
+      O index não contém links para repositórios de terceiros nem arquivos brutos da base.
     */
-    const DATA_ENDPOINTS = {
-      escolas: [
-        './data/escolas.json',
-        'https://joaobrunon.github.io/bonus-br-2025/data/escolas.json',
-        'https://raw.githubusercontent.com/joaobrunon/bonus-br-2025/main/data/escolas.json'
-      ],
-      ures: [
-        './data/ures.json',
-        'https://joaobrunon.github.io/bonus-br-2025/data/ures.json',
-        'https://raw.githubusercontent.com/joaobrunon/bonus-br-2025/main/data/ures.json'
-      ]
+    const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbz6nXxvhSabaJq8DA3lNYi-GG6W3TRL3hJzCZbcb0ib40S2d-cqWfjoVKqF6eqKuLPsFA/exec';
+    const GA4_MEASUREMENT_ID = 'G-JE0FG198WY';
+    const DEFAULT_MANIFEST = {
+      schemaVersion: 1,
+      dataVersion: '2026.11.12.1',
+      baseLabel: 'Resolução SEDUC nº 106/2026',
+      publicationDate: '2026-11-12',
+      lastOfficialUpdate: '2026-11-12',
+      retifications: [],
+      note: 'Base estruturada a partir dos três anexos oficiais.'
     };
-
-    /* Opcional: informe um ID de medição GA4 (G-XXXXXXXXXX) para contar acessos.
-       Deixe vazio para manter a ferramenta sem analytics. Não coleta nome, CIE, INEP ou texto pesquisado. */
-    const GA4_MEASUREMENT_ID = 'GTM-W56MFSXX';
-    const DISCIPLINE_DATA_ENDPOINT = './data/disciplinas-series.json';
-    const DEFAULT_MANIFEST = { schemaVersion: 1, dataVersion: '2026.11.12.1', baseLabel: 'Resolução SEDUC nº 106/2026', publicationDate: '2026-11-12', lastOfficialUpdate: '2026-11-12', projectUpdatedAt: '2026-11-14', retifications: [], note: 'Base inicial vinculada à publicação de 12/11/2026.' };
     const BONUS_RULES = { percent: 0.1667, iacm: 0.72, monthsInEvaluation: 8, minimumParticipation: 2/3 };
 
-    const EXPECTED = { schools: 4972, diamond: 1320, partial: 3073, zero: 579, saebFull: 1508 };
+    const EXPECTED = { schools: 4972, diamond: 1320, partial: 3073, zero: 579, saebFull: 1508, ures: 91, disciplineRecords: 192886 };
     const PAGE_SIZE = 48;
     const $ = (id) => document.getElementById(id);
-    const state = { schools: [], ures: {}, filtered: [], visible: PAGE_SIZE, status: '', dataOrigin: '', selectedSchool: null, manifest: DEFAULT_MANIFEST, disciplineRecords: [], disciplineAvailable: false };
+    const state = {
+      schools: [], ures: {}, totals: {}, filtered: [], visible: PAGE_SIZE, status: '',
+      dataOrigin: '', selectedSchool: null, manifest: DEFAULT_MANIFEST,
+      disciplineRecords: [], disciplineAvailable: false, lastDisciplineCie: '',
+      simulatorSchools: []
+    };
     const fold = (value) => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
-    const num = (value) => value === null || value === undefined || value === '' || !Number.isFinite(Number(value)) ? null : Number(value);
+    const num = (value) => {
+      if (value === null || value === undefined || value === '') return null;
+      if (typeof value === 'number') return Number.isFinite(value) ? value : null;
+      let s = String(value).trim().replace(/\s/g, '');
+      if (!s) return null;
+      if (s.includes(',') && s.includes('.')) s = s.replace(/\./g, '').replace(',', '.');
+      else if (s.includes(',')) s = s.replace(',', '.');
+      const n = Number(s);
+      return Number.isFinite(n) ? n : null;
+    };
     const fmt = (value, digits = 2) => { const n = num(value); return n === null ? '—' : n.toLocaleString('pt-BR', { minimumFractionDigits: digits, maximumFractionDigits: digits }); };
     const intFmt = (value) => Number(value || 0).toLocaleString('pt-BR');
     const pct = (value, digits = 1) => { const n = num(value); return n === null ? '—' : `${fmt(n, digits)}%`; };
@@ -378,44 +442,51 @@
     const statusLabel = { diam: 'Diamante', parc: 'Parcial', zero: 'Zerado' };
     const saebOf = (s) => s.base !== 'SARESP/SAEB' ? 'na' : (num(s.icmSaeb) ?? 0) >= .499999 ? 'int' : (num(s.icmSaeb) ?? 0) > 0 ? 'parc' : 'nao';
 
-    async function fetchJsonFromCandidates(urls) {
-      let lastError = null;
-      for (const url of urls) {
-        try {
-          const response = await fetch(url, { method: 'GET', cache: 'default', headers: { 'Accept': 'application/json' } });
-          if (!response.ok) throw new Error(`HTTP ${response.status}`);
-          const data = await response.json();
-          if (url.startsWith('./')) state.dataOrigin = 'arquivos do próprio repositório';
-          else if (!state.dataOrigin) state.dataOrigin = 'base pública do projeto de origem';
-          return data;
-        } catch (error) { lastError = error; }
+    function apiRequest(action, params = {}) {
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec$/.test(BACKEND_URL)) {
+        return Promise.reject(new Error('Falta configurar a URL do serviço Apps Script no início do index.html.'));
       }
-      throw lastError || new Error('Não foi possível obter o arquivo de dados.');
+      return new Promise((resolve, reject) => {
+        const callback = '__br2025_' + Date.now() + '_' + Math.random().toString(36).slice(2, 9);
+        const script = document.createElement('script');
+        let timer;
+        const cleanup = () => {
+          if (timer) clearTimeout(timer);
+          try { delete window[callback]; } catch (_) { window[callback] = undefined; }
+          script.remove();
+        };
+        window[callback] = (payload) => {
+          cleanup();
+          if (payload && payload.ok && payload.data !== undefined) resolve(payload.data);
+          else reject(new Error(payload?.error || 'O serviço de dados retornou uma resposta inválida.'));
+        };
+        const query = new URLSearchParams({ action, callback, ...Object.fromEntries(Object.entries(params).map(([k,v]) => [k, String(v)])) });
+        script.onerror = () => { cleanup(); reject(new Error('Não foi possível acessar o serviço de dados. Confira a implantação do Apps Script.')); };
+        script.src = `${BACKEND_URL}?${query.toString()}`;
+        timer = setTimeout(() => { cleanup(); reject(new Error('Tempo esgotado ao consultar o serviço de dados.')); }, 30000);
+        document.head.appendChild(script);
+      });
     }
-
 
     function dateBR(value) {
       if (!value) return 'não informada';
-      const d = new Date(`${String(value).slice(0,10)}T12:00:00`);
-      return Number.isNaN(d.getTime()) ? String(value) : d.toLocaleDateString('pt-BR');
+      const raw = String(value).slice(0,10);
+      const m = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (m) return `${m[3]}/${m[2]}/${m[1]}`;
+      const d = new Date(`${raw}T12:00:00`);
+      return Number.isNaN(d.getTime()) ? raw : d.toLocaleDateString('pt-BR');
     }
 
-    async function loadManifest() {
-      try {
-        const response = await fetch(`./data/manifest.json?v=${Date.now()}`, { cache: 'no-store', headers: { 'Accept':'application/json' } });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const incoming = await response.json();
-        if (!incoming || typeof incoming !== 'object' || Array.isArray(incoming)) throw new Error('manifesto inválido');
-        state.manifest = { ...DEFAULT_MANIFEST, ...incoming };
-      } catch (_) { state.manifest = DEFAULT_MANIFEST; }
-      renderVersionInfo();
-      return state.manifest;
+    function versionBR(value) {
+      const m = String(value || '').match(/^(\d{4})\.(\d{2})\.(\d{2})(?:\.(\d+))?$/);
+      if (!m) return String(value || DEFAULT_MANIFEST.dataVersion);
+      return `${m[3]}/${m[2]}/${m[1]}${m[4] ? ` · versão ${m[4]}` : ''}`;
     }
 
     function renderVersionInfo() {
       const m = state.manifest || DEFAULT_MANIFEST;
       const last = dateBR(m.lastOfficialUpdate || m.publicationDate);
-      $('versionTag').textContent = `Base ${m.dataVersion || DEFAULT_MANIFEST.dataVersion}`;
+      $('versionTag').textContent = `Base ${versionBR(m.dataVersion || DEFAULT_MANIFEST.dataVersion)}`;
       $('versionState').textContent = `${m.baseLabel || DEFAULT_MANIFEST.baseLabel} · publicação ${dateBR(m.publicationDate)}`;
       const amendments = Array.isArray(m.retifications) ? m.retifications : [];
       $('historyState').textContent = amendments.length
@@ -423,107 +494,178 @@
         : `Última atualização oficial incorporada: ${last}`;
     }
 
-    async function loadDisciplineData() {
+    async function loadDisciplineData(cie) {
       const status = $('disciplineState');
       const results = $('disciplineResults');
+      const key = String(cie || '').trim();
+      if (!key) {
+        state.disciplineRecords = [];
+        state.disciplineAvailable = false;
+        state.lastDisciplineCie = '';
+        status.textContent = 'Digite e selecione uma escola para carregar os registros oficiais.';
+        results.innerHTML = '<div class="empty"><strong>Consulta por escola</strong>Escolha uma unidade no campo acima. Os registros oficiais de SARESP e SAEB serão carregados separadamente para o CIE selecionado.</div>';
+        return;
+      }
+      if (state.lastDisciplineCie === key && state.disciplineAvailable) {
+        renderDisciplineResults();
+        return;
+      }
+      state.lastDisciplineCie = key;
+      state.disciplineAvailable = false;
+      state.disciplineRecords = [];
+      status.textContent = 'Consultando os registros oficiais da escola…';
+      results.innerHTML = '<div class="loading"><div class="spinner"></div><strong>Carregando disciplina-série</strong>Buscando no Anexo oficial da Resolução SEDUC nº 106/2026…</div>';
       try {
-        const version = encodeURIComponent(state.manifest.dataVersion || '1');
-        const response = await fetch(`${DISCIPLINE_DATA_ENDPOINT}?v=${version}`, { cache: 'no-store', headers: { 'Accept':'application/json' } });
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const payload = await response.json();
-        const records = Array.isArray(payload) ? payload : (Array.isArray(payload?.records) ? payload.records : []);
-        state.disciplineRecords = records.map(normalizeDisciplineRecord).filter(r => r.cie && r.disciplina && r.serie && num(r.icm) !== null);
-        state.disciplineAvailable = state.disciplineRecords.length > 0;
-        if (!state.disciplineAvailable) {
-          status.textContent = 'Anexo Disciplina-Série ainda não incorporado à base local. Nenhuma nota ou ICM foi inventado.';
-          results.innerHTML = '<div class="empty"><strong>Consulta por disciplina/série aguardando a fonte original</strong>Para ativar esta área, é necessário incorporar o PDF oficial do Anexo Disciplina-Série em registros estruturados. Enquanto isso, os resultados gerais por escola e URE continuam disponíveis normalmente.</div>';
-          return;
-        }
+        const payload = await apiRequest('discipline', { cie: key });
+        const records = Array.isArray(payload?.records) ? payload.records : [];
+        state.disciplineRecords = records.map(normalizeDisciplineRecord)
+          .filter(r => r.cie && r.disciplina && r.serie && num(r.icm) !== null);
+        state.disciplineAvailable = true;
         fillDisciplineFilters();
-        status.textContent = `${intFmt(state.disciplineRecords.length)} resultados disciplina-série carregados do arquivo oficial estruturado.`;
+        status.textContent = `${intFmt(state.disciplineRecords.length)} registros oficiais para o CIE ${key}.`;
         renderDisciplineResults();
       } catch (error) {
         state.disciplineAvailable = false;
-        status.textContent = 'Arquivo data/disciplinas-series.json não encontrado ou indisponível.';
-        results.innerHTML = '<div class="empty"><strong>Dados disciplina-série não disponíveis</strong>A consulta não apresenta resultados estimados. Disponibilize o Anexo Disciplina-Série e converta seus registros para o formato documentado no LEIA-ME.</div>';
+        state.lastDisciplineCie = '';
+        status.textContent = 'Não foi possível carregar o Anexo Disciplina-Série.';
+        results.innerHTML = `<div class="empty"><strong>Consulta indisponível</strong>${esc(error.message)}. Confira se a aba DisciplinaSerie foi importada e se o serviço Apps Script está publicado.</div>`;
       }
     }
 
     function normalizeDisciplineRecord(raw) {
       const r = raw || {};
-      const school = state.schools.find(s => String(s.cie) === String(r.cie ?? r.CIE ?? r.codigoCIE ?? ''));
+      const cie = String(r.cie ?? r.CIE ?? '');
+      const school = state.schools.find(s => String(s.cie) === cie);
+      const flag = value => value === true || value === 1 || String(value).trim().toUpperCase() === 'TRUE' || String(value).trim() === '1';
       return {
-        cie: String(r.cie ?? r.CIE ?? r.codigoCIE ?? ''),
-        escola: String(r.escola ?? r.nome ?? r.unidade ?? school?.nome ?? ''),
-        ure: String(r.ure ?? school?.ure ?? ''),
-        sistema: String(r.sistema ?? r.avaliacao ?? r.avaliação ?? ''),
-        disciplina: String(r.disciplina ?? r.componente ?? r.componenteCurricular ?? ''),
-        serie: String(r.serie ?? r.anoSerie ?? r.ano_série ?? r.ano ?? ''),
-        notaBase: num(r.notaBase ?? r.nota_base ?? r.linhaBase),
-        notaFinal: num(r.notaFinal ?? r.nota_final ?? r.nf),
-        metaOuro: num(r.metaOuro ?? r.meta_ouro),
-        metaDiamante: num(r.metaDiamante ?? r.meta_diamante),
-        ic: num(r.ic ?? r.indiceCumprimento),
-        icm: num(r.icm ?? r.icmDisciplinaSerie),
-        ifa: num(r.ifa), ifaMeta: num(r.ifaMeta ?? r.ifa_meta),
-        ifaOk: typeof r.ifaOk === 'boolean' ? r.ifaOk : (typeof r.ifa_ok === 'boolean' ? r.ifa_ok : null),
-        tpss: num(r.tpss ?? r.tps ?? r.participacao),
-        tpssMeta: num(r.tpssMeta ?? r.tpss_meta ?? r.tpsMeta),
-        tpssOk: typeof r.tpssOk === 'boolean' ? r.tpssOk : (typeof r.tpss_ok === 'boolean' ? r.tpss_ok : null),
-        alunos: num(r.alunos ?? r.totalAlunos ?? r.participantes)
+        cie,
+        escola: String(school?.nome ?? r.escola ?? r.nome ?? ''),
+        ure: String(school?.ure ?? ''),
+        sistema: String(r.sistema ?? r.apuracao ?? ''),
+        disciplina: String(r.disciplina ?? ''),
+        serie: String(r.serie ?? ''),
+        ciclo: String(r.ciclo ?? ''),
+        notaBase: num(r.notaBase),
+        notaFinal: num(r.notaFinal),
+        metaOuro: num(r.metaOuro),
+        metaDiamante: num(r.metaDiamante),
+        ic: num(r.ic),
+        icm: num(r.icm),
+        ifaOk: flag(r.ifaEscola ?? r.ifaOk),
+        tpssOk: flag(r.tpsEscola ?? r.tpssOk),
+        alunos: null
       };
+    }
+
+    function getDisciplineSchoolFromInput() {
+      const raw = $('disciplineSchool').value.trim();
+      if (!raw) return { school: null, ambiguous: false };
+      const cieMatch = raw.match(/\bCIE\s*(\d+)/i);
+      const inepMatch = raw.match(/\bINEP\s*(\d+)/i);
+      if (cieMatch) return { school: state.schools.find(s => String(s.cie) === cieMatch[1]) || null, ambiguous: false };
+      if (inepMatch) return { school: state.schools.find(s => String(s.inep) === inepMatch[1]) || null, ambiguous: false };
+      if (/^\d+$/.test(raw)) {
+        return { school: state.schools.find(s => String(s.cie) === raw || String(s.inep) === raw) || null, ambiguous: false };
+      }
+      const q = fold(raw);
+      const exact = state.schools.filter(s => fold(s.nome) === q);
+      if (exact.length === 1) return { school: exact[0], ambiguous: false };
+      const matches = state.schools.filter(s => fold(s.nome).includes(q));
+      if (matches.length === 1) return { school: matches[0], ambiguous: false };
+      return { school: null, ambiguous: matches.length > 1 };
+    }
+
+    function fillDisciplineSchoolOptions() {
+      $('disciplineSchoolOptions').innerHTML = state.simulatorSchools.map(s =>
+        `<option value="${esc(s.nome)} · CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '')}"></option>`
+      ).join('');
     }
 
     function fillDisciplineFilters() {
       const rows = state.disciplineRecords;
+      const oldSubject = $('disciplineSubject').value;
+      const oldSeries = $('disciplineSeries').value;
       const subjects = [...new Set(rows.map(r => r.disciplina).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
-      const series = [...new Set(rows.map(r => r.serie).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      const series = [...new Set(rows.map(r => r.serie).filter(Boolean))].sort((a,b)=>Number(a)-Number(b));
       $('disciplineSubject').innerHTML = '<option value="">Todas</option>' + subjects.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
       $('disciplineSeries').innerHTML = '<option value="">Todos</option>' + series.map(v=>`<option value="${esc(v)}">${esc(v)}</option>`).join('');
-      $('disciplineSchoolOptions').innerHTML = state.schools.map(s=>`<option value="${esc(s.nome)} · CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '')}"></option>`).join('');
+      if (subjects.includes(oldSubject)) $('disciplineSubject').value = oldSubject;
+      if (series.includes(oldSeries)) $('disciplineSeries').value = oldSeries;
     }
 
     function renderDisciplineResults() {
+      const results = $('disciplineResults');
       if (!state.disciplineAvailable) return;
-      const schoolQuery = fold($('disciplineSchool').value.trim());
       const sys = $('disciplineSystem').value;
       const subject = $('disciplineSubject').value;
       const series = $('disciplineSeries').value;
-      let rows = state.disciplineRecords.filter(r => {
-        const evalKey = fold(r.sistema);
-        if (sys === 'SAEB' && !evalKey.includes('SAEB')) return false;
-        if (sys === 'SARESP' && !(evalKey.includes('SARESP') || evalKey.includes('PROVAO'))) return false;
+      const rows = state.disciplineRecords.filter(r => {
+        if (sys && r.sistema !== sys) return false;
         if (subject && r.disciplina !== subject) return false;
         if (series && r.serie !== series) return false;
-        if (!schoolQuery) return true;
-        return fold(r.escola).includes(schoolQuery) || r.cie.includes(schoolQuery.replace(/\D/g,'')) || fold(r.ure).includes(schoolQuery);
-      });
-      rows.sort((a,b)=>a.escola.localeCompare(b.escola,'pt-BR') || a.serie.localeCompare(b.serie,'pt-BR') || a.disciplina.localeCompare(b.disciplina,'pt-BR'));
-      $('disciplineState').textContent = `${intFmt(rows.length)} registro(s) disciplina-série encontrados de ${intFmt(state.disciplineRecords.length)} na base.`;
+        return true;
+      }).sort((a,b) => a.escola.localeCompare(b.escola,'pt-BR') ||
+        Number(a.serie)-Number(b.serie) || a.disciplina.localeCompare(b.disciplina,'pt-BR') ||
+        a.sistema.localeCompare(b.sistema,'pt-BR'));
+
+      $('disciplineState').textContent = `${intFmt(rows.length)} registro(s) disciplina-série exibidos para o CIE ${esc(state.lastDisciplineCie)}.`;
       if (!rows.length) {
-        $('disciplineResults').innerHTML = '<div class="empty"><strong>Nenhum resultado encontrado</strong>Altere escola, sistema, disciplina ou ano/série.</div>';
+        results.innerHTML = '<div class="empty"><strong>Nenhum registro para estes filtros</strong>Este CIE não possui a combinação selecionada de avaliação, disciplina e ano/série no anexo. Isso não significa nota zero.</div>';
         return;
       }
-      $('disciplineResults').innerHTML = rows.slice(0,120).map(r => {
-        const im = r.icm;
-        const gate = (v) => v === true ? '<span class="pill-yes">Cumprido</span>' : v === false ? '<span class="pill-no">Não cumprido</span>' : 'Não informado';
-        return `<article class="discipline-card"><h3>${esc(r.disciplina)} · ${esc(r.serie)}</h3><div class="discipline-meta">${esc(r.escola)} · CIE ${esc(r.cie)} · ${esc(r.ure || 'URE não informada')} · ${esc(r.sistema || 'Avaliação não informada')}</div><div class="discipline-score"><div><span>ICM disciplina-série</span><b>${fmt(im,3)}</b></div><b>${fmt(im*100,1)}%</b></div><dl class="discipline-detail"><dt>Nota final</dt><dd>${fmt(r.notaFinal,2)}</dd><dt>Nota base</dt><dd>${fmt(r.notaBase,2)}</dd><dt>Meta Ouro</dt><dd>${fmt(r.metaOuro,2)}</dd><dt>Meta Diamante</dt><dd>${fmt(r.metaDiamante,2)}</dd><dt>Índice de Cumprimento (IC)</dt><dd>${fmt(r.ic,3)}</dd><dt>IFA / meta</dt><dd>${r.ifa == null ? '—' : fmt(r.ifa,1)+'%'} / ${r.ifaMeta == null ? '—' : fmt(r.ifaMeta,1)+'%'}</dd><dt>TPSS / meta</dt><dd>${r.tpss == null ? '—' : fmt(r.tpss,1)+'%'} / ${r.tpssMeta == null ? '—' : fmt(r.tpssMeta,1)+'%'}</dd><dt>Participantes</dt><dd>${r.alunos == null ? '—' : intFmt(r.alunos)}</dd><dt>Gatilho IFA</dt><dd>${gate(r.ifaOk)}</dd><dt>Gatilho TPSS</dt><dd>${gate(r.tpssOk)}</dd></dl></article>`;
+      const gate = (v) => v === true ? '<span class="pill-yes">Cumprido</span>' : v === false ? '<span class="pill-no">Não cumprido</span>' : 'Não consta';
+      results.innerHTML = rows.slice(0,120).map(r => {
+        const baseYear = r.sistema === 'SAEB' ? '2023' : '2024';
+        const gradeLabel = fold(r.ciclo).includes('ENSINO MEDIO') ? `${esc(r.serie)}ª série` : `${esc(r.serie)}º ano`;
+        return `<article class="discipline-card">
+          <h3>${esc(r.disciplina)} · ${gradeLabel}</h3>
+          <div class="discipline-meta">${esc(r.escola)} · CIE ${esc(r.cie)} · ${esc(r.ure || 'URE não identificada')} · ${esc(r.ciclo)} · ${esc(r.sistema)}</div>
+          <div class="discipline-score"><div><span>ICM disciplina-série</span><b>${fmt(r.icm,3)}</b></div><b>${fmt((num(r.icm)||0)*100,1)}%</b></div>
+          <dl class="discipline-detail">
+            <dt>Nota de referência (${baseYear})</dt><dd>${fmt(r.notaBase,2)}</dd>
+            <dt>Nota final 2025</dt><dd>${fmt(r.notaFinal,2)}</dd>
+            <dt>Meta Ouro</dt><dd>${fmt(r.metaOuro,2)}</dd>
+            <dt>Meta Diamante</dt><dd>${fmt(r.metaDiamante,2)}</dd>
+            <dt>Índice de Cumprimento (IC)</dt><dd>${fmt(r.ic,3)}</dd>
+            <dt>Gatilho IFA registrado para a escola</dt><dd>${gate(r.ifaOk)}</dd>
+            <dt>Gatilho TPSS registrado para a escola</dt><dd>${gate(r.tpssOk)}</dd>
+          </dl>
+        </article>`;
       }).join('') + (rows.length > 120 ? `<div class="empty">Mostrando os primeiros 120 resultados. Refine os filtros para reduzir a lista.</div>` : '');
     }
 
     function gapText(note, target) {
       const a = num(note), b = num(target);
-      if (a === null || b === null) return 'Não informado';
+      if (a === null || b === null) return 'Campo não consta nesta tabela do anexo';
       const gap = b - a;
-      return gap <= 0 ? `Meta atingida (+${fmt(Math.abs(gap),2)} ponto${Math.abs(gap) === 1 ? '' : 's'})` : `Faltam ${fmt(gap,2)} ponto(s)`;
+      return gap <= 0 ? `Meta atingida (${fmt(Math.abs(gap),2)} ponto(s) acima)` : `Faltam ${fmt(gap,2)} ponto(s)`;
     }
 
     function managerPanelHtml(s, u) {
       const delta = u && num(u.icm) !== null ? (num(s.icm)||0) - num(u.icm) : null;
-      const ifa = typeof s.ifaOk === 'boolean' ? (s.ifaOk ? 'Cumprido' : 'Não cumprido') : 'Não informado';
-      const tpsS = typeof s.tpsSrspOk === 'boolean' ? (s.tpsSrspOk ? 'Cumprido' : 'Não cumprido') : 'Não informado';
-      const tpsB = s.base === 'SARESP' ? 'Não se aplica' : (typeof s.tpsSaebOk === 'boolean' ? (s.tpsSaebOk ? 'Cumprido' : 'Não cumprido') : 'Não informado');
-      return `<section class="manager-panel"><h3>Painel gerencial · escola e URE</h3><div class="manager-grid"><div class="manager-metric"><span>Distância até Meta Ouro · SARESP</span><b>${esc(gapText(s.nfSrsp,s.metaSrsp))}</b></div><div class="manager-metric"><span>Distância até Meta Diamante · SARESP</span><b>${esc(gapText(s.nfSrsp,s.metaSrspDiam))}</b></div><div class="manager-metric"><span>Distância até Meta Ouro · SAEB</span><b>${esc(s.base==='SARESP'?'Não se aplica':gapText(s.nfSaeb,s.metaSaeb))}</b></div><div class="manager-metric"><span>ICM da escola</span><b>${fmt(s.icm,3)}</b></div><div class="manager-metric"><span>ICM consolidado da URE</span><b>${u && num(u.icm)!==null ? fmt(u.icm,3) : '—'}</b></div><div class="manager-metric"><span>Diferença escola − URE</span><b>${delta===null?'—':(delta>0?'+':'')+fmt(delta*100,1)+' p.p.'}</b></div></div><div class="manager-status"><span class="tag ${s.ifaOk===true?'good':s.ifaOk===false?'bad':'na'}">IFA: ${esc(ifa)}</span><span class="tag ${s.tpsSrspOk===true?'good':s.tpsSrspOk===false?'bad':'na'}">TPSS SARESP: ${esc(tpsS)}</span><span class="tag ${s.base==='SARESP'?'na':s.tpsSaebOk===true?'good':s.tpsSaebOk===false?'bad':'na'}">TPSS SAEB: ${esc(tpsB)}</span></div><p class="why">As distâncias são diferenças entre a nota final publicada e a meta da avaliação, em pontos da escala da nota. A comparação regional usa o ICM consolidado da URE publicado no anexo, não uma média calculada de forma independente nesta página. Campos ausentes permanecem como não informados.</p></section>`;
+      const ifa = typeof s.ifaOk === 'boolean' ? (s.ifaOk ? 'Cumprido' : 'Não cumprido') : 'Não consta';
+      const tpsS = typeof s.tpsSrspOk === 'boolean' ? (s.tpsSrspOk ? 'Cumprido' : 'Não cumprido') : 'Não consta';
+      const tpsB = s.base === 'SARESP' ? 'Não se aplica' : (typeof s.tpsSaebOk === 'boolean' ? (s.tpsSaebOk ? 'Cumprido' : 'Não cumprido') : 'Não consta');
+      const diamondSrsp = s.base === 'SARESP'
+        ? gapText(s.nfSrsp, s.metaSrspDiam)
+        : 'Não há meta Diamante SARESP isolada nesta apuração. O resultado Diamante da escola é formado pela soma dos componentes SARESP e SAEB.';
+      const ureNote = s.ureConfirmada === false
+        ? `O quadro escolar abrevia a URE como “${esc(s.ureOriginal || s.ure)}” e não permite distinguir com segurança a unidade regional completa. A comparação regional foi omitida para evitar atribuição incorreta.`
+        : 'A comparação regional usa o ICM consolidado da URE publicado no anexo, não uma média recalculada nesta página.';
+      return `<section class="manager-panel"><h3>Painel gerencial · escola e URE</h3><div class="manager-grid">
+        <div class="manager-metric"><span>Distância até Meta Ouro · SARESP</span><b>${esc(gapText(s.nfSrsp,s.metaSrsp))}</b></div>
+        <div class="manager-metric"><span>Meta Diamante · SARESP</span><b>${esc(diamondSrsp)}</b></div>
+        <div class="manager-metric"><span>Distância até Meta Ouro · SAEB</span><b>${esc(s.base==='SARESP'?'Não se aplica':gapText(s.nfSaeb,s.metaSaeb))}</b></div>
+        <div class="manager-metric"><span>ICM da escola</span><b>${fmt(s.icm,3)}</b></div>
+        <div class="manager-metric"><span>ICM consolidado da URE</span><b>${u && num(u.icm)!==null ? fmt(u.icm,3) : 'Não disponível para esta correspondência'}</b></div>
+        <div class="manager-metric"><span>Diferença escola − URE</span><b>${delta===null?'—':(delta>0?'+':'')+fmt(delta*100,1)+' p.p.'}</b></div>
+        </div><div class="manager-status">
+          <span class="tag ${s.ifaOk===true?'good':s.ifaOk===false?'bad':'na'}">IFA: ${esc(ifa)}</span>
+          <span class="tag ${s.tpsSrspOk===true?'good':s.tpsSrspOk===false?'bad':'na'}">TPSS SARESP: ${esc(tpsS)}</span>
+          <span class="tag ${s.base==='SARESP'?'na':s.tpsSaebOk===true?'good':s.tpsSaebOk===false?'bad':'na'}">TPSS SAEB: ${esc(tpsB)}</span>
+        </div>
+        <p class="why">As distâncias são diferenças entre a nota final publicada e a meta em pontos da escala. ${ureNote}</p>
+      </section>`;
     }
 
     function printDetailReport() {
@@ -575,9 +717,22 @@
     }
 
     function populateSimulatorSchools() {
-      const options = '<option value="">Selecione uma escola (opcional)</option>' + state.schools.map(s => `<option value="${esc(s.cie)}">${esc(s.nome)} · CIE ${esc(s.cie)} · ${esc(s.ure)}</option>`).join('');
-      $('simSchool1').innerHTML = options;
-      $('simSchool2').innerHTML = options.replace('Selecione uma escola (opcional)', 'Não adicionar segundo vínculo');
+      state.simulatorSchools = [...state.schools].sort((a,b) => a.nome.localeCompare(b.nome,'pt-BR',{sensitivity:'base'}) || String(a.cie).localeCompare(String(b.cie),'pt-BR'));
+      fillSimulatorSchoolOptions('1');
+      fillSimulatorSchoolOptions('2');
+    }
+
+    function fillSimulatorSchoolOptions(slot) {
+      const select = $('simSchool' + slot);
+      const search = fold($('simSchoolSearch' + slot).value.trim());
+      const chosen = select.value;
+      const list = state.simulatorSchools.filter(s => !search ||
+        fold(s.nome).includes(search) || String(s.cie).includes(search) ||
+        String(s.inep || '').includes(search) || fold(s.ure).includes(search));
+      select.innerHTML = `<option value="">${slot === '2' ? 'Não adicionar segundo vínculo' : 'Selecione uma escola (opcional)'}</option>` +
+        list.map(s => `<option value="${esc(s.cie)}">${esc(s.nome)} · CIE ${esc(s.cie)} · ${esc(s.ure)}</option>`).join('');
+      if (chosen && list.some(s => String(s.cie) === String(chosen))) select.value = chosen;
+      else if (chosen) select.value = '';
     }
 
     function simulateLink(slot) {
@@ -590,7 +745,7 @@
       const school = cie ? state.schools.find(s => String(s.cie) === String(cie)) : null;
       const readout = $('simReadout' + slot);
       if (salary === null || expected === null || worked === null || expected <= 0 || salary < 0 || worked < 0 || months < 0 || months > BONUS_RULES.monthsInEvaluation) {
-        readout.textContent = 'Informe a retribuição computável, os meses remunerados e os dias previstos/efetivos para calcular este vínculo.';
+        readout.textContent = 'Informe o valor mensal que entra no cálculo, os meses remunerados e os dias previstos/efetivamente trabalhados neste vínculo.';
         return { complete:false, amount:0, label:`Vínculo ${slot}: dados incompletos` };
       }
       const effectiveDays = Math.min(worked, expected);
@@ -600,7 +755,7 @@
       const amount = eligible ? remunerationTotal * BONUS_RULES.percent * BONUS_RULES.iacm * index : 0;
       const jornada = get('simHours').value.trim();
       const schoolLabel = school ? `${school.nome} (CIE ${school.cie})` : 'Escola não selecionada';
-      readout.innerHTML = `${esc(schoolLabel)}${jornada ? ' · '+esc(jornada) : ''}${school ? ` · ICM da escola ${fmt(school.icm,3)} (informativo)` : ''}<br>Retribuição no período: ${fmt(remunerationTotal,2)} · Dias efetivos: ${pct(index*100,1)} · Elegibilidade mínima: ${eligible ? '<span class="pill-yes">Atendida</span>' : '<span class="pill-no">Não atendida (2/3)</span>'}`;
+      readout.innerHTML = `${esc(schoolLabel)}${jornada ? ' · '+esc(jornada) : ''}${school ? ` · ICM da escola ${fmt(school.icm,3)} (informativo)` : ''}<br>Valor considerado no período: ${fmt(remunerationTotal,2)} · Dias efetivos: ${pct(index*100,1)} · Elegibilidade mínima: ${eligible ? '<span class="pill-yes">Atendida</span>' : '<span class="pill-no">Não atendida (2/3)</span>'}`;
       return { complete:true, amount, eligible, index, remunerationTotal, label:`Vínculo ${slot}` };
     }
 
@@ -615,8 +770,8 @@
     }
 
     function validateData(schools, ures) {
-      if (!Array.isArray(schools) || schools.length === 0) throw new Error('O arquivo escolas.json não contém uma lista válida.');
-      if (!ures || typeof ures !== 'object' || Array.isArray(ures)) throw new Error('O arquivo ures.json não contém um objeto válido.');
+      if (!Array.isArray(schools) || schools.length === 0) throw new Error('O serviço não retornou uma lista válida de escolas.');
+      if (!ures || typeof ures !== 'object' || Array.isArray(ures)) throw new Error('O serviço não retornou a consolidação das UREs.');
       const missing = schools.filter(s => !s || s.cie == null || !s.nome || !s.ure || num(s.icm) === null).length;
       if (missing) throw new Error(`A base contém ${missing} registro(s) sem campos essenciais. Os dados não serão apresentados como íntegros.`);
     }
@@ -651,17 +806,19 @@
       $('kpiPartial').textContent = intFmt(c.parc);
       $('kpiZero').textContent = intFmt(c.zero);
       $('kpiSaebFull').textContent = intFmt(saeb.int);
-      const matches = state.schools.length === EXPECTED.schools && c.diam === EXPECTED.diamond && c.parc === EXPECTED.partial && c.zero === EXPECTED.zero && saeb.int === EXPECTED.saebFull;
+      const uresCount = Object.keys(state.ures).filter(n => n !== 'SEDUC').length;
+      const disciplineCount = Number(state.totals.disciplineRecords || 0);
+      const matches = state.schools.length === EXPECTED.schools && uresCount === EXPECTED.ures && disciplineCount === EXPECTED.disciplineRecords && c.diam === EXPECTED.diamond && c.parc === EXPECTED.partial && c.zero === EXPECTED.zero && saeb.int === EXPECTED.saebFull;
       const dot = $('stateDot');
       dot.className = 'live-dot ' + (matches ? 'ok' : 'warn');
-      $('dataState').textContent = matches ? 'Base carregada e totais conferidos' : 'Base carregada · totais diferentes do quadro de conferência';
-      $('sourceState').textContent = `Fonte: ${state.dataOrigin} · carregado neste acesso em ${new Date().toLocaleDateString('pt-BR')}`;
-      $('baseFooter').textContent = `${intFmt(state.schools.length)} registros carregados · ${Object.keys(state.ures).length} entradas de consolidação URE/SEDUC`;
+      $('dataState').textContent = matches ? 'Base carregada e totais conferidos' : 'Base carregada · totais diferentes do quadro oficial de conferência';
+      $('sourceState').textContent = `Fonte: ${state.dataOrigin || 'serviço de dados do aplicativo'} · carregado neste acesso em ${new Date().toLocaleDateString('pt-BR')}`;
+      $('baseFooter').textContent = `${intFmt(state.schools.length)} escolas · ${intFmt(uresCount)} UREs + SEDUC · ${intFmt(disciplineCount)} registros disciplina-série`;
       if (!matches) {
-        $('dataState').title = 'Os totais da base carregada não coincidem integralmente com os valores publicados no repositório de origem. Confira a fonte antes de utilizar os resultados.';
+        $('dataState').title = 'Os totais da base carregada não coincidem integralmente com os valores de conferência da Resolução SEDUC nº 106/2026. Confira a versão importada antes de utilizar os resultados.';
         const note = document.createElement('div');
         note.className = 'notice show';
-        note.textContent = 'Atenção: um ou mais totais da base carregada diferem dos totais de conferência informados na publicação de origem. A consulta continua disponível, mas confira a versão dos arquivos e a Resolução SEDUC nº 106/2026.';
+        note.textContent = 'Atenção: um ou mais totais da base carregada diferem dos totais de conferência informados nos anexos oficiais da Resolução SEDUC nº 106/2026. A consulta continua disponível, mas confira a atualização da base.';
         $('schoolList').before(note);
       }
     }
@@ -673,11 +830,14 @@
       const ure = $('ureFilter').value;
       const saeb = $('saebFilter').value;
       const base = $('baseFilter').value;
+      const evaluation = $('evaluationFilter').value;
       state.filtered = state.schools.filter(s => {
         if (ure && s.ure !== ure) return false;
         if (state.status && s._st !== state.status) return false;
         if (saeb && s._saeb !== saeb) return false;
         if (base && s.base !== base) return false;
+        if (evaluation === 'SARESP' && num(s.icmSrsp) === null) return false;
+        if (evaluation === 'SAEB' && s.base !== 'SARESP/SAEB') return false;
         if (!q) return true;
         if (digits) return String(s.cie) === qRaw || String(s.inep || '') === qRaw || String(s.cie).startsWith(qRaw) || String(s.inep || '').startsWith(qRaw);
         return q.split(/\s+/).every(word => s._k.includes(word) || fold(s.ure).includes(word));
@@ -694,14 +854,17 @@
     function schoolCard(s) {
       const st = s._st;
       const saeb = s._saeb;
-      const saebTag = saeb === 'na' ? tag('SAEB não se aplica','na') : saeb === 'int' ? tag('SAEB integral','good') : saeb === 'parc' ? tag('SAEB parcial','partial') : tag('SAEB zerado','bad');
+      const saebTag = saeb === 'na' ? tag('SAEB não se aplica','na') : saeb === 'int' ? tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'good') : saeb === 'parc' ? tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'partial') : tag(`SAEB ${fmt(s.icmSaeb)} / 0,50`,'bad');
       const srspMax = s.base === 'SARESP' ? 1 : .5;
       const srspVal = num(s.icmSrsp);
       const srspCls = srspVal > 0 ? 'good' : 'bad';
+      const srspTag = tag(`SARESP ${fmt(s.icmSrsp)} / ${fmt(srspMax)}`, srspCls);
+      const evaluation = $('evaluationFilter').value;
+      const tags = evaluation === 'SARESP' ? srspTag : evaluation === 'SAEB' ? saebTag : `${srspTag}${saebTag}`;
       return `<li><button class="school-card" type="button" data-cie="${esc(s.cie)}" aria-label="Abrir detalhes de ${esc(s.nome)}">
         <span class="school-main"><span class="school-name">${esc(s.nome)}</span>
           <span class="school-meta">CIE ${esc(s.cie)} · INEP ${esc(s.inep ?? '—')}<br>${esc(s.ure)} · ${esc(s.jornada || 'Jornada não informada')} · ${esc(s.tipo || 'Tipo não informado')}</span>
-          <span class="school-tags">${tag(`SARESP ${fmt(s.icmSrsp)} / ${fmt(srspMax)}`, srspCls)}${saebTag}</span>
+          <span class="school-tags">${tags}${s.ureConfirmada === false ? tag('URE a confirmar','na') : ''}</span>
         </span>
         <span class="icm-badge ${st}"><b>${Math.round((num(s.icm)||0)*100)}%</b><small>${statusLabel[st]}</small></span>
       </button></li>`;
@@ -747,10 +910,10 @@
           <dt>${finalLabel}</dt><dd>${fmt(finalValue,1)}</dd>
           <dt>${goalLabel}</dt><dd>${fmt(goal,1)}</dd>
           ${diamondGoal != null ? '<dt>Meta Diamante</dt><dd>'+fmt(diamondGoal,1)+'</dd>' : ''}
-          <dt>Piso de qualidade (IQ)</dt><dd>${fmt(quality,1)}</dd>
-          <dt>Índice de Cumprimento (IC)</dt><dd>${fmt(ic,3)}</dd>
-          <dt>Frequência (IFA)</dt><dd>${gateText(ifaOk, ifa, ifaMeta)}</dd>
-          <dt>Participação (TPSS)</dt><dd>${gateText(tpsOk, tps, tpsGoal)}</dd>
+          <dt title="Piso de desempenho que reconhece a manutenção de resultados elevados.">Piso de qualidade (IQ) ⓘ</dt><dd>${fmt(quality,1)}</dd>
+          <dt title="Índice que compara a evolução da nota com a linha de base e a meta.">Índice de Cumprimento (IC) ⓘ</dt><dd>${fmt(ic,3)}</dd>
+          <dt title="Índice de Frequência de Alunos: verifica se a meta mínima de frequência foi cumprida.">Frequência (IFA) ⓘ</dt><dd>${gateText(ifaOk, ifa, ifaMeta)}</dd>
+          <dt title="Taxa de Participação nas avaliações externas: verifica se a participação mínima foi atingida.">Participação (TPSS) ⓘ</dt><dd>${gateText(tpsOk, tps, tpsGoal)}</dd>
         </dl>
         <p class="why">${componentExplanation(value, ic, quality, gates)}</p>
       </section>`;
@@ -796,7 +959,16 @@
         const n = state.schools.filter(s => s.ure === name).length;
         const isSeduc = name === 'SEDUC';
         return `<button class="ure-row" type="button" data-ure="${esc(name)}"><span><span class="ure-name">${esc(isSeduc?'SEDUC · Resultado estadual':name)}</span><span class="ure-sub">${isSeduc?'Consolidação da Secretaria':`${intFmt(n)} escolas no Anexo Escola`}</span></span><span class="ure-value">${fmt(v.icm)}<small>SARESP ${fmt(v.icmSrsp)} · SAEB ${fmt(v.icmSaeb)}</small></span></button>`;
-      }).join('') || '<div class="empty">Nenhum resultado de URE foi encontrado no arquivo de consolidação.</div>';
+      }).join('') || '<div class="empty">Nenhum resultado de URE foi encontrado no anexo de consolidação.</div>';
+      const pending = state.schools.filter(s => s.ureConfirmada === false).length;
+      const note = $('ureMappingNote');
+      if (pending) {
+        note.hidden = false;
+        note.innerHTML = `<strong>Correspondência regional pendente:</strong> ${intFmt(pending)} escolas estão identificadas no Anexo Escola com as UREs abreviadas como “GUARULHO” ou “SÃO JOSÉ DO”. O documento não permite distinguir com segurança entre as diretorias de cada região. Esses registros permanecem na consulta geral, mas não são atribuídos a uma URE específica nem usados para comparação regional, para evitar uma classificação por suposição.`;
+      } else {
+        note.hidden = true;
+        note.textContent = '';
+      }
     }
 
     function downloadCsv(rows, fileName, headers) {
@@ -822,15 +994,16 @@
 
     function setupEvents() {
       let timer;
+      let disciplineTimer;
       $('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(applyFilters, 120); });
-      ['ureFilter','saebFilter','baseFilter','sortFilter'].forEach(id => $(id).addEventListener('change', applyFilters));
+      ['ureFilter','saebFilter','evaluationFilter','baseFilter','sortFilter'].forEach(id => $(id).addEventListener('change', applyFilters));
       document.querySelectorAll('[data-status]').forEach(button => button.addEventListener('click', () => {
         state.status = button.dataset.status;
         document.querySelectorAll('[data-status]').forEach(b => b.classList.toggle('active', b === button));
         applyFilters();
       }));
       $('clearFilters').addEventListener('click', () => {
-        $('q').value='';$('ureFilter').value='';$('saebFilter').value='';$('baseFilter').value='';$('sortFilter').value='nome';
+        $('q').value='';$('ureFilter').value='';$('saebFilter').value='';$('evaluationFilter').value='';$('baseFilter').value='';$('sortFilter').value='nome';
         state.status='';document.querySelectorAll('[data-status]').forEach(b=>b.classList.toggle('active',!b.dataset.status));applyFilters();
       });
       $('schoolList').addEventListener('click', e => { const card=e.target.closest('[data-cie]'); if(!card)return; const s=state.schools.find(x=>String(x.cie)===String(card.dataset.cie)); if(s)openSchool(s); });
@@ -840,14 +1013,87 @@
       $('ureList').addEventListener('click', e => { const row=e.target.closest('[data-ure]');if(!row)return;const name=row.dataset.ure;if(name==='SEDUC')return;$('ureFilter').value=name;applyFilters();$('q').value='';$('schoolList').scrollIntoView({behavior:'smooth',block:'start'}); });
       $('closeDialog').addEventListener('click', () => $('detailDialog').close());
       $('detailDialog').addEventListener('click', e => { if(e.target === $('detailDialog')) $('detailDialog').close(); });
-      ['disciplineSchool','disciplineSystem','disciplineSubject','disciplineSeries'].forEach(id => $(id).addEventListener(id==='disciplineSchool'?'input':'change', renderDisciplineResults));
-      $('clearDisciplineFilters').addEventListener('click', () => { $('disciplineSchool').value='';$('disciplineSystem').value='';$('disciplineSubject').value='';$('disciplineSeries').value='';renderDisciplineResults(); });
+
+      $('disciplineSchool').addEventListener('input', () => {
+        clearTimeout(disciplineTimer);
+        disciplineTimer = setTimeout(() => {
+          const found = getDisciplineSchoolFromInput();
+          if (found.school) {
+            loadDisciplineData(found.school.cie);
+          } else {
+            state.lastDisciplineCie = '';
+            state.disciplineRecords = [];
+            state.disciplineAvailable = false;
+            $('disciplineState').textContent = found.ambiguous
+              ? 'Há várias escolas com esse trecho. Complete o nome ou informe o CIE/INEP.'
+              : 'Digite e selecione uma escola para carregar os registros oficiais.';
+            $('disciplineResults').innerHTML = '<div class="empty"><strong>Selecione uma escola</strong>Use o nome completo, CIE ou INEP para localizar os registros oficiais daquela unidade.</div>';
+          }
+        }, 260);
+      });
+      ['disciplineSystem','disciplineSubject','disciplineSeries'].forEach(id => $(id).addEventListener('change', renderDisciplineResults));
+      $('clearDisciplineFilters').addEventListener('click', () => {
+        $('disciplineSchool').value='';$('disciplineSystem').value='';$('disciplineSubject').value='';$('disciplineSeries').value='';
+        loadDisciplineData('');
+      });
+
       document.querySelectorAll('.sim-calc').forEach(input => input.addEventListener('input', calculateSimulator));
       document.querySelectorAll('.sim-school').forEach(input => input.addEventListener('change', calculateSimulator));
-      document.querySelectorAll('#simHours1,#simHours2').forEach(input => input.addEventListener('input', calculateSimulator));
-      $('simSchool1').addEventListener('change', () => { const s=state.schools.find(x=>String(x.cie)===String($('simSchool1').value)); if(s && !$('simHours1').value) $('simHours1').value=s.jornada||''; calculateSimulator(); });
-      $('simSchool2').addEventListener('change', () => { const s=state.schools.find(x=>String(x.cie)===String($('simSchool2').value)); if(s && !$('simHours2').value) $('simHours2').value=s.jornada||''; calculateSimulator(); });
+      ['1','2'].forEach(slot => {
+        $('simSchoolSearch'+slot).addEventListener('input', () => fillSimulatorSchoolOptions(slot));
+        $('simSchool'+slot).addEventListener('change', () => {
+          const s=state.schools.find(x=>String(x.cie)===String($('simSchool'+slot).value));
+          if(s && !$('simHours'+slot).value) $('simHours'+slot).value=s.jornada||'';
+          calculateSimulator();
+        });
+        $('simHours'+slot).addEventListener('input', calculateSimulator);
+      });
+
+      $('shareSite').addEventListener('click', openShareDialog);
+      $('closeShare').addEventListener('click', () => $('shareDialog').close());
+      $('shareDialog').addEventListener('click', e => { if(e.target === $('shareDialog')) $('shareDialog').close(); });
+      $('copyShareLink').addEventListener('click', copyShareLink);
+      $('nativeShareLink').addEventListener('click', shareNativeLink);
       $('detailDialog').addEventListener('close', () => { if(location.hash)history.replaceState(null,'',location.pathname+location.search); });
+    }
+
+    function currentShareUrl() {
+      const url = new URL(location.href);
+      return url.origin + url.pathname + url.search + url.hash;
+    }
+
+    function openShareDialog() {
+      const link = currentShareUrl();
+      $('shareUrl').value = link;
+      $('shareStatus').textContent = '';
+      $('shareQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&format=png&data=${encodeURIComponent(link)}`;
+      $('shareQr').onerror = () => {
+        $('shareStatus').textContent = 'Não foi possível carregar a imagem do QR Code. Use o botão para copiar o link.';
+        $('shareQr').removeAttribute('src');
+      };
+      $('shareDialog').showModal();
+    }
+
+    async function copyShareLink() {
+      const link = $('shareUrl').value || currentShareUrl();
+      try {
+        await navigator.clipboard.writeText(link);
+        $('shareStatus').textContent = 'Link copiado.';
+      } catch (_) {
+        $('shareUrl').focus();
+        $('shareUrl').select();
+        $('shareStatus').textContent = 'Selecione e copie o endereço acima.';
+      }
+    }
+
+    async function shareNativeLink() {
+      const link = $('shareUrl').value || currentShareUrl();
+      if (navigator.share) {
+        try { await navigator.share({ title:'Consulta Bônus BR 2025', text:'Consulte os resultados oficiais da BR 2025.', url:link }); }
+        catch (err) { if (err && err.name !== 'AbortError') $('shareStatus').textContent = 'Use a opção Copiar link para compartilhar.'; }
+      } else {
+        await copyShareLink();
+      }
     }
 
     function setupAnalytics() {
@@ -857,26 +1103,38 @@
     }
 
     async function init() {
-      setupEvents();setupAnalytics();
-      await loadManifest();
+      setupEvents();
+      setupAnalytics();
       try {
-        const revision = encodeURIComponent(state.manifest.dataVersion || '1');
-        const revisioned = endpoints => endpoints.map(url => `${url}${url.includes('?')?'&':'?'}v=${revision}`);
-        const [schools, ures] = await Promise.all([fetchJsonFromCandidates(revisioned(DATA_ENDPOINTS.escolas)),fetchJsonFromCandidates(revisioned(DATA_ENDPOINTS.ures))]);
-        validateData(schools, ures);
-        state.schools = schools; state.ures = ures;
+        const payload = await apiRequest('bootstrap');
+        if (!payload || !Array.isArray(payload.schools) || !payload.ures) {
+          throw new Error('O serviço retornou uma base incompleta.');
+        }
+        state.manifest = { ...DEFAULT_MANIFEST, ...(payload.manifest || {}) };
+        state.schools = payload.schools;
+        state.ures = payload.ures;
+        state.totals = payload.totals || {};
+        state.dataOrigin = 'planilha privada do aplicativo · dados dos anexos do DOE-SP';
+        renderVersionInfo();
+        validateData(state.schools, state.ures);
         prepareData();
         populateSimulatorSchools();
-        await loadDisciplineData();
+        fillDisciplineSchoolOptions();
+        state.disciplineAvailable = false;
+        $('disciplineState').textContent = 'Digite e selecione uma escola para consultar os registros por disciplina e série.';
+        $('disciplineResults').innerHTML = '<div class="empty"><strong>Anexo Disciplina-Série disponível</strong>Escolha uma escola. A ferramenta consulta as linhas oficiais daquele CIE e separa SARESP e SAEB sem misturar os resultados.</div>';
         calculateSimulator();
       } catch (error) {
         console.error('Falha ao carregar a base BR 2025:', error);
         $('stateDot').className='live-dot warn';
-        $('dataState').textContent='Não foi possível confirmar o carregamento da base';
-        $('sourceState').textContent='Verifique a conexão e os arquivos JSON';
+        $('dataState').textContent='Serviço de dados não configurado ou indisponível';
+        $('sourceState').textContent='Aguardando configuração do serviço de dados';
         $('resultCount').textContent='Consulta indisponível';
-        $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar os dados</strong>${esc(error.message)}<br><br>Confira se os arquivos públicos estão acessíveis ou se a pasta <code>data/</code> contém <code>escolas.json</code> e <code>ures.json</code>.</li>`;
-        $('ureList').innerHTML='<div class="empty">A lista de UREs depende do arquivo de consolidação.</div>';
+        $('schoolList').innerHTML=`<li class="error"><strong>Não foi possível carregar a base oficial</strong>${esc(error.message)}<br><br>Configure a URL do serviço Apps Script no index.html, confirme as quatro abas da base privada e confira se a implantação está publicada para acesso público.</li>`;
+        $('ureList').innerHTML='<div class="empty">A lista de UREs depende da conexão com o serviço de dados.</div>';
+        $('versionTag').textContent='Base oficial · aguardando conexão';
+        $('versionState').textContent='Resolução SEDUC nº 106/2026 · publicação de 12/11/2026';
+        $('historyState').textContent='A versão da base será informada após a conexão.';
       }
     }
     init();
