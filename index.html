@@ -316,8 +316,8 @@
             <div class="field"><label for="simHours1">Jornada / carga horária</label><input class="control" id="simHours1" placeholder="Ex.: 25h ou 40h"><small class="field-help">Campo de identificação. A carga horária já deve estar refletida no valor mensal informado.</small></div>
             <div class="field">
               <label for="simSalary1">Valor mensal considerado para a bonificação (R$) <span title="É o valor bruto do vínculo que entra no cálculo legal da BR, depois de excluir parcelas não computáveis. Não use o valor líquido do holerite." aria-label="Ajuda sobre o valor mensal">ⓘ</span></label>
-              <input class="control sim-calc" id="simSalary1" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
-              <small class="field-help">Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
+              <input class="control sim-calc sim-money" id="simSalary1" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="R$ 0,00" aria-describedby="simSalaryHelp1">
+              <small class="field-help" id="simSalaryHelp1">Digite apenas os números. O campo aplica automaticamente R$, pontos para milhares e vírgula para centavos. Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
             </div>
             <div class="field"><label for="simMonths1">Meses com remuneração no período <span title="Quantidade de meses considerados neste vínculo durante os períodos de avaliação de 2025." aria-label="Ajuda sobre meses">ⓘ</span></label><input class="control sim-calc" id="simMonths1" type="number" min="0" max="8" step="0.5" value="8"><small class="field-help">O período de avaliação de 2025 soma oito meses.</small></div>
             <div class="field"><label for="simExpected1">Dias previstos de exercício <span title="Total de dias em que este vínculo deveria estar em exercício no período considerado." aria-label="Ajuda sobre dias previstos">ⓘ</span></label><input class="control sim-calc" id="simExpected1" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias em que você deveria estar em exercício nesse vínculo.</small></div>
@@ -337,8 +337,8 @@
             <div class="field"><label for="simHours2">Jornada / carga horária</label><input class="control" id="simHours2" placeholder="Ex.: 20h ou 30h"><small class="field-help">Campo de identificação. A carga horária já deve estar refletida no valor mensal informado.</small></div>
             <div class="field">
               <label for="simSalary2">Valor mensal considerado para a bonificação (R$) <span title="É o valor bruto do vínculo que entra no cálculo legal da BR, depois de excluir parcelas não computáveis. Não use o valor líquido do holerite." aria-label="Ajuda sobre o valor mensal">ⓘ</span></label>
-              <input class="control sim-calc" id="simSalary2" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00">
-              <small class="field-help">Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
+              <input class="control sim-calc sim-money" id="simSalary2" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="R$ 0,00" aria-describedby="simSalaryHelp2">
+              <small class="field-help" id="simSalaryHelp2">Digite apenas os números. O campo aplica automaticamente R$, pontos para milhares e vírgula para centavos. Informe o valor bruto mensal do vínculo, sem descontos e sem parcelas que a lei exclui do cálculo.</small>
             </div>
             <div class="field"><label for="simMonths2">Meses com remuneração no período <span title="Quantidade de meses considerados neste vínculo durante os períodos de avaliação de 2025." aria-label="Ajuda sobre meses">ⓘ</span></label><input class="control sim-calc" id="simMonths2" type="number" min="0" max="8" step="0.5" value="8"><small class="field-help">O período de avaliação de 2025 soma oito meses.</small></div>
             <div class="field"><label for="simExpected2">Dias previstos de exercício <span title="Total de dias em que este vínculo deveria estar em exercício no período considerado." aria-label="Ajuda sobre dias previstos">ⓘ</span></label><input class="control sim-calc" id="simExpected2" type="number" min="1" step="1" inputmode="numeric" placeholder="Informe"><small class="field-help">Dias em que você deveria estar em exercício nesse vínculo.</small></div>
@@ -347,7 +347,7 @@
           <div class="sim-readout" id="simReadout2">O segundo vínculo é opcional e pode ter carga horária e dias próprios.</div>
         </div>
       </div>
-      <div class="sim-result"><div><span>Estimativa bruta combinada</span><strong id="simTotal">Preencha os dados</strong></div><small id="simBreakdown">Parâmetros oficiais: 16,67% · IACM SEDUC 0,72</small></div>
+      <div class="sim-result" aria-live="polite" aria-atomic="true"><div><span>Estimativa bruta combinada</span><strong id="simTotal">Informe remuneração e dias de cada vínculo</strong></div><small id="simBreakdown">Atualização automática conforme os campos são preenchidos · Parâmetros: 16,67% e IACM SEDUC 0,72</small></div>
       <p class="formula-note"><strong>Como a estimativa funciona:</strong> percentual de 16,67% × soma dos valores mensais considerados em cada vínculo × IACM 0,72 × proporção dos dias de efetivo exercício. A regra de participação mínima exige pelo menos 2/3 do período de avaliação em cada vínculo, conforme os critérios legais aplicáveis. Informe separadamente os dias e valores de cada vínculo. <a href="https://www.al.sp.gov.br/repositorio/legislacao/lei.complementar/2021/lei.complementar-1361-21.10.2021.html" target="_blank" rel="noopener">LC 1.361/2021</a> · <a href="https://www.al.sp.gov.br/repositorio/legislacao/decreto/2026/decreto-70530-14.04.2026.html" target="_blank" rel="noopener">Decreto 70.530/2026</a>.</p>
       <p class="formula-note panel-warning" style="padding:9px 11px;border-radius:0 9px 9px 0"><strong>Importante:</strong> esta é uma simulação bruta com base nos parâmetros gerais publicados. Não calcula eventual adicional específico, ajuste orçamentário, compensação de adiantamentos ou particularidades de acumulação/afastamento. A remuneração deve excluir as parcelas não computáveis previstas no art. 5º, VI, da LC 1.361/2021. Confirme o valor definitivo com o RH/holerite.</p>
     </section>
@@ -735,9 +735,29 @@
       else if (chosen) select.value = '';
     }
 
+    function formatSimulatorMoney(input) {
+      const digits = input.value.replace(/\D/g, '').slice(0, 15);
+      if (!digits) {
+        input.value = '';
+        return;
+      }
+      const cents = Number(digits) / 100;
+      input.value = 'R$ ' + cents.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+      // O cursor permanece no fim para a digitação contínua da máscara de centavos.
+      try { input.setSelectionRange(input.value.length, input.value.length); } catch (_) {}
+    }
+
+    function parseSimulatorMoney(value) {
+      if (value === null || value === undefined || value === '') return null;
+      return num(String(value).replace(/^\s*R\$\s*/i, '').trim());
+    }
+
     function simulateLink(slot) {
       const get = id => $(id + slot);
-      const salary = num(get('simSalary').value);
+      const salary = parseSimulatorMoney(get('simSalary').value);
       const months = num(get('simMonths').value) ?? BONUS_RULES.monthsInEvaluation;
       const expected = num(get('simExpected').value);
       const worked = num(get('simWorked').value);
@@ -764,9 +784,19 @@
       const b = simulateLink('2');
       const any = a.complete || b.complete;
       const total = (a.complete ? a.amount : 0) + (b.complete ? b.amount : 0);
-      $('simTotal').textContent = any ? total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}) : 'Preencha os dados';
+      const hasPartialInput = ['1','2'].some(slot =>
+        ['simSalary','simExpected','simWorked'].some(prefix => $(prefix + slot).value.trim() !== '')
+      );
+      $('simTotal').textContent = any
+        ? total.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})
+        : (hasPartialInput ? 'Complete os dias para calcular' : 'Informe os dados do vínculo');
       const parts = [a,b].filter(x=>x.complete).map(x=>`${x.label}: ${x.amount.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}${x.eligible?'':' (inelegível)'}`);
-      $('simBreakdown').textContent = any ? parts.join(' · ') : 'Parâmetros oficiais: 16,67% · IACM SEDUC 0,72';
+      if (any) {
+        const pending = [a,b].filter(x=>!x.complete).map(x=>`${x.label}: aguardando remuneração e dias`);
+        $('simBreakdown').textContent = [...parts, ...pending, 'Atualizado automaticamente'].join(' · ');
+      } else {
+        $('simBreakdown').textContent = 'Preencha a remuneração mensal, os dias previstos e os dias efetivamente considerados. · Parâmetros: 16,67% · IACM SEDUC 0,72';
+      }
     }
 
     function validateData(schools, ures) {
@@ -1037,7 +1067,21 @@
         loadDisciplineData('');
       });
 
-      document.querySelectorAll('.sim-calc').forEach(input => input.addEventListener('input', calculateSimulator));
+      document.querySelectorAll('.sim-calc').forEach(input => {
+        if (input.classList.contains('sim-money')) {
+          input.addEventListener('input', () => {
+            formatSimulatorMoney(input);
+            calculateSimulator();
+          });
+          input.addEventListener('blur', () => {
+            if (input.value.trim()) formatSimulatorMoney(input);
+            calculateSimulator();
+          });
+        } else {
+          input.addEventListener('input', calculateSimulator);
+          input.addEventListener('change', calculateSimulator);
+        }
+      });
       document.querySelectorAll('.sim-school').forEach(input => input.addEventListener('change', calculateSimulator));
       ['1','2'].forEach(slot => {
         $('simSchoolSearch'+slot).addEventListener('input', () => fillSimulatorSchoolOptions(slot));
